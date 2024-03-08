@@ -5,6 +5,9 @@
       "name": "@electron-forge/maker-zip"
     }
   ],
+  "build": {
+    "extraResources": ["./../background-service/**"]
+  },
   "plugins": [
     {
       "name": "@electron-forge/plugin-webpack",

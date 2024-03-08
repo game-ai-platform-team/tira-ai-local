@@ -3,3 +3,5 @@
 /.idea/
 /.webpack/
 /out/
+/app/node_modules/
+/app/.webpack/
