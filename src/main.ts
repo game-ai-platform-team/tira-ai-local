@@ -14,6 +14,4 @@ app.on("ready", () => {
 
     win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
     win.webContents.openDevTools()
-
-    spawn("python")
 })
