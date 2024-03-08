@@ -10,10 +10,8 @@ export function MyChessboard() {
         setPos(prevState => {
             const copy = new Position(prevState)
             copy.play(move)
-            console.log(copy)
             return copy
         })
-        console.log(move)
     }
 
     return (<div>
