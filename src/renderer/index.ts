@@ -1,4 +1,4 @@
-import {doStuff} from "./react-main";
+import {render} from "./app";
 
 
-doStuff()
+render()
