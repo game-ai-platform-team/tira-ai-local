@@ -1,0 +1,22 @@
+{
+  "packagerConfig": {},
+  "makers": [],
+  "plugins": [
+    {
+      "name": "@electron-forge/plugin-webpack",
+      "config": {
+        "mainConfig": "./webpack.main.config.ts",
+        "renderer": {
+          "config": "./webpack.renderer.config.ts",
+          "entryPoints": [
+            {
+              "name": "main_window",
+              "html": "./src/renderer/index.html",
+              "js": "./src/renderer/index.ts"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
