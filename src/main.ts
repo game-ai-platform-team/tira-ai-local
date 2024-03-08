@@ -1,4 +1,5 @@
 import {app, BrowserWindow} from "electron";
+import {spawn} from "node:child_process";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 app.on("ready", () => {
@@ -13,4 +14,6 @@ app.on("ready", () => {
 
     win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
     win.webContents.openDevTools()
+
+    spawn("python")
 })

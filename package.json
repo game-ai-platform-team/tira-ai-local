@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.3.0",
+    "@electron-forge/maker-zip": "^7.3.0",
     "@electron-forge/plugin-webpack": "^7.3.0",
     "@types/node": "^20.11.25",
     "@types/react": "^18.2.64",

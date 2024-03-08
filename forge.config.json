@@ -1,6 +1,10 @@
 {
   "packagerConfig": {},
-  "makers": [],
+  "makers": [
+    {
+      "name": "@electron-forge/maker-zip"
+    }
+  ],
   "plugins": [
     {
       "name": "@electron-forge/plugin-webpack",
