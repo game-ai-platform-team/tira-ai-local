@@ -3,11 +3,19 @@ name = "tira-ai-local-background-service"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
-readme = "README.md"
+packages = [{ include = "*", from = "src" }]
+
+[tool.poetry.scripts]
+cli = "main:run"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.13"
+chess = "^1.10.0"
 
+
+[tool.poetry.group.dev.dependencies]
+pex = "^2.2.2"
+invoke = "^2.2.0"
 
 [build-system]
 requires = ["poetry-core"]

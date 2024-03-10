@@ -1,5 +1,10 @@
 import sys
 
-if __name__ == "__main__":
+from chess import Board
+
+
+def run():
+    b = Board()
     print("YAY")
     print(sys.argv)
+    print(b)
