@@ -1,5 +1,6 @@
 import {app, BrowserWindow} from "electron";
 import {spawn} from "node:child_process";
+import path from "path"
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 app.on("ready", () => {
@@ -15,15 +16,16 @@ app.on("ready", () => {
     win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
     win.webContents.openDevTools()
 
+    console.log(__dirname)
+    const file = path.join(__dirname, "./background-service.pex")
     console.log("Spawning process")
-    const spawned = spawn("poetry", ["run", "python3", "./src/main.py"]);
-    spawned.on("message", (message) => {
-        console.log(message)
+    const spawned = spawn("python3", [file]);
+
+    spawned.stdout.on("data", (data) => {
+        console.log(data.toString())
     })
-    spawned.on("error", (message) => {
-        console.log(message)
-    })
+
     spawned.on("exit", (message) => {
-        console.log("exit")
+        console.log("exit " + message)
     })
 })
