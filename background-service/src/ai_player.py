@@ -1,6 +1,7 @@
 import subprocess
 import sys
 
+
 class Game:
 
     def __init__(self, ai_path: str) -> None:
@@ -11,11 +12,11 @@ class Game:
         runcommand = "poetry run python3 src/stupid_ai.py"
         runcommand_array = runcommand.strip().split(" ")
         self.__process = subprocess.Popen(
-            args=runcommand_array,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            cwd=self.__path,
+            args = runcommand_array,
+            stdin = subprocess.PIPE,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.PIPE,
+            cwd = self.__path,
         )
 
     def input_move(self, move):
@@ -32,14 +33,11 @@ class Game:
             if not self.__process.stdout:
                 break
             output = self.__process.stdout.readline().decode("utf-8")
+            if not output:
+                break
+
             print(f"output: {output}")
             if output.startswith("MOVE: "):
                 return output.replace("MOVE: ", "").strip()
-    
+
         return output
-
-
-
-
-
-
