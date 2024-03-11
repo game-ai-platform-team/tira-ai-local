@@ -11,6 +11,8 @@ cli = "main:run"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 chess = "^1.10.0"
+flask = "^3.0.2"
+flask-socketio = "^5.3.6"
 
 
 [tool.poetry.group.dev.dependencies]

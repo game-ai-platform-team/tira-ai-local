@@ -1,31 +1,38 @@
-import {app, BrowserWindow} from "electron";
-import {spawn} from "node:child_process";
-import path from "path"
+import { app, BrowserWindow } from "electron";
+import { ChildProcess, spawn } from "child_process";
+import path from "path";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
+
+let backgroundProcess: ChildProcess | undefined = undefined;
+
 app.on("ready", () => {
+  const win = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
 
-    const win = new BrowserWindow({
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false
-        }
-    })
+  win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  win.webContents.openDevTools();
 
+  console.log(__dirname);
+  const file = path.join(__dirname, "./background-service.pex");
+  console.log("Spawning process");
+  backgroundProcess = spawn("python3", [file]);
 
-    win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
-    win.webContents.openDevTools()
+  backgroundProcess.stdout.on("data", (data) => {
+    console.log(data.toString());
+  });
 
-    console.log(__dirname)
-    const file = path.join(__dirname, "./background-service.pex")
-    console.log("Spawning process")
-    const spawned = spawn("python3", [file]);
+  backgroundProcess.on("exit", (message) => {
+    console.log("exit " + message);
+  });
+});
 
-    spawned.stdout.on("data", (data) => {
-        console.log(data.toString())
-    })
-
-    spawned.on("exit", (message) => {
-        console.log("exit " + message)
-    })
-})
+app.on("before-quit", () => {
+  if (backgroundProcess != undefined) {
+    backgroundProcess.kill();
+  }
+});
