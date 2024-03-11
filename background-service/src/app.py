@@ -37,6 +37,8 @@ def run():
         host="0.0.0.0",
         port=5000,
         debug = True,
+        #TODO: Fix werkzeug
+        allow_unsafe_werkzeug = True
     )
 
 if __name__ == "__main__":
