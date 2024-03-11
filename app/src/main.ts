@@ -26,6 +26,11 @@ app.on("ready", () => {
     console.log(data.toString());
   });
 
+
+  backgroundProcess.stderr.on("data", (data) => {
+    console.error(data.toString());
+  });
+
   backgroundProcess.on("exit", (message) => {
     console.log("exit " + message);
   });
