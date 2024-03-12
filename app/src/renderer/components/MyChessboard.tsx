@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {MoveDescriptor, Position,} from "kokopu";
 import socket from "../MySocket";
 
+
 export function MyChessboard() {
     const [pos, setPos] = useState(new Position());
 
@@ -15,6 +16,17 @@ export function MyChessboard() {
             return copy;
         });
     }
+    function handleMovePlayedByAi(move: string) {
+      setPos((prevState) => {
+          const copy = new Position(prevState);
+          copy.play(move);
+          return copy;
+      });
+  }
+    socket.on("move", (move: string) => {
+      console.log("socket:", move)
+      handleMovePlayedByAi(move);
+    });
 
     return (
         <div>

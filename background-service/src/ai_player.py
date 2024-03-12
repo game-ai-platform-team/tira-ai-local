@@ -1,12 +1,12 @@
 import subprocess
-import sys
-
+import chess
 
 class Game:
 
     def __init__(self, ai_path: str) -> None:
         self.__process = None
         self.__path = ai_path
+        self.__board = chess.Board()
 
     def run_ai(self):
         runcommand = "poetry run python3 src/stupid_ai.py"
@@ -19,15 +19,20 @@ class Game:
             cwd = self.__path,
         )
 
+    def convert_uci_to_algebraic(self, uci_move: str) -> str:
+        move = chess.Move.from_uci(uci_move)
+        algebraic_move = self.__board.san(move)
+        return algebraic_move
+
     def input_move(self, move):
         if self.__process is None or self.__process.poll():
             return "failed :DDDDD"
+        
+        self.__board.push_uci(move)
 
         input_string = move + "\n"
         self.__process.stdin.write(input_string.encode("utf-8"))
         self.__process.stdin.flush()
-
-        print(f"received move: {move}")
 
         while True:
             if not self.__process.stdout:
@@ -35,9 +40,9 @@ class Game:
             output = self.__process.stdout.readline().decode("utf-8")
             if not output:
                 break
-
-            print(f"output: {output}")
             if output.startswith("MOVE: "):
-                return output.replace("MOVE: ", "").strip()
+                move_out = self.convert_uci_to_algebraic(output.replace("MOVE: ", "").strip())
+                self.__board.push_san(move_out)
+                return move_out
 
-        return output
+        return ""

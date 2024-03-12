@@ -8,8 +8,6 @@ function AIForm() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const game = "chess";
-
     socket.emit("startgame", filepath);
   }
 

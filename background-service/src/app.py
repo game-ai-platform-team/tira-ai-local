@@ -18,7 +18,6 @@ def io_startgame(project_path):
     global player
     player = Game(project_path)
     player.run_ai()
-    print(project_path, file=sys.stderr)
 
 @socketio.on("move", namespace="/gameconnection")
 def play_move(move):
@@ -27,7 +26,6 @@ def play_move(move):
         raise "No player detected"
 
     retval = player.input_move(move)
-    print(f"ai returned: {retval}", file=sys.stderr)
 
     socketio.emit("move", retval, namespace="/gameconnection")
 
