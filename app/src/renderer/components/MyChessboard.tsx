@@ -1,7 +1,6 @@
 import {Chessboard} from "kokopu-react";
-import {io} from "socket.io-client";
-import React, {useState} from "react";
-import {MoveDescriptor, Position,} from "kokopu";
+import {useState} from "react";
+import {Position,} from "kokopu";
 import socket from "../MySocket";
 
 
