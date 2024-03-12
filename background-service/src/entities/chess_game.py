@@ -13,7 +13,7 @@ class Chess():
         algebraic_move = self.__board.san(move)
         return algebraic_move
 
-    def play_turn(self, move, ai_process):
+    def play_turn(self, move, ai_process, logger):
         """
         Plays a move and returns the answer from the ai that's attached to the Game instance
 
@@ -43,5 +43,7 @@ class Chess():
                 move_out = self.__convert_uci_to_algebraic(output.replace("MOVE: ", "").strip())
                 self.__board.push_san(move_out)
                 return move_out
+            else:
+                logger.log(output.strip() + "\n")
 
         return ""

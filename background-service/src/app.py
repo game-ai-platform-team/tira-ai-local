@@ -22,8 +22,9 @@ def io_startgame(project_path):
 def play_move(move):
     if game == None: 
         raise "No game detected"
-    retval = game.play_turn(move)
+    retval, logs = game.play_turn(move)
     socketio.emit("move", retval, namespace="/gameconnection")
+    socketio.emit("logs", logs, namespace="/gameconnection")
 
 def run():
     socketio.run(
