@@ -3,7 +3,7 @@ name = "tira-ai-local-background-service"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
-packages = [{ include = "*", from = "src" }]
+packages = [{ include = "**/*.py", from = "src" }]
 
 [tool.poetry.scripts]
 cli = "app:run"
