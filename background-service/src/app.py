@@ -18,12 +18,12 @@ def io_startgame(project_path):
     global game
     game = Game(project_path, "chess")
 
-@socketio.on("move", namespace="/gameconnection")
+@socketio.on("move_to_back", namespace="/gameconnection")
 def play_move(move):
     if game == None: 
         raise "No game detected"
     retval, logs = game.play_turn(move)
-    socketio.emit("move", retval, namespace="/gameconnection")
+    socketio.emit("move_to_front", retval, namespace="/gameconnection")
     socketio.emit("logs", logs, namespace="/gameconnection")
 
 def run():

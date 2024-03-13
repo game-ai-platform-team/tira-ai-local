@@ -25,7 +25,7 @@ class Chess():
             GameState: A move in some sensible format
         """
         if ai_process is None or ai_process.poll():
-            return "failed :DDDDD"
+            return "Ai process is not running"
         
         self.__board.push_uci(move)
 
