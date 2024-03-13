@@ -26,7 +26,7 @@ class Chess():
         """
         if ai_process is None or ai_process.poll():
             return "failed :DDDDD"
-        
+
         self.__board.push_uci(move)
 
         input_string = move + "\n"
