@@ -25,11 +25,11 @@ class Chess():
             GameState: A move in some sensible format
         """
         if ai_process is None or ai_process.poll():
-            return "failed :DDDDD"
+            raise RuntimeError("failed :DDDDD")
         
         self.__board.push_uci(move)
 
-        input_string = move + "\n"
+        input_string = "MOVE: " + move + "\n"
         ai_process.stdin.write(input_string.encode("utf-8"))
         ai_process.stdin.flush()
 
@@ -46,4 +46,4 @@ class Chess():
             else:
                 logger.log(output.strip() + "\n")
 
-        return ""
+        return "play_turn failed"
