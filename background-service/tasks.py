@@ -3,7 +3,7 @@ from invoke import task
 
 @task
 def build(ctx):
-    ctx.run("pex --python-shebang /bin/python3 -o ./dist/background-service.pex  -c cli .")
+    ctx.run("pex --python-shebang /bin/python3 --only-binary markupsafe --complete-platform ./platforms/debian.json --complete-platform ./platforms/cubbli.json -o ./dist/background-service.pex  -c cli .")
 
 @task
 def test(ctx):
