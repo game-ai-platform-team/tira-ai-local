@@ -6,7 +6,8 @@ GAMETYPEDICT = {
     "chess": Chess,
 }
 
-class Game():
+
+class Game:
 
     def __init__(self, ai_path: str, gametype: str) -> None:
         self.__process = self.__run_ai(ai_path)
@@ -17,23 +18,23 @@ class Game():
         runcommand = "poetry run python3 src/stupid_ai.py"
         runcommand_array = runcommand.strip().split(" ")
         process = subprocess.Popen(
-            args = runcommand_array,
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            stderr = subprocess.PIPE,
-            cwd = ai_path,
+            args=runcommand_array,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=ai_path,
         )
 
         if process is None or process.poll():
             raise RuntimeError(f"Process {process} was interrupted")
-        
+
         return process
 
     def play_turn(self, move):
         output_move = self.__game.play_turn(move, self.__process, self.__logger)
         logs = self.__logger.get_and_clear_logs()
         return output_move, logs
-    
+
     def set_board(self, board_position):
         self.__process.stdin.write(("BOARD: " + board_position).encode("utf-8"))
         self.__process.stdin.flush()
