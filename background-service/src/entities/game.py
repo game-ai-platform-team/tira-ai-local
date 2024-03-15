@@ -26,7 +26,7 @@ class Game:
         )
 
         if process is None or process.poll():
-            raise RuntimeError(f"Process {process} was interrupted")
+            raise RuntimeError(f"Process {process.pid} failed with return code {process.poll()}")
 
         return process
 
@@ -38,3 +38,6 @@ class Game:
     def set_board(self, board_position):
         self.__process.stdin.write(("BOARD: " + board_position).encode("utf-8"))
         self.__process.stdin.flush()
+
+    def get_pid(self):
+        return self.__process.pid
