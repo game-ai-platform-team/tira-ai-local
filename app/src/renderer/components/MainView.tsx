@@ -15,6 +15,7 @@ export function MainView() {
         try {
             setPos(new Position(fennotation));
         } catch (error) {
+            setPos(new Position())
         }
     }
 

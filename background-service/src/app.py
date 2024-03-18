@@ -23,7 +23,7 @@ def io_startgame(project_path, board_position):
         game = Game(project_path, "chess")
         socketio.emit(
             "logs",
-            f"Valid path. Game started with process {game.get_pid()}\n---------------------------------",
+            f"Valid path. Running AI opponent as process {game.get_pid()}\n---------------------------------",
             namespace="/gameconnection",
         )
     except:
@@ -54,7 +54,8 @@ def play_move(move):
     print(retval, logs, error)
     socketio.emit("move_to_front", retval, namespace="/gameconnection")
     socketio.emit("logs", logs, namespace="/gameconnection")
-    socketio.emit("logs", error, namespace="/gameconnection")
+    if error != "":
+        socketio.emit("logs", error, namespace="/gameconnection")
 
 def run():
     socketio.run(

@@ -50,7 +50,7 @@ class Chess():
             else:
                 logger.log(output.strip() + "\n")
 
-        return f"play_turn failed: {ai_process.stderr.read().decode("utf-8")}"
+        raise RuntimeError(f"Process {ai_process.pid} failed with return code {ai_process.poll()}:\n{ai_process.stderr.read().decode("utf-8")}")
     
     def set_board(self, fen: str):
         self.__board.set_fen(fen)

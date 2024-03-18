@@ -13,7 +13,7 @@ class Game:
         self.__process = self.__run_ai(ai_path)
         self.__game = GAMETYPEDICT[gametype]()
         self.__logger = Logger()
-        self.__error = "no error"
+        self.__error = ""
 
     def __run_ai(self, ai_path):
         runcommand = "poetry run python3 src/stupid_ai.py"
@@ -48,7 +48,6 @@ class Game:
         self.__process.stdin.flush()
 
     def reset_board(self):
-        
         self.__game.reset_board()
 
     def get_pid(self):
