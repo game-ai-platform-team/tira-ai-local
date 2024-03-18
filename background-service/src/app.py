@@ -23,7 +23,7 @@ def io_startgame(project_path, board_position):
         game = Game(project_path, "chess")
         socketio.emit(
             "logs",
-            f"Valid path. Running AI opponent as process {game.get_pid()}\n---------------------------------",
+            f"Valid path. Running AI opponent in process {game.get_pid()}\n---------------------------------",
             namespace="/gameconnection",
         )
     except:
