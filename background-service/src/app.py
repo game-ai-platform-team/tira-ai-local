@@ -48,15 +48,11 @@ def io_startgame(project_path, board_position):
 def play_move(move):
     if game is None:
         raise ValueError("No game detected")
-    retval, logs = game.play_turn(move)
-    print(retval, logs)
+    retval, logs, error = game.play_turn(move)
+    print(retval, logs, error)
     socketio.emit("move_to_front", retval, namespace="/gameconnection")
     socketio.emit("logs", logs, namespace="/gameconnection")
-
-
-def send_error(message: str):
-    socketio.emit("logs", message, namespace="/gameconnection")
-
+    socketio.emit("logs", error, namespace="/gameconnection")
 
 def run():
     socketio.run(

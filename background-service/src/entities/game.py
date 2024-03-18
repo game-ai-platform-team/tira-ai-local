@@ -13,6 +13,7 @@ class Game:
         self.__process = self.__run_ai(ai_path)
         self.__game = GAMETYPEDICT[gametype]()
         self.__logger = Logger()
+        self.__error = "no error"
 
     def __run_ai(self, ai_path):
         runcommand = "poetry run python3 src/stupid_ai.py"
@@ -26,15 +27,20 @@ class Game:
         )
 
         if process is None or process.poll():
-            msg = f"Process {process.pid} failed with return code {process.poll()}: {process.stderr.read().decode("utf-8")}"
+            self.__error = process.stderr.read().decode("utf-8")
+            msg = f"Process {process.pid} failed with return code {process.poll()}:\n{self.__error}"
             raise RuntimeError(msg)
 
         return process
 
     def play_turn(self, move):
-        output_move = self.__game.play_turn(move, self.__process, self.__logger)
+        output_move = ""
+        try:
+            output_move = self.__game.play_turn(move, self.__process, self.__logger)
+        except RuntimeError as e:
+            self.__error = str(e)
         logs = self.__logger.get_and_clear_logs()
-        return output_move, logs
+        return output_move, logs, self.__error
 
     def set_board(self, board_position):
         self.__game.set_board(board_position)

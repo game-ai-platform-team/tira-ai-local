@@ -25,7 +25,7 @@ class Chess():
             GameState: A move in some sensible format
         """
         if ai_process is None or ai_process.poll():
-            raise RuntimeError(f"Process {ai_process.pid} failed with return code {ai_process.poll()}: {ai_process.stderr.read().decode("utf-8")}")
+            raise RuntimeError(f"Process {ai_process.pid} failed with return code {ai_process.poll()}:\n{ai_process.stderr.read().decode("utf-8")}")
 
 
         self.__board.push_uci(move)
