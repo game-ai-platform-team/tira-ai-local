@@ -51,8 +51,12 @@ def play_move(move):
         raise ValueError("No game detected")
     retval, logs, error = game.play_turn(move)
     print(retval, logs, error)
-    socketio.emit("move_to_front", retval, namespace="/gameconnection")
-    socketio.emit("logs", logs, namespace="/gameconnection")
+    socketio.emit("move_to_front", retval[1] ,namespace="/gameconnection",)
+    socketio.emit(
+        "logs",
+        f"{retval[0]}:\n{logs}\n---------------------------------",
+        namespace="/gameconnection",
+    )
     if error != "":
         socketio.emit(
             "logs",

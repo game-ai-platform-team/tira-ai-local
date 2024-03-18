@@ -48,9 +48,10 @@ class Chess():
             if not output:
                 break
             if output.startswith("MOVE: "):
-                move_out = self.__convert_uci_to_algebraic(output.replace("MOVE: ", "").strip())
-                self.__board.push_san(move_out)
-                return move_out
+                move_uci = output.replace("MOVE: ", "").strip()
+                move_san = self.__convert_uci_to_algebraic(move_uci)
+                self.__board.push_san(move_uci)
+                return move_uci, move_san
             logger.log(output.strip() + "\n")
 
         raise RuntimeError(

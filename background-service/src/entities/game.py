@@ -35,7 +35,7 @@ class Game:
         return process
 
     def play_turn(self, move):
-        output_move = ""
+        output_move = "", ""
         try:
             output_move = self.__game.play_turn(move, self.__process, self.__logger)
         except RuntimeError as e:
