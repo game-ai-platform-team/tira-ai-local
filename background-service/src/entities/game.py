@@ -26,7 +26,8 @@ class Game:
         )
 
         if process is None or process.poll():
-            raise RuntimeError(f"Process {process.pid} failed with return code {process.poll()}")
+            msg = f"Process {process.pid} failed with return code {process.poll()}: {process.stderr.read().decode("utf-8")}"
+            raise RuntimeError(msg)
 
         return process
 
@@ -36,7 +37,8 @@ class Game:
         return output_move, logs
 
     def set_board(self, board_position):
-        self.__process.stdin.write(("BOARD: " + board_position).encode("utf-8"))
+        self.__game.set_board(board_position)
+        self.__process.stdin.write(f"BOARD: {board_position}\n".encode("utf-8"))
         self.__process.stdin.flush()
 
     def get_pid(self):

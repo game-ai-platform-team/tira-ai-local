@@ -54,6 +54,10 @@ def play_move(move):
     socketio.emit("logs", logs, namespace="/gameconnection")
 
 
+def send_error(message: str):
+    socketio.emit("logs", message, namespace="/gameconnection")
+
+
 def run():
     socketio.run(
         app,
