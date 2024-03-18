@@ -18,11 +18,11 @@ function AIForm(props) {
                 value={filepath}
                 onChange={(e) => setFilePath(e.target.value)}
             />
-                Fen board: <input
+                Set board FEN: <input
                 id="feninput"
                 value={fennotation}
                 onChange={(e) => setFenNotation(e.target.value)}
-            /> (optional)
+            /> (empty for starting position)
             </form>
         </div>
     );
