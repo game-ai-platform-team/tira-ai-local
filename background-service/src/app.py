@@ -54,7 +54,12 @@ def play_move(move):
     socketio.emit("move_to_front", retval, namespace="/gameconnection")
     socketio.emit("logs", logs, namespace="/gameconnection")
     if error != "":
-        socketio.emit("logs", error, namespace="/gameconnection")
+        socketio.emit(
+            "logs",
+            error + "\n---------------------------------",
+            namespace="/gameconnection",
+        )
+
 
 def run():
     socketio.run(
