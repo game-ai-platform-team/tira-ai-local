@@ -1,4 +1,5 @@
 import subprocess
+from chess import InvalidMoveError
 from entities.chess_game import Chess
 from entities.game_logger import Logger
 
@@ -39,6 +40,8 @@ class Game:
             output_move = self.__game.play_turn(move, self.__process, self.__logger)
         except RuntimeError as e:
             self.__error = str(e)
+        except InvalidMoveError as e:
+            self.__error = f"Invalid move: {str(e)}"
         logs = self.__logger.get_and_clear_logs()
         return output_move, logs, self.__error
 
