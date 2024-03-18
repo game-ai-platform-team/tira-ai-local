@@ -47,5 +47,9 @@ class Game:
         self.__process.stdin.write(f"BOARD: {board_position}\n".encode("utf-8"))
         self.__process.stdin.flush()
 
+    def reset_board(self):
+        
+        self.__game.reset_board()
+
     def get_pid(self):
         return self.__process.pid

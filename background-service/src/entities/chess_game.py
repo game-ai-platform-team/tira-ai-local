@@ -54,3 +54,6 @@ class Chess():
     
     def set_board(self, fen: str):
         self.__board.set_fen(fen)
+
+    def reset_board(self):
+        self.__board.reset()

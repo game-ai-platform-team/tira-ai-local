@@ -36,6 +36,8 @@ def io_startgame(project_path, board_position):
     try:
         if board_position != "":
             game.set_board(board_position)
+        else:
+            game.reset_board()
     except Exception as e:
         socketio.emit(
             "logs",
