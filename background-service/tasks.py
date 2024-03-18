@@ -8,3 +8,8 @@ def build(ctx):
 @task
 def test(ctx):
     ctx.run("poetry run pytest src/tests --color=yes -n auto", pty=True)
+
+
+@task
+def lint(ctx):
+    ctx.run("poetry run pylint src")
