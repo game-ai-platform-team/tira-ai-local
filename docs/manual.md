@@ -20,3 +20,5 @@
 - Play the first move in the UI chessboard and if your AI is configured correctly it will play the next move
 - In the UI you are able to give a FEN notation to start a game from a specific board position. More info about FEN notation [here](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation)
 - For example: `rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2` would be a valid FEN notation
+- `Copy current FEN` button allows you to copy the current board position in the FEN format
+- Re-submitting using the `Submit` button works as resetting the board
