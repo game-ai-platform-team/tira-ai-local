@@ -24,9 +24,13 @@ class Chess():
         Returns:
             GameState: A move in some sensible format
         """
-        if ai_process is None or ai_process.poll():
-            raise RuntimeError(f"Process {ai_process.pid} failed with return code {ai_process.poll()}:\n{ai_process.stderr.read().decode("utf-8")}")
 
+        if ai_process is None or ai_process.poll():
+            raise RuntimeError(
+                f"Process {ai_process.pid} failed with return code "
+                f"{ai_process.poll()}:\n"
+                f"{ai_process.stderr.read().decode('utf-8')}"
+            )
 
         self.__board.push_uci(move)
 
@@ -47,11 +51,14 @@ class Chess():
                 move_out = self.__convert_uci_to_algebraic(output.replace("MOVE: ", "").strip())
                 self.__board.push_san(move_out)
                 return move_out
-            else:
-                logger.log(output.strip() + "\n")
+            logger.log(output.strip() + "\n")
 
-        raise RuntimeError(f"Process {ai_process.pid} failed with return code {ai_process.poll()}:\n{ai_process.stderr.read().decode("utf-8")}")
-    
+        raise RuntimeError(
+                f"Process {ai_process.pid} failed with return code "
+                f"{ai_process.poll()}:\n"
+                f"{ai_process.stderr.read().decode('utf-8')}"
+            )
+
     def set_board(self, fen: str):
         self.__board.set_fen(fen)
 
