@@ -14,8 +14,8 @@ app.on("ready", () => {
     },
   });
 
-  win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  win.webContents.openDevTools();
+    win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
 
   console.log(__dirname);
   const file = path.join(__dirname, "./background-service.pex");
