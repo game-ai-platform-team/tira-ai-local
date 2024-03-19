@@ -9,7 +9,7 @@ export function MainView() {
     const [pos, setPos] = useState(new Position());
     const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
-    function handleSubmit(filepath, fennotation) {
+    function handleSubmit(filepath: string, fennotation: string) {
         socket.emit("startgame", filepath, fennotation);
         setHasBeenSubmitted(true);
         try {

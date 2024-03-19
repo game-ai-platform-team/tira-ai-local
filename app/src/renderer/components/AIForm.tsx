@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function AIForm(props) {
+function AIForm(props: { handleSubmit: (filepath: string, fennotation: string) => void }) {
     const [filepath, setFilePath] = useState("");
     const [fennotation, setFenNotation] = useState("");
 
@@ -12,7 +12,7 @@ function AIForm(props) {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <button type="submit">SUBMIT</button>
+                <button type="submit" id="submit">SUBMIT</button>
                 File path: <input
                 id="fileinput"
                 value={filepath}
