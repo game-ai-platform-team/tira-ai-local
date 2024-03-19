@@ -1,0 +1,25 @@
+on:
+  push:
+
+
+jobs:
+  app_unit_test:
+    name: App unit tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up node
+        uses: game-ai-platform-team/setup-node@main
+        with:
+          working-directory: ./app
+
+      - name: Run unit tests
+        run: pnpm run test:run
+
+
+
