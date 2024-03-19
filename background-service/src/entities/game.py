@@ -1,7 +1,7 @@
-import subprocess
 from chess import InvalidMoveError
 from entities.chess_game import Chess
 from entities.game_logger import Logger
+from entities.game_process import GameProcess
 
 GAMETYPEDICT = {
     "chess": Chess,
@@ -11,28 +11,10 @@ GAMETYPEDICT = {
 class Game:
 
     def __init__(self, ai_path: str, gametype: str) -> None:
-        self.__process = self.__run_ai(ai_path)
+        self.__process = GameProcess(ai_path)
         self.__game = GAMETYPEDICT[gametype]()
         self.__logger = Logger()
         self.__error = ""
-
-    def __run_ai(self, ai_path):
-        runcommand = "poetry run python3 src/stupid_ai.py"
-        runcommand_array = runcommand.strip().split(" ")
-        process = subprocess.Popen(
-            args=runcommand_array,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            cwd=ai_path,
-        )
-
-        if process is None or process.poll():
-            self.__error = process.stderr.read().decode("utf-8")
-            msg = f"Process {process.pid} failed with return code {process.poll()}:\n{self.__error}"
-            raise RuntimeError(msg)
-
-        return process
 
     def play_turn(self, move):
         output_move = "", ""
