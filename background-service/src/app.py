@@ -32,7 +32,6 @@ def io_startgame(project_path, board_position, runsetup):
             namespace = "/gameconnection",
         )
     except Exception as e:
-    except Exception as e:
         socketio.emit(
             "logs",
             f"Error creating game:\n{str(e)}",
