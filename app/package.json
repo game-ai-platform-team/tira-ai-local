@@ -11,7 +11,8 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.3.0",
@@ -27,6 +28,7 @@
     "css-loader": "^6.10.0",
     "electron": "^29.1.0",
     "jsdom": "^24.0.0",
+    "playwright": "^1.42.1",
     "react": "^18.2.0",
     "style-loader": "^3.3.4",
     "ts-loader": "^9.5.1",
