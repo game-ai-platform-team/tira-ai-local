@@ -1,16 +1,16 @@
 import AIForm from "./AIForm";
-import { MyChessboard } from "./MyChessboard";
-import { Logs } from "./Logs";
+import {MyChessboard} from "./MyChessboard";
+import {Logs} from "./Logs";
 import socket from "../MySocket";
-import { useState } from "react";
-import { Position } from "kokopu";
+import {useState} from "react";
+import {Position} from "kokopu";
 
 export function MainView() {
     const [pos, setPos] = useState(new Position());
     const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
-    function handleSubmit(filepath: string, fennotation: string) {
-        socket.emit("startgame", filepath, fennotation);
+    function handleSubmit(filepath: string, fennotation: string, runsetup: boolean) {
+        socket.emit("startgame", filepath, fennotation, runsetup);
         setHasBeenSubmitted(true);
         try {
             setPos(new Position(fennotation));
@@ -32,12 +32,12 @@ export function MainView() {
 
     return (
         <div>
-            {hasBeenSubmitted && <MyChessboard pos={pos} setPos={setPos} />}
-            <Logs />
+            {hasBeenSubmitted && <MyChessboard pos={pos} setPos={setPos}/>}
+            <Logs/>
             <button onClick={copyFenToClipboard}>
                 Copy current FEN
             </button>
-            <AIForm handleSubmit={handleSubmit} />
+            <AIForm handleSubmit={handleSubmit}/>
         </div>
     );
 }

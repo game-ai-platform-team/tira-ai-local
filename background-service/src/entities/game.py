@@ -1,7 +1,7 @@
 from chess import InvalidMoveError
 from entities.chess_game import Chess
 from entities.game_logger import Logger
-from entities.game_process import GameProcess
+from entities.ai_directory import AiDirectory
 
 GAMETYPEDICT = {
     "chess": Chess,
@@ -10,8 +10,10 @@ GAMETYPEDICT = {
 
 class Game:
 
-    def __init__(self, ai_path: str, gametype: str) -> None:
-        self.__process = GameProcess(ai_path)
+    def __init__(self, gametype: str, ai_directory: AiDirectory) -> None:
+        self.ai_directory = ai_directory
+        self.ai_directory.run_ai()
+        self.__process = ai_directory.process
         self.__game = GAMETYPEDICT[gametype]()
         self.__logger = Logger()
         self.__error = ""

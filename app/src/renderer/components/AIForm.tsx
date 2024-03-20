@@ -1,12 +1,13 @@
 import {useState} from "react";
 
-function AIForm(props: { handleSubmit: (filepath: string, fennotation: string) => void }) {
+function AIForm(props: { handleSubmit: (filepath: string, fennotation: string, runSetup: boolean) => void }) {
     const [filepath, setFilePath] = useState("");
     const [fennotation, setFenNotation] = useState("");
+    const [runSetup, setRunSetup] = useState(false)
 
     function handleSubmit(e) {
         e.preventDefault();
-        props.handleSubmit(filepath, fennotation);
+        props.handleSubmit(filepath, fennotation, runSetup);
     }
 
     return (
@@ -23,6 +24,9 @@ function AIForm(props: { handleSubmit: (filepath: string, fennotation: string) =
                 value={fennotation}
                 onChange={(e) => setFenNotation(e.target.value)}
             /> (empty for starting position)
+                <label htmlFor="run-setup">Run setup.sh?</label>
+                <input type="checkbox" id="run-setup" onChange={(e) => setRunSetup(e.target.value === "false")}
+                       value={"" + runSetup}/>
             </form>
         </div>
     );

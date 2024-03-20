@@ -1,3 +1,4 @@
+
 import subprocess
 
 
@@ -21,7 +22,6 @@ class GameProcess:
             self.__raise_runtime_error()
 
         return process
-
     def __raise_runtime_error(self):
         raise RuntimeError(
             f"Process {self.process.pid} failed with return code "
