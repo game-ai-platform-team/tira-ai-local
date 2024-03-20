@@ -1,6 +1,6 @@
 import { Chessboard } from "kokopu-react";
 import { useState } from "react";
-import { Position, } from "kokopu";
+import { Position } from "kokopu";
 import socket, { sethandleMovePlayedByAi } from "../MySocket";
 
 
@@ -9,15 +9,16 @@ export function MyChessboard(props) {
     function handleMovePlayed(move: string) {
         props.setPos((prevState) => {
             const copy = new Position(prevState);
-            socket.emit("move_to_back", copy.uci(copy.notation(move)));
-            copy.play(move);
+            const move_desc = copy.notation(move)
+            socket.emit("move_to_back", copy.uci(move_desc));
+            copy.play(move_desc);
             return copy;
         });
     }
     function handleMovePlayedByAi(move: string) {
         props.setPos((prevState) => {
             const copy = new Position(prevState);
-            copy.play(move);
+            copy.play(copy.uci(move));
             return copy;
         });
     }
