@@ -9,7 +9,7 @@ class AiDirectory:
         self.process = None
 
     def run_setup(self):
-        process = subprocess.run(["bash", "tiraconfig/setup.sh"], cwd = self.ai_path)
+        subprocess.run(["bash", "tiraconfig/setup.sh"], cwd=self.ai_path)
 
     def run_ai(self):
         runcommand = ""
@@ -17,55 +17,54 @@ class AiDirectory:
             runcommand = command_file.readline()
         runcommand_array = runcommand.strip().split(" ")
         process = subprocess.Popen(
-            args = runcommand_array,
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            stderr = subprocess.PIPE,
-            cwd = self.ai_path,
+            args=runcommand_array,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=self.ai_path,
         )
 
         if process is None or process.poll():
-            self.__error = process.stderr.read().decode("utf-8")
-            msg = f"Process {process.pid} failed with return code {process.poll()}:\n{self.__error}"
-            raise RuntimeError(msg)
+            self.__raise_runtime_error()
 
         self.process = process
 
-        def __raise_runtime_error(self):
-            raise RuntimeError(
-                f"Process {self.process.pid} failed with return code "
-                f"{self.process.poll()}:\n"
-                f"{self.process.stderr.read().decode('utf-8')}"
-            )
+    def __raise_runtime_error(self):
+        raise RuntimeError(
+            f"Process {self.process.pid} failed with return code "
+            f"{self.process.poll()}:\n"
+            f"{self.process.stderr.read().decode('utf-8')}"
+        )
 
-        def play(self):
-            self.process.stdin.write("PLAY:\n".encode("utf-8"))
-            self.process.stdin.flush()
-            output = ""
-            while True:
-                if not self.process.stdout:
-                    self.__raise_runtime_error()
-                output = self.process.stdout.readline().decode("utf-8")
-                if not output:
-                    self.__raise_runtime_error()
-                if output.startswith("MOVE:"):
-                    output = output.replace("MOVE:", "").strip()
-                    break
+    def play(self):
+        self.process.stdin.write("PLAY:\n".encode("utf-8"))
+        self.process.stdin.flush()
+        output = ""
+        logs = []
+        while True:
+            if not self.process.stdout:
+                self.__raise_runtime_error()
+            output = self.process.stdout.readline().decode("utf-8")
+            if not output:
+                self.__raise_runtime_error()
+            if output.startswith("MOVE:"):
+                output = output.replace("MOVE:", "").strip()
+                break
+            logs.append(output)
 
-            return output
+        return output, logs
 
-        def reset(self):
-            self.process.stdin.write("RESET:\n".encode("utf-8"))
-            self.process.stdin.flush()
+    def reset(self):
+        self.process.stdin.write("RESET:\n".encode("utf-8"))
+        self.process.stdin.flush()
 
-        def board(self, position):
-            self.process.stdin.write(f"BOARD:{position}\n")
-            self.process.stdin.flush()
+    def board(self, position):
+        self.process.stdin.write(f"BOARD:{position}\n")
+        self.process.stdin.flush()
 
-        def move(self, move):
-            self.process.stdin.write(f"MOVE:{move}\n")
-            self.process.stdin.flush()
+    def move(self, move):
+        self.process.stdin.write(f"MOVE:{move}\n".encode("utf-8"))
+        self.process.stdin.flush()
 
-        def get_pid(self):
-            return self.process.pid
-
+    def get_pid(self):
+        return self.process.pid
