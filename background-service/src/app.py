@@ -14,7 +14,7 @@ app.config.update(
 socketio = SocketIO(app, cors_allowed_origins = "*")
 CORS(app)
 
-game = None
+game: Game | None = None
 
 
 @socketio.on("startgame", namespace = "/gameconnection")
@@ -23,7 +23,7 @@ def io_startgame(project_path, board_position, runsetup):
     try:
         directory = AiDirectory(project_path)
         if runsetup:
-            socketio.emit("logs", f"Running setup.sh in {project_path}",namespace = "/gameconnection")
+            socketio.emit("logs", f"Running setup.sh in {project_path}", namespace = "/gameconnection")
             directory.run_setup()
         game = Game(directory)
         socketio.emit(
@@ -35,7 +35,7 @@ def io_startgame(project_path, board_position, runsetup):
         socketio.emit(
             "logs",
             f"Error creating game:\n{str(e)}",
-            namespace="/gameconnection",
+            namespace = "/gameconnection",
         )
 
     try:
@@ -47,7 +47,7 @@ def io_startgame(project_path, board_position, runsetup):
         socketio.emit(
             "logs",
             f"Setting board with {board_position} failed: \n {str(e)}",
-            namespace="/gameconnection",
+            namespace = "/gameconnection",
         )
 
 
@@ -66,12 +66,13 @@ def play_move(move):
         output, logs = game.get_move()
     except RuntimeError as e:
         error = str(e)
-
-    socketio.emit("move_to_front", output ,namespace="/gameconnection",)
+    if (output != ""):
+        socketio.emit("move_to_front", output, namespace = "/gameconnection", )
+    logs_lined = "\n".join(logs)
     socketio.emit(
         "logs",
-        f"{output}:\n{"\n".join(logs)}\n---------------------------------",
-        namespace="/gameconnection",
+        f"{output}:\n{logs_lined}\n---------------------------------",
+        namespace = "/gameconnection",
     )
     if error != "":
         socketio.emit(

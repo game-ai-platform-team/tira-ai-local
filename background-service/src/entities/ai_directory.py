@@ -9,25 +9,22 @@ class AiDirectory:
         self.process = None
 
     def run_setup(self):
-        subprocess.run(["bash", "tiraconfig/setup.sh"], cwd=self.ai_path)
+        subprocess.run(["bash", "tiraconfig/setup.sh"], cwd = self.ai_path)
 
     def run_ai(self):
         runcommand = ""
         with open(path.join(self.ai_path, "tiraconfig/runcommand")) as command_file:
             runcommand = command_file.readline()
         runcommand_array = runcommand.strip().split(" ")
-        process = subprocess.Popen(
-            args=runcommand_array,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            cwd=self.ai_path,
+        self.process = subprocess.Popen(
+            args = runcommand_array,
+            stdin = subprocess.PIPE,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.PIPE,
+            cwd = self.ai_path,
         )
 
-        if process is None or process.poll():
-            self.__raise_runtime_error()
-
-        self.process = process
+        self.__check_running()
 
     def __raise_runtime_error(self):
         raise RuntimeError(
@@ -36,7 +33,12 @@ class AiDirectory:
             f"{self.process.stderr.read().decode('utf-8')}"
         )
 
+    def __check_running(self):
+        if self.process is None or self.process.poll():
+            self.__raise_runtime_error()
+
     def play(self):
+        self.__check_running()
         self.process.stdin.write("PLAY:\n".encode("utf-8"))
         self.process.stdin.flush()
         output = ""
@@ -55,6 +57,7 @@ class AiDirectory:
         return output, logs
 
     def reset(self):
+        self.__check_running()
         self.process.stdin.write("RESET:\n".encode("utf-8"))
         self.process.stdin.flush()
 
@@ -63,8 +66,8 @@ class AiDirectory:
         self.process.stdin.flush()
 
     def move(self, move):
+        self.__check_running()
         self.process.stdin.write(f"MOVE:{move}\n".encode("utf-8"))
-        self.process.stdin.flush()
 
     def get_pid(self):
         return self.process.pid
