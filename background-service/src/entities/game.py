@@ -27,13 +27,17 @@ class Game:
         logs = self.__logger.get_and_clear_logs()
         return output_move, logs, self.__error
 
+    def add_move(self, move):
+        self.__process.move(move)
+
+    def get_move(self):
+        return self.__process.play()
+
     def set_board(self, board_position):
-        self.__game.set_board(board_position)
-        self.__process.stdin.write(f"BOARD: {board_position}\n".encode("utf-8"))
-        self.__process.stdin.flush()
+        self.__process.board(board_position)
 
     def reset_board(self):
-        self.__game.reset_board()
+        self.__process.reset()
 
     def get_pid(self):
-        return self.__process.pid
+        return self.__process.get_pid()
