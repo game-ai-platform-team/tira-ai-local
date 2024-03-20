@@ -25,7 +25,7 @@ def io_startgame(project_path, board_position, runsetup):
         if runsetup:
             socketio.emit("logs", f"Running setup.sh in {project_path}",namespace = "/gameconnection")
             directory.run_setup()
-        game = Game("chess", directory)
+        game = Game(directory)
         socketio.emit(
             "logs",
             f"Valid path. Running AI opponent in process {game.get_pid()}\n---------------------------------",

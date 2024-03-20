@@ -8,7 +8,7 @@ GAMETYPEDICT = {
 
 class Game:
 
-    def __init__(self, gametype: str, ai_directory: AiDirectory) -> None:
+    def __init__(self, ai_directory: AiDirectory) -> None:
         self.ai_directory = ai_directory
         self.ai_directory.run_ai()
 
