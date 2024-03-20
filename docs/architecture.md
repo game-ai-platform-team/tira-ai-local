@@ -1,28 +1,48 @@
-
 # Architecture
-Websocket-based communications occur through App, using socket service. Chess, gomoku, connect4 and othello are subprocesses that run within a Game instance. 
+
+Websocket-based communications occur through App, using socket service. Chess, gomoku, connect4 and othello are subprocesses that run within a Game instance.
 
 ```mermaid
 classDiagram
-    class FrontEnd {
-        Elixir
+    class Electron Main {
+    }
+    class Electron Renderer {
     }
     class App {
     }
-    class Game {
-        Logger logger
-        chess()
-        gomoku()
-        connect4()
-        othello()
+    class MainView {
     }
-    class SocketService {
+    class Board {
+    }
+    class Logs {
+    }
+    class AIForm {
+    }
+
+
+    class Background-service {
+
+    }
+    class Game {
     }
     class Logger {
     }
+    class Chess {
+    }
+    class Game Process {
+    }
 
-    FrontEnd <--> App: Websocket
-    App <--> SocketService: Websocket
-    App --> Game
+
+    Electron Main --> Electron Renderer
+    Electron Main --> Background-service
+    Electron Renderer <..> Background-service: Websocket
+    Electron Renderer --> App
+    App --> MainView
+    MainView *-- Board
+    MainView *-- Logs
+    MainView *-- AIForm
+    Background-service --> Game
     Game *-- Logger
+    Game *-- Chess
+    Game *-- Game Process
 ```
