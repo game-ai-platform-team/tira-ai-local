@@ -24,14 +24,6 @@ export function MyChessboard(props: {
     });
   }
 
-  if (
-    props.pos.isCheckmate() === true ||
-    props.pos.isStalemate() === true ||
-    props.pos.isDead() === true
-  ) {
-    console.log("game over");
-  }
-
   sethandleMovePlayedByAi(handleMovePlayedByAi);
 
   return (

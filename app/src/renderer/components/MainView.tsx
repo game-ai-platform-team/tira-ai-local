@@ -35,9 +35,15 @@ export function MainView() {
       });
   }
 
+  const isGameOver =
+    pos.isCheckmate() === true ||
+    pos.isStalemate() === true ||
+    pos.isDead() === true;
+
   return (
     <div>
       {hasBeenSubmitted && <MyChessboard pos={pos} setPos={setPos} />}
+      {isGameOver && <div>GAME OVER</div>}
       <Logs />
       <button onClick={copyFenToClipboard}>Copy current FEN</button>
       <AIForm handleSubmit={handleSubmit} />
