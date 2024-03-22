@@ -9,19 +9,21 @@ class AiDirectory:
         self.process = None
 
     def run_setup(self):
-        subprocess.run(["bash", "tiraconfig/setup.sh"], cwd = self.ai_path)
+        subprocess.run(["bash", "tiraconfig/setup.sh"], cwd=self.ai_path, check=False)
 
     def run_ai(self):
         runcommand = ""
-        with open(path.join(self.ai_path, "tiraconfig/runcommand")) as command_file:
+        with open(
+            path.join(self.ai_path, "tiraconfig/runcommand"), encoding="utf-8"
+        ) as command_file:
             runcommand = command_file.readline()
         runcommand_array = runcommand.strip().split(" ")
         self.process = subprocess.Popen(
-            args = runcommand_array,
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            stderr = subprocess.PIPE,
-            cwd = self.ai_path,
+            args=runcommand_array,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=self.ai_path,
         )
 
         self.__check_running()
