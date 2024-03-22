@@ -5,23 +5,22 @@ import socket, { sethandleMovePlayedByAi } from "../MySocket";
 
 export function MyChessboard(props: {
   pos: Position;
-  setPos: (Position) => void;
+  addPosition: (Position) => void;
 }) {
   function handleMovePlayed(move: string) {
-    props.setPos((prevState) => {
-      const copy = new Position(prevState);
-      const move_desc = copy.notation(move);
-      socket.emit("move_to_back", copy.uci(move_desc));
-      copy.play(move_desc);
-      return copy;
-    });
+    const copy = new Position(props.pos);
+    console.log(copy.fen());
+    const move_desc = copy.notation(move);
+
+    socket.emit("move_to_back", copy.uci(move_desc));
+    copy.play(move_desc);
+    props.addPosition(copy);
   }
   function handleMovePlayedByAi(move: string) {
-    props.setPos((prevState) => {
-      const copy = new Position(prevState);
-      copy.play(copy.uci(move));
-      return copy;
-    });
+    const copy = new Position(props.pos);
+    console.log(copy.fen());
+    copy.play(copy.uci(move));
+    props.addPosition(copy);
   }
 
   sethandleMovePlayedByAi(handleMovePlayedByAi);

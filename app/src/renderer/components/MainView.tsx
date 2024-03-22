@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Position } from "kokopu";
 
 export function MainView() {
-  const [pos, setPos] = useState(new Position());
+  const [positions, setPositions] = useState([new Position()]);
   const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
   function handleSubmit(
@@ -17,14 +17,14 @@ export function MainView() {
     socket.emit("startgame", filepath, fennotation, runsetup);
     setHasBeenSubmitted(true);
     try {
-      setPos(new Position(fennotation));
+      setPositions([new Position(fennotation)]);
     } catch (error) {
-      setPos(new Position());
+      setPositions([new Position()]);
     }
   }
 
   function copyFenToClipboard() {
-    const fen = pos.fen();
+    const fen = positions[positions.length - 1].fen();
     navigator.clipboard
       .writeText(fen)
       .then(() => {
@@ -35,14 +35,25 @@ export function MainView() {
       });
   }
 
+  function addPosition(position) {
+    setPositions((prevState) => {
+      return prevState.concat(position);
+    });
+  }
+
   const isGameOver =
-    pos.isCheckmate() === true ||
-    pos.isStalemate() === true ||
-    pos.isDead() === true;
+    positions[positions.length - 1].isCheckmate() === true ||
+    positions[positions.length - 1].isStalemate() === true ||
+    positions[positions.length - 1].isDead() === true;
 
   return (
     <div>
-      {hasBeenSubmitted && <MyChessboard pos={pos} setPos={setPos} />}
+      {hasBeenSubmitted && (
+        <MyChessboard
+          pos={positions[positions.length - 1]}
+          addPosition={addPosition}
+        />
+      )}
       {isGameOver && <div>GAME OVER</div>}
       <Logs />
       <button onClick={copyFenToClipboard}>Copy current FEN</button>
