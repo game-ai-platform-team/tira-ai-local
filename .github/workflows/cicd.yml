@@ -63,11 +63,11 @@ jobs:
         run: poetry run invoke build
 
       - name: build app
-        working-directory: ./background-service
+        working-directory: ./app
         run: pnpm run package
 
-      - name: End-toend testing
-        working-directory: ./background-service
+      - name: End-to-end testing
+        working-directory: ./app
         run: pnpm run test:e2e
 
 
