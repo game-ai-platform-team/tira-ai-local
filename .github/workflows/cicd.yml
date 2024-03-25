@@ -41,7 +41,7 @@ jobs:
         run: poetry run invoke test
 
   e2etest:
-    name: Build
+    name: E2E tests
     runs-on: ubuntu-latest
     needs: [ app_unit_test, background_unit_tests ]
 
@@ -69,6 +69,10 @@ jobs:
       - name: build app
         working-directory: ./app
         run: pnpm run package
+
+      - name: log
+        working-directory: ./app
+        run: ls -la ./out/tira-ai-local-linux-x64/resources/app/.webpack/main/
 
       - name: End-to-end testing
         working-directory: ./app
