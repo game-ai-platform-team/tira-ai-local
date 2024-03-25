@@ -7,7 +7,7 @@ def build(ctx):
 
 @task
 def test(ctx):
-    ctx.run("poetry run pytest src/tests --color=yes -n auto", pty=True)
+    ctx.run("poetry run pytest src/tests --color=yes", pty=True)
 
 
 @task
