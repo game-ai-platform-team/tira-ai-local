@@ -70,12 +70,9 @@ jobs:
         working-directory: ./app
         run: pnpm run package
 
-      - name: log
-        working-directory: ./app
-        run: ls -la ./out/tira-ai-local-linux-x64/resources/app/.webpack/main/
 
       - name: End-to-end testing
         working-directory: ./app
-        run: pnpm run test:e2e
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm run test:e2e
 
 
