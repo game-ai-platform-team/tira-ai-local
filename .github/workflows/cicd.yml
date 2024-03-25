@@ -63,12 +63,10 @@ jobs:
         working-directory: ./background-service
         run: poetry run invoke build
 
-      - name: log
-        run: ls -al
 
       - name: build app
         working-directory: ./app
-        run: pnpm run package
+        run: pnpm install && pnpm run package
 
       - name: End-to-end testing
         working-directory: ./app
