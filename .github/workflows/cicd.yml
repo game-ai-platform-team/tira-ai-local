@@ -38,4 +38,4 @@ jobs:
           working-directory: ./background-service
 
       - name: Run unit tests
-        run: poetry invoke run test
+        run: poetry run invoke run test
