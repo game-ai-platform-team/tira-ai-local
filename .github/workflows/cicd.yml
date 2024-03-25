@@ -22,4 +22,20 @@ jobs:
         run: pnpm run test:run
 
 
+  background_unit_tests:
+    name: Background unit tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./background-service
 
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up poetry
+        uses: game-ai-platform-team/setup-poetry@main
+        with:
+          working-directory: ./background-service
+
+      - name: Run unit tests
+        run: poetry invoke run test
