@@ -39,3 +39,38 @@ jobs:
 
       - name: Run unit tests
         run: poetry run invoke test
+
+  e2etest:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [ app_unit_test, background_unit_tests ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up node
+        uses: game-ai-platform-team/setup-node@main
+        with:
+          working-directory: ./app
+
+      - name: Set up poetry
+        uses: game-ai-platform-team/setup-poetry@main
+        with:
+          working-directory: ./background-service
+
+      - name: build background service
+        with:
+          working-directory: ./background-service
+        run: poetry run invoke build
+
+      - name: build app
+        with:
+          working-directory: ./background-service
+        run: pnpm run package
+
+      - name: End-toend testing
+        with:
+          working-directory: ./background-service
+        run: pnpm run test:e2e
+
+
