@@ -53,9 +53,6 @@ jobs:
         with:
           working-directory: ./app
 
-      - name: Install dev dependencies
-        working-directory: ./app
-        run: pnpm install -D
 
       - name: Set up poetry
         uses: game-ai-platform-team/setup-poetry@main
@@ -65,6 +62,10 @@ jobs:
       - name: build background service
         working-directory: ./background-service
         run: poetry run invoke build
+
+      - name: log
+        working-directory: ./app
+        run: ls -al
 
       - name: build app
         working-directory: ./app
