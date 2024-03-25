@@ -64,7 +64,6 @@ jobs:
         run: poetry run invoke build
 
       - name: log
-        working-directory: ./app
         run: ls -al
 
       - name: build app
