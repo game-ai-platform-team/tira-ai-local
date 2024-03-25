@@ -59,18 +59,15 @@ jobs:
           working-directory: ./background-service
 
       - name: build background service
-        with:
-          working-directory: ./background-service
+        working-directory: ./background-service
         run: poetry run invoke build
 
       - name: build app
-        with:
-          working-directory: ./background-service
+        working-directory: ./background-service
         run: pnpm run package
 
       - name: End-toend testing
-        with:
-          working-directory: ./background-service
+        working-directory: ./background-service
         run: pnpm run test:e2e
 
 
