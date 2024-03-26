@@ -14,3 +14,10 @@ class TestSocketService(TestCase):
         msg = "Error in testi: Testi is being executed."
         socket_service.send_log(msg)
         socketio.emit.assert_called_once_with("logs", msg, namespace = "/gameconnection")
+
+    def test_move_to_front(self):
+        socketio = Mock()
+        socket_service = SocketService(socketio)
+        move = "a2a3"
+        socket_service.move_to_front(move)
+        socketio.emit.assert_called_once_with("move_to_front", move, namespace = "/gameconnection")
