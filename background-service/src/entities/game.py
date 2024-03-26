@@ -1,9 +1,4 @@
-from entities.chess_game import Chess
 from entities.ai_directory import AiDirectory
-
-GAMETYPEDICT = {
-    "chess": Chess,
-}
 
 
 class Game:
