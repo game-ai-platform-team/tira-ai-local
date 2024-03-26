@@ -7,7 +7,8 @@
 
 ## App e2e tests
 
-- Install the dependencies using `pnpm install`
+- Install the dependencies using `pnpm install` in app and `poetry install` in background-service
+- Build background-service with ``poetry run invoke build`` and then run `pnpm run package` in app directory.
 - In the app directory run `pnpm run test:e2e`
 
 ## Background-service Unit tests
