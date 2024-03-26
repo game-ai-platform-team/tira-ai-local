@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
+from entities.ai_directory import AiDirectory
 from services.game_service import GameService
 from services.socket_service import SocketService
 
@@ -20,7 +21,8 @@ gameService: GameService = GameService(socketService)
 
 @socketio.on("startgame", namespace = "/gameconnection")
 def io_startgame(project_path, board_position, runsetup):
-    gameService.start_game(project_path, board_position, runsetup)
+    ai_directory = AiDirectory(project_path)
+    gameService.start_game(ai_directory, board_position, runsetup)
 
 
 @socketio.on("move_to_back", namespace = "/gameconnection")

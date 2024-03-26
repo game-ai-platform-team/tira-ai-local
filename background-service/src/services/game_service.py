@@ -9,17 +9,17 @@ class GameService:
         self.socket_service = socket_service
         pass
 
-    def start_game(self, project_path: str, board_position, runsetup):
+    def start_game(self, ai_directory: AiDirectory, board_position, runsetup):
         try:
-            directory = AiDirectory(project_path)
             if runsetup:
-                self.socket_service.send_log(f"Running setup.sh in {project_path}")
-                directory.run_setup()
-            self.game = Game(directory)
+                self.socket_service.send_log(f"Running setup.sh in {ai_directory.ai_path}")
+                ai_directory.run_setup()
+            self.game = Game(ai_directory)
             self.socket_service.send_log(
-                f"Valid path. Running AI opponent in process {directory.get_pid()}\n---------------------------------")
+                f"Valid path. Running AI opponent in process {ai_directory.get_pid()}\n---------------------------------")
         except Exception as e:
             self.socket_service.send_log(f"Error creating game:\n{str(e)}")
+            return
 
         try:
             if board_position != "":
