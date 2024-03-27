@@ -15,32 +15,33 @@
     "test:e2e": "playwright test"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.3.0",
-    "@electron-forge/maker-zip": "^7.3.0",
-    "@electron-forge/plugin-webpack": "^7.3.0",
-    "@testing-library/react": "^14.2.1",
-    "@types/node": "^20.11.25",
-    "@types/react": "^18.2.64",
-    "@types/react-dom": "^18.2.21",
+    "@electron-forge/cli": "^7.3.1",
+    "@electron-forge/maker-zip": "^7.3.1",
+    "@electron-forge/plugin-webpack": "^7.3.1",
+    "@testing-library/react": "^14.2.2",
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.72",
+    "@types/react-dom": "^18.2.22",
     "@types/webpack": "^5.28.5",
     "@types/webpack-dev-server": "^4.7.2",
     "copyfiles": "^2.4.1",
     "css-loader": "^6.10.0",
-    "electron": "^29.1.0",
+    "electron": "^29.1.5",
     "jsdom": "^24.0.0",
     "playwright": "^1.42.1",
     "react": "^18.2.0",
     "style-loader": "^3.3.4",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.3"
   },
   "dependencies": {
+    "connect-four-board": "^0.2.5",
     "copy-webpack-plugin": "^12.0.2",
-    "kokopu": "^4.9.2",
+    "kokopu": "^4.10.0",
     "kokopu-react": "^3.1.0",
     "react-dom": "^18.2.0",
-    "socket.io-client": "^4.7.4",
+    "socket.io-client": "^4.7.5",
     "vitest": "^1.4.0"
   }
 }
