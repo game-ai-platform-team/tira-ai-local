@@ -64,7 +64,7 @@ class AiDirectory:
         self.process.stdin.flush()
 
     def board(self, position):
-        self.process.stdin.write(f"BOARD:{position}\n")
+        self.process.stdin.write(f"BOARD:{position}\n".encode("utf-8"))
         self.process.stdin.flush()
 
     def move(self, move):
