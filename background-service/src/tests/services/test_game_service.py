@@ -18,7 +18,7 @@ class TestGameService(TestCase):
     def test_start_game_fails(self):
         ai_directory = Mock()
         exception = Exception("Fail :--DDDD")
-        ai_directory.run_ai = Mock(side_effect = exception)
+        ai_directory.run_ai = Mock(side_effect=exception)
         socket_service = Mock()
         game_service = GameService(socket_service)
 
@@ -49,7 +49,7 @@ class TestGameService(TestCase):
         ai_directory = Mock()
 
         exception = RuntimeError("Fail :--DDDD")
-        ai_directory.play = Mock(side_effect = exception)
+        ai_directory.play = Mock(side_effect=exception)
 
         socket_service = Mock()
         game_service = GameService(socket_service)
@@ -59,3 +59,30 @@ class TestGameService(TestCase):
 
         log = str(exception) + "\n---------------------------------"
         socket_service.send_log.assert_called_with(log)
+
+    def test_set_board_works(self):
+        ai_move = "a7a5"
+
+        ai_directory = Mock()
+        ai_directory.play.return_value = ai_move, []
+        socket_service = Mock()
+        game_service = GameService(socket_service)
+        game_service.start_game(ai_directory, "", False)
+        position = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
+        game_service.set_board(position)
+
+        ai_directory.board.assert_called_once_with(position)
+
+    def test_set_board_fails(self):
+        ai_move = "a7a5"
+        exception = "Setting board with rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1 failed: \n Fail :--DDDD"
+        ai_directory = Mock()
+        ai_directory.play.return_value = ai_move, []
+        socket_service = Mock()
+        game_service = GameService(socket_service)
+        game_service.start_game(ai_directory, "", False)
+        position = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
+        ai_directory.board = Mock(side_effect=Exception("Fail :--DDDD"))
+        game_service.set_board(position)
+
+        socket_service.send_log.assert_called_with(exception)
