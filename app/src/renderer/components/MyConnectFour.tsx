@@ -1,10 +1,13 @@
 import { CFourUIPlayable } from "connect-four-board";
 
-export function MyConnectFour(props) {
-    const gameMoves = [];
-
-    function playMove(move) {
-        gameMoves.push(move);
+export function MyConnectFour(props: {
+    moves: number[];
+    boardIndex: number;
+    onMovePlayed;
+    active: boolean;
+}) {
+    function playMove(move: number) {
+        props.onMovePlayed(move);
     }
 
     return (
@@ -12,8 +15,10 @@ export function MyConnectFour(props) {
             <CFourUIPlayable
                 rows={6}
                 columns={7}
-                gameMoves={gameMoves}
+                gameMoves={props.moves}
                 playMove={playMove}
+                move_index={props.boardIndex}
+                active={props.active}
             />
         </div>
     );

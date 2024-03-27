@@ -1,9 +1,35 @@
 import { createRoot } from "react-dom/client";
-import { MainView } from "./components/MainView";
+import { GameSelector } from "./components/GameSelector";
+import { ChessView } from "./components/ChessView";
+import { CFourView } from "./components/CFourView";
+import { useState } from "react";
+
+function App() {
+    const [selectedGame, setSelectedGame] = useState<string | null>(null);
+
+    const handleGameSelection = (game: string) => {
+        setSelectedGame(game);
+    };
+
+    const handleGameDeselection = () => {
+        setSelectedGame(null);
+    };
+
+    return (
+        <div>
+            {selectedGame ? (
+                <div>
+                    {selectedGame === "chess" ? <ChessView /> : <CFourView />}
+                    <button onClick={handleGameDeselection}>Change Game</button>
+                </div>
+            ) : (
+                <GameSelector onSelect={handleGameSelection} />
+            )}
+        </div>
+    );
+}
 
 export function render() {
-  const root = createRoot(document.getElementById("root"));
-  root.render(
-    <MainView/>
-  );
+    const root = createRoot(document.getElementById("root"));
+    root.render(<App />);
 }
