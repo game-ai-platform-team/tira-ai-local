@@ -7,6 +7,7 @@ import { Position } from "kokopu";
 
 export function MainView() {
   const [positions, setPositions] = useState([new Position()]);
+  const [boardIndex, setBoardIndex] = useState(0);
   const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
   function handleSubmit(
@@ -15,6 +16,7 @@ export function MainView() {
     runsetup: boolean
   ) {
     socket.emit("startgame", filepath, fennotation, runsetup);
+    setBoardIndex(0);
     setHasBeenSubmitted(true);
     try {
       setPositions([new Position(fennotation)]);
@@ -24,7 +26,7 @@ export function MainView() {
   }
 
   function copyFenToClipboard() {
-    const fen = positions[positions.length - 1].fen();
+    const fen = positions[boardIndex].fen();
     navigator.clipboard
       .writeText(fen)
       .then(() => {
@@ -37,23 +39,46 @@ export function MainView() {
 
   function addPosition(position) {
     setPositions((prevState) => {
-      return prevState.concat(position);
+      const sliced = prevState.slice(0, boardIndex + 1);
+      setBoardIndex(boardIndex + 1);
+      console.log(sliced);
+      console.log(boardIndex);
+      return sliced.concat(position);
     });
   }
 
+  function handlePrevMoveButton() {
+    if (boardIndex > 0) {
+      socket.emit("set_board", positions[boardIndex - 1].fen());
+      setBoardIndex(boardIndex - 1);
+    }
+  }
+
+  function handleNextMoveButton() {
+    if (boardIndex < positions.length - 1) {
+      socket.emit("set_board", positions[boardIndex + 1].fen());
+      setBoardIndex(boardIndex + 1);
+    }
+  }
+
   const isGameOver =
-    positions[positions.length - 1].isCheckmate() === true ||
-    positions[positions.length - 1].isStalemate() === true ||
-    positions[positions.length - 1].isDead() === true;
+    positions[boardIndex].isCheckmate() === true ||
+    positions[boardIndex].isStalemate() === true ||
+    positions[boardIndex].isDead() === true;
 
   return (
     <div>
       {hasBeenSubmitted && (
-        <MyChessboard
-          pos={positions[positions.length - 1]}
-          addPosition={addPosition}
-        />
+        <>
+          <MyChessboard pos={positions[boardIndex]} addPosition={addPosition} />
+
+          <div>
+            <button onClick={handlePrevMoveButton}>{"<"}</button>
+            <button onClick={handleNextMoveButton}>{">"}</button>
+          </div>
+        </>
       )}
+
       {isGameOver && <div>GAME OVER</div>}
       <Logs />
       <button onClick={copyFenToClipboard}>Copy current FEN</button>

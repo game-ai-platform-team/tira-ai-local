@@ -70,6 +70,7 @@ class AiDirectory:
     def move(self, move):
         self.__check_running()
         self.process.stdin.write(f"MOVE:{move}\n".encode("utf-8"))
+        self.process.stdin.flush()
 
     def get_pid(self):
         return self.process.pid
