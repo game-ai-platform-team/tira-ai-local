@@ -6,7 +6,7 @@ test('field form', async () => {
         timeout: 60000
     })
   const window = await electronApp.firstWindow();
-
+  window.getByText("Chess").click()
   await window.locator("#fileinput").fill("/")
   await window.locator("#feninput").fill("")
   await window.locator("#submit").click()
@@ -18,7 +18,8 @@ test('launch app', async () => {
         timeout: 60000
     })
     const window = await electronApp.firstWindow({timeout: 60000});
-    await expect(window.locator("#submit")).toBeVisible();
+    
+    await expect(window.getByText("Select Game")).toBeVisible();
     // close app
     await electronApp.close()
 })
