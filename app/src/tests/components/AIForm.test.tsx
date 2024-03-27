@@ -10,7 +10,7 @@ describe('In AIForm, there is', () => {
     test("submit button", () => {
 
         const rendered = render(<AIForm handleSubmit={() => {
-        }}/>);
+        }} showFen={true} />);
 
         console.log(rendered)
 
@@ -21,14 +21,14 @@ describe('In AIForm, there is', () => {
     });
     test("a field for ai path", () => {
         const {container} = render(<AIForm handleSubmit={() => {
-        }}/>);
+        }} showFen={true}/>);
         const fileInput = container.querySelector("#fileinput");
         expect(fileInput).not.toBeNull();
 
     });
     test("a field for FEN notation", () => {
         const {container} = render(<AIForm handleSubmit={() => {
-        }}/>);
+        }} showFen={true}/>);
         const fenInput = container.querySelector("#feninput");
         expect(fenInput).not.toBeNull();
     });

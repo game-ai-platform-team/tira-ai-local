@@ -85,7 +85,7 @@ export function ChessView() {
             {isGameOver && <div>GAME OVER</div>}
             <Logs />
             <button onClick={copyFenToClipboard}>Copy current FEN</button>
-            <AIForm handleSubmit={handleSubmit} />
+            <AIForm handleSubmit={handleSubmit} showFen={true}/>
         </div>
     );
 }

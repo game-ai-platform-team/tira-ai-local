@@ -67,7 +67,7 @@ export function CFourView() {
             </div>
             {isGameOver && <div>GAME OVER</div>}
             <Logs />
-            <AIForm handleSubmit={handleSubmit} />
+            <AIForm handleSubmit={handleSubmit} showFen={false}/>
         </div>
     );
 }
