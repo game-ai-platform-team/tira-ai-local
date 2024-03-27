@@ -24,8 +24,13 @@ export function Logs() {
         };
     }, [logs]);
 
+    function sendEmptyMove() {
+        socket.emit("move_to_back", "");
+    }
+
     return (
         <div>
+            <button onClick={sendEmptyMove}>PLAY</button>
             <textarea
                 ref={textareaRef}
                 value={logs.join('\n')}

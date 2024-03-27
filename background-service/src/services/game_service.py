@@ -7,7 +7,6 @@ class GameService:
     def __init__(self, socket_service: SocketService):
         self.game: Game | None = None
         self.socket_service = socket_service
-        pass
 
     def start_game(self, ai_directory: AiDirectory, board_position, runsetup):
         try:
@@ -41,6 +40,12 @@ class GameService:
 
         if self.game is None:
             raise ValueError("No game detected")
+
+        if move == "":
+            output, logs = self.game.get_move()
+            self.socket_service.move_to_front(output)
+            self.socket_service.send_log("\n".join(logs))
+            return
 
         self.game.add_move(move)
 

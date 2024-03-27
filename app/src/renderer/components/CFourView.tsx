@@ -8,7 +8,7 @@ import CFourParser from "./CFourParser";
 
 export function CFourView() {
     const [boardIndex, setBoardIndex] = useState(-1);
-    const [moves, setMoves] = useState([])
+    const [moves, setMoves] = useState([]);
     const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
     function handleSubmit(
@@ -18,22 +18,22 @@ export function CFourView() {
     ) {
         socket.emit("startgame", filepath, fennotation, runsetup);
         setBoardIndex(0);
-        setMoves([])
+        setMoves([]);
         setHasBeenSubmitted(true);
     }
 
     function handleMovePlayedByAi(move: string) {
         if (!isGameOver) {
-            moves.push(parseInt(move))
-            setBoardIndex(boardIndex + 1)
+            moves.push(parseInt(move));
+            setBoardIndex(boardIndex + 1);
         }
     }
 
     function handleMovePlayed(move: string) {
         socket.emit("move_to_back", move);
-        moves.push(move)
-        setBoardIndex(boardIndex + 1)
-      }
+        moves.push(move);
+        setBoardIndex(boardIndex + 1);
+    }
 
     sethandleMovePlayedByAi(handleMovePlayedByAi);
 
@@ -49,9 +49,8 @@ export function CFourView() {
         }
     }
 
-    const boardmatrix = CFourParser({moves, boardIndex})
-    const isGameOver = (checkForWin(boardmatrix) || moves.length >= 42);
-
+    const boardmatrix = CFourParser({ moves, boardIndex });
+    const isGameOver = checkForWin(boardmatrix) || moves.length >= 42;
 
     return (
         <div>
@@ -67,7 +66,7 @@ export function CFourView() {
             </div>
             {isGameOver && <div>GAME OVER</div>}
             <Logs />
-            <AIForm handleSubmit={handleSubmit} showFen={false}/>
+            <AIForm handleSubmit={handleSubmit} showFen={false} />
         </div>
     );
 }
