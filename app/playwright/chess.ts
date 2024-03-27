@@ -1,5 +1,17 @@
 import {test, expect, _electron as electron} from 'playwright/test'
 
+test('field form', async () => {
+    const electronApp = await electron.launch({
+        args: ["./out/tira-ai-local-linux-x64/resources/app/.webpack/main/index.js"],
+        timeout: 60000
+    })
+  const window = await electronApp.firstWindow();
+
+  await window.locator("#fileinput").fill("/")
+  await window.locator("#feninput").fill("")
+  await window.locator("#submit").click()
+  await electronApp.close()
+})
 test('launch app', async () => {
     const electronApp = await electron.launch({
         args: ["./out/tira-ai-local-linux-x64/resources/app/.webpack/main/index.js"],
