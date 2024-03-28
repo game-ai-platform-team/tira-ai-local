@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { GameSelector } from "./components/GameSelector";
-import { ChessView } from "./components/ChessView";
-import { CFourView } from "./components/CFourView";
+import { ChessView } from "./components/chess/ChessView";
+import { CFourView } from "./components/cfour/CFourView";
 import { useState } from "react";
 
 function App() {

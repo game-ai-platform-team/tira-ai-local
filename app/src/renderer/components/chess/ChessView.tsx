@@ -1,7 +1,7 @@
-import AIForm from "./AIForm";
+import AIForm from "../AIForm";
 import { MyChessboard } from "./MyChessboard";
-import { Logs } from "./Logs";
-import socket from "../MySocket";
+import { Logs } from "../Logs";
+import socket from "../../MySocket";
 import { useState } from "react";
 import { Position } from "kokopu";
 

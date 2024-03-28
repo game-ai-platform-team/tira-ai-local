@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
-import { ChessView } from "./ChessView";
-import { CFourView } from "./CFourView";
+import { ChessView } from "./chess/ChessView";
+import { CFourView } from "./cfour/CFourView";
 
 export function GameSelector({ onSelect }) {
     const [selectedGame, setSelectedGame] = useState(null);

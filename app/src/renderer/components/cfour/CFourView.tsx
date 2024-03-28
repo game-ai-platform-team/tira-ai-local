@@ -1,8 +1,8 @@
 import { MyConnectFour } from "./MyConnectFour";
-import { Logs } from "./Logs";
-import AIForm from "./AIForm";
+import { Logs } from "../Logs";
+import AIForm from "../AIForm";
 import { useState } from "react";
-import socket, { sethandleMovePlayedByAi } from "../MySocket";
+import socket, { sethandleMovePlayedByAi } from "../../MySocket";
 import checkForWin from "./CFourWinChecker";
 import CFourParser from "./CFourParser";
 

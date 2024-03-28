@@ -1,8 +1,7 @@
 // @vitest-environment jsdom
 
 import {test, describe, expect} from "vitest";
-import checkForWin from "../../renderer/components/CFourWinChecker";
-
+import checkForWin from "../../../renderer/components/cfour/CFourWinChecker";
 
 describe("CFourWinChecker", () => {
     test("empty board", () => {

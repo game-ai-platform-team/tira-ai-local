@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import {test, describe, expect} from "vitest";
-import CFourParser from "../../renderer/components/CFourParser";
+import CFourParser from "../../../renderer/components/cfour/CFourParser";
 
 describe("CFourParser", () => {
     test("renders a 7x6 grid with initial values of 0", () => {

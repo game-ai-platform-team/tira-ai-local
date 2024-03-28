@@ -1,7 +1,7 @@
 import { Chessboard } from "kokopu-react";
 import { useState } from "react";
 import { Position, Game } from "kokopu";
-import socket, { sethandleMovePlayedByAi } from "../MySocket";
+import socket, { sethandleMovePlayedByAi } from "../../MySocket";
 
 export function MyChessboard(props: {
   pos: Position;
