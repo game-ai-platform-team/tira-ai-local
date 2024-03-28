@@ -1,6 +1,5 @@
 // @vitest-environment jsdom
 
-import React from "react";
 import {test, describe, expect} from "vitest";
 import CFourParser from "../../renderer/components/CFourParser";
 
@@ -32,6 +31,30 @@ describe("CFourParser", () => {
             [0, 0, 0, 0, 0, 1],
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
+        ]);
+    });
+
+    test("adds 42 moves correctly to the board", () => {
+        const moves: number[] = 
+        [
+            0, 1, 0, 1, 0, 1, 
+            1, 0, 1, 0, 1, 0, 
+            2, 3, 2, 3, 2, 3, 
+            3, 2, 3, 2, 3, 2,
+            4, 5, 4, 5, 4, 5, 
+            5, 4, 5, 4, 5, 4, 
+            6, 6, 6, 6, 6, 6
+        ];
+        const boardIndex: number = 42;
+        const board = CFourParser({moves, boardIndex})
+        expect(board).toEqual([
+            [2, 2, 2, 1, 1, 1],
+            [1, 1, 1, 2, 2, 2],
+            [2, 2, 2, 1, 1, 1],
+            [1, 1, 1, 2, 2, 2],
+            [2, 2, 2, 1, 1, 1],
+            [1, 1, 1, 2, 2, 2],
+            [2, 1, 2, 1, 2, 1],
         ]);
     });
 
