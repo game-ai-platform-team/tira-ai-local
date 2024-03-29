@@ -66,12 +66,12 @@ export function CFourView() {
             <button onClick={handlePrevMoveButton}>{"<"}</button>
             <button onClick={handleNextMoveButton}>{">"}</button>
           </div>
-
-          {isGameOver && <div>GAME OVER</div>}
+          <div>Turn {boardIndex}</div>
         </>
       )}
+      {isGameOver && <div>GAME OVER</div>}
       <Logs />
-      <AIForm handleSubmit={handleSubmit} showFen={false} />
+      <AIForm handleSubmit={handleSubmit} showFen={false} formId="formC4" />
     </div>
   );
 }
