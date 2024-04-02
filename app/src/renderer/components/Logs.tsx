@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import socket from "../MySocket";
+import { PlayButton } from "./PlayButton";
 
 export function Logs() {
     const [logs, setLogs] = useState([]);
@@ -7,7 +8,7 @@ export function Logs() {
 
     function handleNewLogs(newLog) {
         const timestamp = new Date().toLocaleTimeString();
-        setLogs(prevLogs => [...prevLogs, `${timestamp}: ${newLog}`]);
+        setLogs((prevLogs) => [...prevLogs, `${timestamp}: ${newLog}`]);
     }
 
     useEffect(() => {
@@ -24,18 +25,14 @@ export function Logs() {
         };
     }, [logs]);
 
-    function sendEmptyMove() {
-        socket.emit("move_to_back", "");
-    }
-
     return (
         <div>
-            <button onClick={sendEmptyMove}>PLAY</button>
+            <PlayButton></PlayButton>
             <textarea
                 ref={textareaRef}
-                value={logs.join('\n')}
+                value={logs.join("\n")}
                 readOnly
-                style={{ width: '100%', height: '200px', overflowY: 'scroll' }}
+                style={{ width: "100%", height: "200px", overflowY: "scroll" }}
             />
         </div>
     );

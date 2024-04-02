@@ -26,8 +26,8 @@ def io_startgame(project_path, board_position, runsetup):
 
 
 @socketio.on("move_to_back", namespace="/gameconnection")
-def io_move_to_back(move):
-    gameService.move_to_back(move)
+def io_move_to_back(move, return_move):
+    gameService.move_to_back(move, return_move)
 
 
 @socketio.on("set_board", namespace="/gameconnection")
