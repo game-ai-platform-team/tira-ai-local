@@ -37,7 +37,7 @@ class TestGameService(TestCase):
         game_service = GameService(socket_service)
         game_service.start_game(ai_directory, "", False)
 
-        game_service.move_to_back(player_move)
+        game_service.move_to_back(player_move, True)
 
         ai_directory.move.assert_called_once_with(player_move)
         socket_service.move_to_front.assert_called_once_with(ai_move)
@@ -55,7 +55,7 @@ class TestGameService(TestCase):
         game_service = GameService(socket_service)
         game_service.start_game(ai_directory, "", False)
 
-        game_service.move_to_back(player_move)
+        game_service.move_to_back(player_move, True)
 
         log = str(exception) + "\n---------------------------------"
         socket_service.send_log.assert_called_with(log)
