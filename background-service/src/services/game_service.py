@@ -45,7 +45,7 @@ class GameService:
         if move == "" and return_move:
             output, logs = self.game.get_move()
             self.socket_service.move_to_front(output)
-            self.socket_service.send_log(f"{"\n".join(logs)}\n---------------------------------")
+            self.socket_service.send_log(f"{'\n'.join(logs)}\n---------------------------------")
             return
 
         self.game.add_move(move)
