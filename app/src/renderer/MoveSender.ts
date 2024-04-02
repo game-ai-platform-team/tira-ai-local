@@ -1,4 +1,4 @@
-import socket from "../MySocket";
+import socket from "./MySocket";
 
 let returnMove = true;
 export function sendMove(move: string) {
@@ -24,6 +24,10 @@ export function startGame(
         fennotation ? fennotation != undefined : "",
         runsetup
     );
+}
+
+export function sendBoardFen(fen: string) {
+    socket.emit("set_board", fen)
 }
 
 export function killProcess() {

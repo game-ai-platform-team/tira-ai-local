@@ -4,7 +4,7 @@ import AIForm from "../AIForm";
 import { useState } from "react";
 import checkForWin from "./CFourWinChecker";
 import CFourParser from "./CFourParser";
-import { sendMove, sethandleMovePlayedByAi, startGame } from "../MoveSender";
+import { sendMove, sethandleMovePlayedByAi, startGame } from "../../MoveSender";
 
 export function CFourView() {
     const [boardIndex, setBoardIndex] = useState(-1);

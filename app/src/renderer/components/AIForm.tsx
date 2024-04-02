@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { killProcess } from "./MoveSender";
+import { killProcess } from "../MoveSender";
 
 function AIForm(props: {
     handleSubmit: (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sendEmpty, setReturnMove } from "./MoveSender";
+import { sendEmpty, setReturnMove } from "../MoveSender";
 
 export const PlayButton = () => {
     const [autoSendMove, setAutoSendMove] = useState(false);

@@ -9,7 +9,9 @@ class GameService:
         self.socket_service = socket_service
 
     def start_game(self, ai_directory: AiDirectory, board_position, runsetup):
-        self.socket_service.send_log(f"Starting AI process from {ai_directory.ai_path}...")
+        self.socket_service.send_log(
+            f"Starting AI process from {ai_directory.ai_path}..."
+        )
         try:
             if runsetup:
                 self.socket_service.send_log(
@@ -45,7 +47,9 @@ class GameService:
         if move == "" and return_move:
             output, logs = self.game.get_move()
             self.socket_service.move_to_front(output)
-            self.socket_service.send_log("\n".join(logs) + "\n---------------------------------")
+            self.socket_service.send_log(
+                "\n".join(logs) + "\n---------------------------------"
+            )
             return
 
         self.game.add_move(move)
@@ -62,16 +66,21 @@ class GameService:
                 f"{output}:\n{logs_lined}\n---------------------------------"
             )
             if error != "":
-                self.socket_service.send_log(error + "\n---------------------------------")
+                self.socket_service.send_log(
+                    error + "\n---------------------------------"
+                )
 
     def set_board(self, board_position):
+        self.socket_service.send_log(f"Setting AI board to {board_position}")
         try:
             self.game.set_board(board_position)
         except Exception as e:
             self.socket_service.send_log(
-                f"Setting board with {board_position} failed: \n {str(e)}"
+                f"Setting board failed: \n {str(e)}"
             )
 
     def kill_process(self):
         return_code = self.game.kill()
-        self.socket_service.send_log(f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}")
+        self.socket_service.send_log(
+            f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}"
+        )
