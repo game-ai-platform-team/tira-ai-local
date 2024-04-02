@@ -75,7 +75,7 @@ class TestGameService(TestCase):
 
     def test_set_board_fails(self):
         ai_move = "a7a5"
-        exception = "Setting board with rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1 failed: \n Fail :--DDDD"
+        exception = "Setting board failed: \n Fail :--DDDD"
         ai_directory = Mock()
         ai_directory.play.return_value = ai_move, []
         socket_service = Mock()
