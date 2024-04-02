@@ -9,7 +9,7 @@ class GameService:
         self.socket_service = socket_service
 
     def start_game(self, ai_directory: AiDirectory, board_position, runsetup):
-        self.socket_service.send_log(f"Starting AI process in {ai_directory.ai_path}...")
+        self.socket_service.send_log(f"Starting AI process from {ai_directory.ai_path}...")
         try:
             if runsetup:
                 self.socket_service.send_log(
