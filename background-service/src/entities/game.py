@@ -21,3 +21,6 @@ class Game:
 
     def get_pid(self):
         return self.ai_directory.get_pid()
+
+    def kill(self):
+        return self.ai_directory.kill_process()

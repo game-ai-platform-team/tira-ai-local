@@ -71,3 +71,7 @@ class GameService:
             self.socket_service.send_log(
                 f"Setting board with {board_position} failed: \n {str(e)}"
             )
+
+    def kill_process(self):
+        return_code = self.game.kill()
+        self.socket_service.send_log(f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}")

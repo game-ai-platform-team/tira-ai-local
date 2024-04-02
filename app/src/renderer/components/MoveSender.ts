@@ -26,6 +26,10 @@ export function startGame(
     );
 }
 
+export function killProcess() {
+    socket.emit("kill")
+}
+
 let handleMovePlayedByAi = undefined;
 export function sethandleMovePlayedByAi(func) {
     handleMovePlayedByAi = func;

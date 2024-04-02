@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { killProcess } from "./MoveSender";
 
 function AIForm(props: {
     handleSubmit: (
@@ -51,6 +52,7 @@ function AIForm(props: {
                     value={"" + runSetup}
                 />
             </form>
+            <button onClick={killProcess}>Kill Process</button>
         </div>
     );
 }

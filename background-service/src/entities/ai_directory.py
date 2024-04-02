@@ -28,6 +28,10 @@ class AiDirectory:
 
         self.__check_running()
 
+    def kill_process(self):
+        self.process.kill()
+        return self.process.wait()
+
     def __raise_runtime_error(self):
         raise RuntimeError(
             f"Process {self.process.pid} failed with return code "
