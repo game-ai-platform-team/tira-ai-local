@@ -15,9 +15,9 @@ export function ChessView() {
     const [moves, setMoves] = useState([]);
     const [halfMoves, setHalfMoves] = useState([]);
 
-	const fullMoves = (index: number) => {
-		return Math.floor(index / 2) + 1
-	}
+    const fullMoves = (index: number) => {
+        return Math.floor(index / 2) + 1;
+    };
 
     function handleSubmit(
         filepath: string,
@@ -27,6 +27,8 @@ export function ChessView() {
         socket.emit("startgame", filepath, fennotation, runsetup);
         setBoardIndex(0);
         setHasBeenSubmitted(true);
+		const fenList = fennotation.split(" ")
+		setHalfMoves([parseInt(fenList[4])])
         setMoves([]);
         try {
             setPositions([new Position(fennotation)]);
@@ -58,7 +60,9 @@ export function ChessView() {
             const slicedMoves = prevMoves.slice(0, boardIndex);
             return slicedMoves.concat(move);
         });
-        console.log(createPGNString(moves, createFen(0), fullMoves(boardIndex)));
+        console.log(
+            createPGNString(moves, createFen(0), fullMoves(boardIndex))
+        );
     }
 
     function handlePrevMoveButton() {
@@ -78,7 +82,6 @@ export function ChessView() {
     }
 
     function createFen(index: number) {
-        console.log(positions);
         const fen = positions[index].fen({
             fiftyMoveClock: halfMoves[index - 1],
             fullMoveNumber: fullMoves(index),
@@ -87,13 +90,10 @@ export function ChessView() {
     }
 
     function updateHalfMoveCounter(move: MoveDescriptor) {
-        if (
-            (move.movingPiece() === "p" || !move.isCapture()) &&
-            boardIndex > 0
-        ) {
-            halfMoves[boardIndex] = halfMoves[boardIndex - 1] + 1;
+        if (move.movingPiece() === "p" || move.isCapture()) {
+            halfMoves[boardIndex + 1] = 0;
         } else {
-            halfMoves[boardIndex] = 0;
+            halfMoves[boardIndex + 1] = halfMoves[boardIndex] + 1;
         }
     }
 
@@ -110,6 +110,7 @@ export function ChessView() {
                     <MyChessboard
                         pos={positions[boardIndex]}
                         addPosition={addPosition}
+						active={!isGameOver}
                     />
 
                     <div>
