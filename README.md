@@ -54,7 +54,7 @@ See the [example project](https://github.com/game-ai-platform-team/stupid-chess-
 
 ### AI Configuration
 
-To make your AI project usable with this program, it should have the following directory structure
+To make your AI project usable with this program, it should have the following directory structure:
 
 ```
 /root
@@ -80,7 +80,7 @@ python3 src/main.py
 
 This shell script is used to set up your AI. It should contain the command to install the dependencies of your AI. `setup.sh` is executed when the "Run setup.sh?" option is toggled on.
 
-You only need to use it for the first time you are runing your AI.
+Note: You only need to run `setup.sh` when you are running your AI for the first time.
 
 If your python AI uses poetry for dependency management, your `setup.sh`, would look like this:
 
@@ -88,7 +88,7 @@ If your python AI uses poetry for dependency management, your `setup.sh`, would 
 poetry install
 ```
 
-Note that you might also need to change `runcommand`. When using poetry, the run command would be:
+Note: You might also need to change `runcommand`. When using poetry, the command would be:
 
 ```bash
 poetry run python3 src/main.py
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
 ### AI Communication Protocol (Input)
 
-The program communicates with your AI using the stardard pipe (command line). Your AI should read these commands like it would read any other input from the command line. For example, in python, you would read the commands using `input()`.
+The program communicates with your AI using the standard pipe (command line). Your AI should read these commands like it would read any other input from the command line. For example, in python, you would read the commands using `input()`.
 
 Each command is given in the following format:
 
@@ -169,7 +169,7 @@ The program will read your AI's ouput from the standard pipe (command line). Sim
 
 There is only one tag for output, `MOVE:`, and it is used like in input. To return a move to the program, when given a `PLAY`-tag, your AI should write `MOVE:<move>` to the command line. All outputs to console that do not begin with `MOVE:` will be displayed in the log box of the program.
 
-Note: You will need a newline `\n` at the end of your data. In python this is inserted automatically at the end of each `print` statement
+Note: You will need a newline `\n` at the end of your data. In python this is inserted automatically at the end of each `print` statement.
 
 #### Example
 ```python
