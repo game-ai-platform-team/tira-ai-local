@@ -5,31 +5,31 @@ import { CFourView } from "./components/cfour/CFourView";
 import { useState } from "react";
 
 function App() {
-    const [selectedGame, setSelectedGame] = useState<string | null>(null);
+  const [selectedGame, setSelectedGame] = useState<string | null>(null);
 
-    const handleGameSelection = (game: string) => {
-        setSelectedGame(game);
-    };
+  const handleGameSelection = (game: string) => {
+    setSelectedGame(game);
+  };
 
-    const handleGameDeselection = () => {
-        setSelectedGame(null);
-    };
+  const handleGameDeselection = () => {
+    setSelectedGame(null);
+  };
 
-    return (
+  return (
+    <div>
+      {selectedGame ? (
         <div>
-            {selectedGame ? (
-                <div>
-                    {selectedGame === "chess" ? <ChessView /> : <CFourView />}
-                    <button onClick={handleGameDeselection}>Change Game</button>
-                </div>
-            ) : (
-                <GameSelector onSelect={handleGameSelection} />
-            )}
+          <GameSelector onSelect={handleGameSelection} />
+          {selectedGame === "chess" ? <ChessView /> : <CFourView />}
         </div>
-    );
+      ) : (
+        <GameSelector onSelect={handleGameSelection} />
+      )}
+    </div>
+  );
 }
 
 export function render() {
-    const root = createRoot(document.getElementById("root"));
-    root.render(<App />);
+  const root = createRoot(document.getElementById("root"));
+  root.render(<App />);
 }
