@@ -3,10 +3,11 @@ import { AbstractNode, Game, MoveDescriptor, Position, pgnWrite } from "kokopu";
 
 export function createPGNString(
     moves: MoveDescriptor[],
+    startingFen?: string,
     whiteName?: string,
     blackName?: string,
     whiteElo?: number,
-    blackElo?: number
+    blackElo?: number,
 ) {
     const game = new Game();
     game.date(new Date());
@@ -16,7 +17,7 @@ export function createPGNString(
     game.playerElo("w", whiteElo);
     game.playerElo("b", blackElo);
 
-    const position = new Position("start");
+    const position = new Position(startingFen === undefined ? "start" : startingFen);
 
     let current: AbstractNode = game.mainVariation();
     for (let i = 0; i < moves.length; i++) {

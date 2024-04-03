@@ -54,7 +54,7 @@ export function ChessView() {
             const slicedMoves = prevMoves.slice(0, boardIndex);
             return slicedMoves.concat(move);
         });
-        console.log(createPGNString(moves));
+        console.log(createPGNString(moves, createFen(0)));
     }
 
     function handlePrevMoveButton() {
