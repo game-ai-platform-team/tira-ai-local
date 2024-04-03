@@ -15,6 +15,10 @@ export function ChessView() {
     const [moves, setMoves] = useState([]);
     const [halfMoves, setHalfMoves] = useState([]);
 
+	const fullMoves = (index: number) => {
+		return Math.floor(index / 2) + 1
+	}
+
     function handleSubmit(
         filepath: string,
         fennotation: string,
@@ -54,7 +58,7 @@ export function ChessView() {
             const slicedMoves = prevMoves.slice(0, boardIndex);
             return slicedMoves.concat(move);
         });
-        console.log(createPGNString(moves, createFen(0)));
+        console.log(createPGNString(moves, createFen(0), fullMoves(boardIndex)));
     }
 
     function handlePrevMoveButton() {
@@ -75,10 +79,9 @@ export function ChessView() {
 
     function createFen(index: number) {
         console.log(positions);
-        const fullMoves = Math.floor(index / 2) + 1;
-        const fen = positions[boardIndex].fen({
+        const fen = positions[index].fen({
             fiftyMoveClock: halfMoves[index - 1],
-            fullMoveNumber: fullMoves,
+            fullMoveNumber: fullMoves(index),
         });
         return fen;
     }
