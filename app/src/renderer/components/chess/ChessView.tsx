@@ -125,12 +125,14 @@ export function ChessView() {
 
           <div>
             <button
+              id="classic-button"
               onClick={handlePrevMoveButton}
               data-testid="prev-move-button"
             >
               {"<"}
             </button>
             <button
+              id="classic-button"
               onClick={handleNextMoveButton}
               data-testid="next-move-button"
             >
@@ -143,8 +145,12 @@ export function ChessView() {
 
       {isGameOver && <div>GAME OVER</div>}
       <Logs />
-      <button onClick={copyFenToClipboard}>Copy current FEN</button>
-      <button onClick={exportPgn}>Copy current PGN</button>
+      <button id="classic-button" onClick={copyFenToClipboard}>
+        Copy current FEN
+      </button>
+      <button id="classic-button" onClick={exportPgn}>
+        Copy current PGN
+      </button>
       <AIForm handleSubmit={handleSubmit} showFen={true} formId="formChess" />
     </div>
   );
