@@ -1,4 +1,4 @@
-#classic-button {
+.classic-button {
     background-color: #a0522d;
     color: white;
     border: none;
@@ -11,6 +11,6 @@
     margin: 0.03%;
 }
 
-#classic-button:hover {
+.classic-button:hover {
     background-color: #8b4513;
 }
