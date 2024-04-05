@@ -3,40 +3,6 @@ on:
 
 
 jobs:
-  app_fomat_code:
-    name: App format code
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./app
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up node
-        uses: game-ai-platform-team/setup-node@main
-        with:
-          working-directory: ./app
-
-      - name: Format code
-        run: pnpm run format
-
-  background-format-code:
-    name: Background format code
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./background-service
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up poetry
-        uses: game-ai-platform-team/setup-poetry@main
-        with:
-          working-directory: ./background-service
-
-      - name: Format code
-        run: poetry run invoke format
-
   app_unit_test:
     name: App unit tests
     runs-on: ubuntu-latest
@@ -109,4 +75,15 @@ jobs:
         working-directory: ./app
         run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm run test:e2e
 
+  format-app:
+    name: Format app with prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+        ref: ${{ github.head_ref }}
 
+      - name: Prettier Action
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: --write **/*.{ts,tsx,js,html,css} --use-tabs true --tab-width 4
