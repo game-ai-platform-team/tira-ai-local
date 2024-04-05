@@ -56,6 +56,30 @@ Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-l
     npm start
     ```
 
+If you make any changes to the background service, you will have to build it again. If you want your changes to immediately take effect, instead of building the background service, you can also start it separately from the main app. In this case, open two terminals, one in `./app` and one in `./background-service`.
+
+1. In `./background-service` run
+    ```bash
+    poetry run python3 src/app.py
+    ```
+2. Then in `./app` run
+    ```bash
+    npm start
+    ```
+
+#### Building
+
+1. In `./background-service` run
+    ```bash
+    poetry run invoke build
+    ```
+2. In `./app` run
+    ```bash
+    npm run make
+    ```
+
+You can find the built program in `./app/out`
+
 </details>
 
 ## Usage
