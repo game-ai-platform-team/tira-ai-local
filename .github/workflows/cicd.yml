@@ -79,9 +79,10 @@ jobs:
     name: Format app with prettier
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-        ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref }}
 
       - name: Prettier Action
         uses: creyD/prettier_action@v4.3
