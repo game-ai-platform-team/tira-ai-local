@@ -1,129 +1,83 @@
-import AIForm from "../AIForm";
 import { MyChessboard } from "./MyChessboard";
-import { Logs } from "../Logs";
-import socket from "../../MySocket";
-import { useState } from "react";
 import { MoveDescriptor, Position } from "kokopu";
-import { createPGNString } from "../../PGNFormatter";
 import { sendBoardFen } from "../../MoveSender";
 
-export function ChessView() {
-	const [positions, setPositions] = useState([new Position()]);
-	const [boardIndex, setBoardIndex] = useState(0);
-	const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
+export function ChessView(props: {
+	positions: any;
+	setMoves(arg0: (prevMoves: string[]) => string[]): void;
+	setPositions(arg0: (prevState: Position[]) => Position[]): void;
+	hasBeenSubmitted: boolean;
+	halfMoves: any[];
+	moves: string[]
+	setBoardIndex(arg0: number): void; boardIndex: number
+}) {
 
-	const [moves, setMoves] = useState([]);
-	const [halfMoves, setHalfMoves] = useState([]);
 
 	const fullMoves = (index: number) => {
 		return Math.floor(index / 2) + 1;
 	};
 
-	function handleSubmit(
-		filepath: string,
-		fennotation: string,
-		runsetup: boolean,
-	) {
-		socket.emit("startgame", filepath, fennotation, runsetup);
-		setBoardIndex(0);
-		setHasBeenSubmitted(true);
-		const fenList = fennotation.split(" ");
-		setHalfMoves([parseInt(fenList[4])]);
-		setMoves([]);
-		try {
-			setPositions([new Position(fennotation)]);
-		} catch (error) {
-			setPositions([new Position()]);
-		}
-	}
-
-	function copyFenToClipboard() {
-		const fen = createFen(boardIndex);
-		navigator.clipboard
-			.writeText(fen)
-			.then(() => {
-				console.log("Copied FEN to clipboard:", fen);
-			})
-			.catch((err) => {
-				console.error("Error copying FEN notation to clipboard:", err);
-			});
-	}
-
 	function addPosition(position: Position, move: MoveDescriptor) {
-		setPositions((prevState) => {
-			const sliced = prevState.slice(0, boardIndex + 1);
+		props.setPositions((prevState) => {
+			const sliced = prevState.slice(0, props.boardIndex + 1);
 			return sliced.concat(position);
 		});
-		setBoardIndex(boardIndex + 1);
+		props.setBoardIndex(props.boardIndex + 1);
 		updateHalfMoveCounter(move);
-		setMoves((prevMoves) => {
-			const slicedMoves = prevMoves.slice(0, boardIndex);
-			return slicedMoves.concat(move);
+		props.setMoves((prevMoves) => {
+			const slicedMoves = prevMoves.slice(0, props.boardIndex);
+			return slicedMoves.concat(position.uci(move));
 		});
-		console.log(
-			createPGNString(moves, createFen(0), fullMoves(boardIndex)),
-		);
 	}
 
 	function handlePrevMoveButton() {
-		if (boardIndex > 0) {
-			setBoardIndex(boardIndex - 1);
-			const fen = createFen(boardIndex - 1);
+		if (props.boardIndex > 0) {
+			props.setBoardIndex(props.boardIndex - 1);
+			const fen = createFen(props.boardIndex - 1);
 			sendBoardFen(fen);
 		}
 	}
 
 	function handleNextMoveButton() {
-		if (boardIndex < positions.length - 1) {
-			setBoardIndex(boardIndex + 1);
-			const fen = createFen(boardIndex + 1);
+		if (props.boardIndex < props.positions.length - 1) {
+			props.setBoardIndex(props.boardIndex + 1);
+			const fen = createFen(props.boardIndex + 1);
 			sendBoardFen(fen);
 		}
 	}
 
 	function createFen(index: number) {
-		const halfMove: number = halfMoves[index - 1];
+		const halfMove: number = props.halfMoves[index - 1];
 		const fullMove: number = fullMoves(index);
 
-		const fen = positions[index].fen({
+		const fen = props.positions[index].fen({
 			fiftyMoveClock: !isNaN(halfMove) ? halfMove : 0,
-			fullMoveNumber: fullMove,
+			fullMoveNumber: fullMove
 		});
 		return fen;
 	}
 
 	function updateHalfMoveCounter(move: MoveDescriptor) {
 		if (move.movingPiece() === "p" || move.isCapture()) {
-			halfMoves[boardIndex + 1] = 0;
+			props.halfMoves[props.boardIndex + 1] = 0;
 		} else {
-			halfMoves[boardIndex + 1] = halfMoves[boardIndex] + 1;
+			props.halfMoves[props.boardIndex + 1] = props.halfMoves[props.boardIndex] + 1;
 		}
 	}
 
-	function exportPgn() {
-		const pgn = createPGNString(moves, createFen(0), fullMoves(boardIndex));
-		navigator.clipboard
-			.writeText(pgn)
-			.then(() => {
-				console.log("Copied PGN to clipboard:", pgn);
-			})
-			.catch((err) => {
-				console.error("Error copying PGN notation to clipboard:", err);
-			});
-	}
 
 	const isGameOver =
-		positions[boardIndex].isCheckmate() === true ||
-		positions[boardIndex].isStalemate() === true ||
-		positions[boardIndex].isDead() === true ||
-		halfMoves[boardIndex] >= 100;
+		props.positions[props.boardIndex].isCheckmate() === true ||
+		props.positions[props.boardIndex].isStalemate() === true ||
+		props.positions[props.boardIndex].isDead() === true ||
+		props.halfMoves[props.boardIndex] >= 100;
 
 	return (
 		<div>
-			{hasBeenSubmitted && (
+			{props.hasBeenSubmitted && (
 				<>
 					<MyChessboard
-						pos={positions[boardIndex]}
+						pos={props.positions[props.boardIndex]}
 						addPosition={addPosition}
 						active={!isGameOver}
 					/>
@@ -142,19 +96,12 @@ export function ChessView() {
 							{">"}
 						</button>
 					</div>
-					<div data-testid="board-index">Turn {boardIndex}</div>
+					<div data-testid="board-index">Turn {props.boardIndex}</div>
 				</>
 			)}
 
 			{isGameOver && <div>GAME OVER</div>}
-			<Logs />
-			<button onClick={copyFenToClipboard}>Copy current FEN</button>
-			<button onClick={exportPgn}>Copy current PGN</button>
-			<AIForm
-				handleSubmit={handleSubmit}
-				showFen={true}
-				formId="formChess"
-			/>
+
 		</div>
 	);
 }

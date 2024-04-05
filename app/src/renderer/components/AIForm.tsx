@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { killProcess } from "../MoveSender";
 import "../css/Buttons.css";
 
 function AIForm(props: {
@@ -53,9 +52,6 @@ function AIForm(props: {
 					value={"" + runSetup}
 				/>
 			</form>
-			<button className="classic-button" onClick={killProcess}>
-				Kill Process
-			</button>
 		</div>
 	);
 }

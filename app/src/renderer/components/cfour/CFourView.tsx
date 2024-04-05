@@ -1,60 +1,59 @@
 import { MyConnectFour } from "./MyConnectFour";
 import { Logs } from "../Logs";
 import AIForm from "../AIForm";
-import { useState } from "react";
 import checkForWin from "./CFourWinChecker";
 import CFourParser from "./CFourParser";
-import { sendMove, sethandleMovePlayedByAi, startGame } from "../../MoveSender";
+import { sendMove, sethandleMovePlayedByAi } from "../../MoveSender";
 
-export function CFourView() {
-	const [boardIndex, setBoardIndex] = useState(-1);
-	const [moves, setMoves] = useState([]);
-	const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
+export function CFourView(props: {
+	setMoves(arg0: string[]): void;
+	hasBeenSubmitted: any;
+	boardIndex: number;
+	setBoardIndex(arg0: number): void;
+	moves: string[];
+}) {
 
-	function handleSubmit(filepath: string, _: string, runsetup: boolean) {
-		startGame(filepath, runsetup);
-		setBoardIndex(0);
-		setMoves([]);
-		setHasBeenSubmitted(true);
-	}
+	const numberMoves = props.moves.map((value) => Number(value));
+
 
 	function handleMovePlayedByAi(move: string) {
 		if (!isGameOver) {
-			moves.push(parseInt(move));
-			setBoardIndex(boardIndex + 1);
+
+			props.setMoves(props.moves.concat(move));
+			props.setBoardIndex(props.boardIndex + 1);
 		}
 	}
 
 	function handleMovePlayed(move: string) {
 		sendMove(move);
-		moves.push(move);
-		setBoardIndex(boardIndex + 1);
+		props.moves.push(move);
+		props.setBoardIndex(props.boardIndex + 1);
 	}
 
 	sethandleMovePlayedByAi(handleMovePlayedByAi);
 
 	function handlePrevMoveButton() {
-		if (boardIndex > 0) {
-			setBoardIndex(boardIndex - 1);
+		if (props.boardIndex > 0) {
+			props.setBoardIndex(props.boardIndex - 1);
 		}
 	}
 
 	function handleNextMoveButton() {
-		if (boardIndex < moves.length - 1) {
-			setBoardIndex(boardIndex + 1);
+		if (props.boardIndex < props.moves.length - 1) {
+			props.setBoardIndex(props.boardIndex + 1);
 		}
 	}
 
-	const boardmatrix = CFourParser({ moves, boardIndex });
-	const isGameOver = checkForWin(boardmatrix) || moves.length >= 42;
+	const boardmatrix = CFourParser({ moves: numberMoves, boardIndex: props.boardIndex });
+	const isGameOver = checkForWin(boardmatrix) || props.moves.length >= 42;
 
 	return (
 		<div>
-			{hasBeenSubmitted && (
+			{props.hasBeenSubmitted && (
 				<>
 					<MyConnectFour
-						moves={moves}
-						boardIndex={boardIndex}
+						moves={numberMoves}
+						boardIndex={props.boardIndex}
 						onMovePlayed={handleMovePlayed}
 						active={!isGameOver}
 					/>
@@ -62,16 +61,10 @@ export function CFourView() {
 						<button onClick={handlePrevMoveButton}>{"<"}</button>
 						<button onClick={handleNextMoveButton}>{">"}</button>
 					</div>
-					<div>Turn {boardIndex}</div>
+					<div>Turn {props.boardIndex}</div>
 				</>
 			)}
 			{isGameOver && <div>GAME OVER</div>}
-			<Logs />
-			<AIForm
-				handleSubmit={handleSubmit}
-				showFen={false}
-				formId="formC4"
-			/>
 		</div>
 	);
 }

@@ -5,10 +5,8 @@ import { CFourView } from "./cfour/CFourView";
 import "../css/GameSelector.css";
 
 export function GameSelector({ onSelect }) {
-	const [selectedGame, setSelectedGame] = useState(null);
 
-	const handleGameSelection = (game) => {
-		setSelectedGame(game);
+	const handleGameSelection = (game: string) => {
 		onSelect(game);
 	};
 
@@ -27,23 +25,5 @@ export function GameSelector({ onSelect }) {
 				Connect Four
 			</button>
 		</div>
-	);
-}
-
-export function render() {
-	const root = createRoot(document.getElementById("root"));
-
-	root.render(
-		<div>
-			<GameSelector
-				onSelect={(selectedGame) => {
-					if (selectedGame === "chess") {
-						root.render(<ChessView />);
-					} else if (selectedGame === "connectFour") {
-						root.render(<CFourView />);
-					}
-				}}
-			/>
-		</div>,
 	);
 }
