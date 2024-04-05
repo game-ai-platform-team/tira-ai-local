@@ -50,7 +50,7 @@ Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-l
 
 ## Usage
 
-See the [example project](https://github.com/game-ai-platform-team/stupid-chess-ai) for a simple chess AI compatible with this progam.
+See the [example project](https://github.com/game-ai-platform-team/stupid-chess-ai) for a simple chess AI compatible with this program.
 
 ### AI Configuration
 
@@ -169,7 +169,7 @@ The program will read your AI's ouput from the standard pipe (command line). Sim
 
 There is only one tag for output, `MOVE:`, and it is used like in input. To return a move to the program, when given a `PLAY`-tag, your AI should write `MOVE:<move>` to the command line. All outputs to console that do not begin with `MOVE:` will be displayed in the log box of the program.
 
-Note: You will need a newline `\n` at the end of your data. In python this is inserted automatically at the end of each `print` statement.
+Note: For the program of stop reading the output of your AI and process the given move, you will need a newline (`\n`) at the end of your data. In python by default a newline inserted automatically at the end of each `print` statement.
 
 #### Example
 ```python
