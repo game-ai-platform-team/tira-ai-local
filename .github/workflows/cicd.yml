@@ -89,4 +89,4 @@ jobs:
       - name: Prettier Action
         uses: creyD/prettier_action@v4.3
         with:
-          prettier_options: --write **/*.{ts,tsx,js,html,css,py} --use-tabs true --tab-width 4
+          prettier_options: --write **/*.{ts,tsx,js,html,css} --use-tabs true --tab-width 4
