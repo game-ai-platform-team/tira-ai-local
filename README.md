@@ -2,14 +2,13 @@
 
 Simple program to test game AI's. Currently supports Chess and Connect Four.
 
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Usage](#usage)
+1. [Installation](#installation)
+2. [Usage](#usage)
     - [AI Configuration](#ai-configuration)
     - [AI Structure](#ai-structure)
     - [AI Communication Protocol (Input)](#ai-communication-protocol-input)
     - [AI Communication Protocol (Output)](#ai-communication-protocol-output)
-4. [Game Specific Instructions](#game-specific-instructions)
+3. [Game Specific Instructions](#game-specific-instructions)
     - [Chess](#chess)
     - [Connect Four](#connect-four)
 
