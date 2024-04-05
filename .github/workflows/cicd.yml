@@ -11,8 +11,13 @@ jobs:
   steps:
     - uses: actions/checkout@v4
 
+    - name: Set up node
+      uses: game-ai-platform-team/setup-node@main
+      with:
+        working-directory: ./app
+
     - name: Format code
-    - run: pnpm run format
+      run: pnpm run format
 
   name: Background format code
   runs-on: ubuntu-latest
@@ -22,8 +27,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up poetry
+        uses: game-ai-platform-team/setup-poetry@main
+        with:
+          working-directory: ./background-service
+
       - name: Format code
-      - run: poetry run invoke format
+        run: poetry run invoke format
 
   app_unit_test:
     name: App unit tests
