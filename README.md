@@ -14,44 +14,46 @@ Simple program to test game AI's. Currently supports Chess and Connect Four.
 
 ## Installation
 
-Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-local/releases), unzip, and run `tira-ai-local`.
+Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-local/releases), unzip the package, and then run the `tira-ai-local` executable.
 
 <details>
-    <summary>Alternative installation</summary>
+    <summary>Alternative Installation</summary>
 
 #### Requirements
 
--   [python](https://www.python.org/) 3.10 or newer
+Ensure you have the following prerequisites installed on your system:
+
+-   [Python](https://www.python.org/) 3.10 or newer
 -   [Node.js](https://nodejs.org/en/download/current)
--   [poetry](https://python-poetry.org/docs/#installation)
+-   [Poetry](https://python-poetry.org/docs/#installation)
 
-#### Installation steps
+#### Installation Steps
 
-1. Clone the repository
+1. Clone the repository:
     ```bash
     git clone https://github.com/game-ai-platform-team/tira-ai-local.git
     ```
-2. Navigate to `./background-service`
+2. Navigate to the `background-service` directory:
     ```bash
     cd tira-ai-local/background-service
     ```
-3. Install the requirements with poetry
+3. Install the Python dependencies using Poetry:
     ```bash
     poetry install
     ```
-4. Build the background service
+4. Build the background service:
     ```bash
     poetry run invoke build
     ```
-5. Navigate to `./app`
+5. Navigate to the `app` directory:
     ```bash
     cd ../app
     ```
-6. Install the requirements with npm
+6. Install the Node.js dependencies using npm:
     ```bash
     npm install
     ```
-7. Start the program
+7. Start the program:
     ```bash
     npm start
     ```
@@ -67,79 +69,75 @@ If you make any changes to the background service, you will have to build it aga
     npm start
     ```
 
-#### Building
+#### Building Instructions
 
-1. In `./background-service` run
+If you make changes to the background service, you'll need to rebuild it. Here's how:
+
+1. In the `background-service` directory, run:
     ```bash
     poetry run invoke build
     ```
-2. In `./app` run
+2. In the `app` directory, run:
     ```bash
     npm run make
     ```
 
-You can find the built program in `./app/out`
+The built program can be found in the `app/out` directory.
 
 </details>
 
 ## Usage
 
-See the [example project](https://github.com/game-ai-platform-team/stupid-chess-ai) for a simple chess AI compatible with this program.
+Refer to the [example project](https://github.com/game-ai-platform-team/stupid-chess-ai) for a simple chess AI compatible with this program.
 
 ### AI Configuration
 
-To make your AI project usable with this program, it should have the following directory structure:
+To integrate your AI project with this program, follow these steps:
 
-```
-/root
---/src
---/tiraconfig
-----runcommand
-----setup.sh
-```
+1. **Directory Structure**: Organize your project with the following directory structure:
 
-Your AI files should be inside `./src`. The `./tiraconfig` directory should contain two files, `runcommand` and `setup.sh`.
+    ```
+    /root
+    |-- /src
+    |-- /tiraconfig
+    |   |-- runcommand
+    |   |-- setup.sh
+    ```
 
-#### runcommand
+2. **runcommand**: This file contains the command to start your AI. It should be located within the `tiraconfig` directory. For example, if your Python AI is run from `main.py` within the `src` directory, the run command would be:
 
-This file contains the command to start your AI. It is run everytime you start your AI in `tira-ai-local`.
+    ```bash
+    python3 src/main.py
+    ```
 
-If your python AI is run from a file called `main.py` which is located in `./src`, the run command would look like this:
+3. **setup.sh**: This shell script installs the dependencies of your AI and is executed when the "Run setup.sh?" option is toggled on. For Python projects using Poetry for dependency management, the setup script might look like this:
 
-```bash
-python3 src/main.py
-```
+    ```shell
+    poetry install
+    ```
 
-#### setup.sh
+    Remeber that when using poetry, your `runcommand` would now look like this:
 
-This shell script is used to set up your AI. It should contain the command to install the dependencies of your AI. `setup.sh` is executed when the "Run setup.sh?" option is toggled on.
-
-Note: You only need to run `setup.sh` when you are running your AI for the first time.
-
-If your python AI uses poetry for dependency management, your `setup.sh`, would look like this:
-
-```shell
-poetry install
-```
-
-Note: You might also need to change `runcommand`. When using poetry, the command would be:
-
-```bash
-poetry run python3 src/main.py
-```
+    ```bash
+    poetry run python3 src/main.py
+    ```
 
 ### AI Structure
 
-Your AI should contain a loop that is ran for the duration of the game. If your AI finishes execution before the game is over, the program will not work.
+Your AI should consist of a loop that runs continuously for the duration of the game. Make sure that your AI never exits the loop to keep it working with the program. In case your AI encounters an issue or gets stuck, you can use the `kill process` button to stop it or resubmit the path to restart the process.
 
 <details>
     <summary>Python Example</summary>
 
 ```python
-def main()
+def main():
     while True:
-        # Read inputs and write outputs
-
+        # Read input commands from the program
+        command = input().strip()
+        
+        # Process input commands and generate output responses
+        # Implement your AI logic here
+        
 if __name__ == "__main__":
     main()
 ```
@@ -148,32 +146,38 @@ if __name__ == "__main__":
 
 ### AI Communication Protocol (Input)
 
-The program communicates with your AI using the standard pipe (command line). Your AI should read these commands like it would read any other input from the command line. For example, in python, you would read the commands using `input()`.
+The program communicates with your AI using the standard pipe (command line). Your AI should read these commands as it would read any other input from the command line. In Python this would be `input()`.
 
-Each command is given in the following format:
+Each command follows the format:
 
 ```
 TAG:DATA
 ```
 
-`TAG` is the type of command, and `DATA` is the data to prcess.
+`TAG` represents the type of command and `DATA` is the accompanying data.
 
-#### TAGS
+#### Tags
 
 -   `MOVE:<move>`
-    -   Take the given opponent move and process
-    -   Data: Move made by the opponent.
-    -   Example: `MOVE:e2e4` would be white's opening move in chess.
+
+    -   Process the opponent's move.
+    -   **Data Format**: The move made by the opponent.
+    -   **Example**: `MOVE:e2e4` indicates white's opening move in chess.
+
 -   `PLAY:`
-    -   Play one move in the current position
-    -   Data: None
+
+    -   Play one move in the current position.
+    -   **Data Format**: None.
+
 -   `BOARD:<board_state>`
-    -   Set the board to this state
-    -   Data: A board state
-    -   Example: `BOARD:rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` would set a chess board to the starting position
+
+    -   Set the board to the specified state.
+    -   **Data Format**: A string representing the board state.
+    -   **Example**: `BOARD:rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` sets a chess board to the starting position.
+
 -   `RESET:`
-    -   Set the board to starting position
-    -   Data: None
+    -   Reset the board to the starting position.
+    -   **Data Format**: None.
 
 <details>
     <summary>Reading Tags Python Example</summary>
@@ -181,47 +185,53 @@ TAG:DATA
 ```python
 def main():
     while True:
-        tag_data = input().split(":")
-        tag = tag_data[0]
-        data = tag_data[1]
+        command = input().strip()
+        if not command:
+            continue
+
+        tag, data = command.split(":", 1)
 
         if tag == "MOVE":
-            # handle opponent move
+            # Handle opponent's move
         elif tag == "PLAY":
-            # find best move and print it
+            # Play a move
         elif tag == "BOARD":
-            # set the board to data
+            # Set the board state
         elif tag == "RESET":
-            # set the board to starting position
+            # Reset the board
+
+if __name__ == "__main__":
+    main()
 ```
 
 </details>
 
 ### AI Communication Protocol (Output)
 
-The program will read your AI's ouput from the standard pipe (command line). Simple write to the command line to give data to the program. For example, in python, you would write to command line using `print()`.
+The program reads your AI's output from the standard pipe (command line). In Python, you can use `print()` statements to provide moves to the program. The program will read data until the first newline character (`\n`), after which it will process the received move. By default, Python's `print()` statements automatically include a newline at the end.
 
-There is only one tag for output, `MOVE:`, and it is used like in input. To return a move to the program, when given a `PLAY`-tag, your AI should write `MOVE:<move>` to the command line. All outputs to console that do not begin with `MOVE:` will be displayed in the log box of the program.
+There is only one tag for output, `MOVE:`, which is used similarly to input. When given a `PLAY`-tag, your AI should write `MOVE:<move>` to the command line.
 
-Note: For the program of stop reading the output of your AI and process the given move, you will need a newline (`\n`) at the end of your data. In python by default a newline inserted automatically at the end of each `print` statement.
+Note: Any outputs to the console that do not begin with `MOVE:` will be displayed in the log box of the program under the most recent `MOVE:` output.
+
 
 #### Example
 
 ```python
 print("a2a3")
 print("MOVEb2b3")
-print("MOVE:e2e4")
+print("MOVE:e2e4")  # Only this is read as a move
 print("test")
 ```
 
-The program would read `e2e4` as the output from your AI. The log box would look like this:
+In this example, the program would read `e2e4` as the output from your AI. The log box would display:
 
 ```python
 a2a3
 MOVEb2b3
 ```
 
-The program would then move e2 to e4 and wait for user input. After given a move, `test` would be written in the log box.
+The program would then process the move e2e4 and wait for further input. After receiving the next input, `test` would be displayed in the log box under the next `MOVE:`.
 
 ## Game Specific Instructions
 
