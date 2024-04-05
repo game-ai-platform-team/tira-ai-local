@@ -71,8 +71,6 @@ If you make any changes to the background service, you will have to build it aga
 
 #### Building Instructions
 
-If you make changes to the background service, you'll need to rebuild it. Here's how:
-
 1. In the `./background-service` directory, run:
     ```bash
     poetry run invoke build
