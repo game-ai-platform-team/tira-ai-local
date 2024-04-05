@@ -12,13 +12,10 @@ export function CFourView(props: {
 	setBoardIndex(arg0: number): void;
 	moves: string[];
 }) {
-
 	const numberMoves = props.moves.map((value) => Number(value));
-
 
 	function handleMovePlayedByAi(move: string) {
 		if (!isGameOver) {
-
 			props.setMoves(props.moves.concat(move));
 			props.setBoardIndex(props.boardIndex + 1);
 		}
@@ -44,7 +41,10 @@ export function CFourView(props: {
 		}
 	}
 
-	const boardmatrix = CFourParser({ moves: numberMoves, boardIndex: props.boardIndex });
+	const boardmatrix = CFourParser({
+		moves: numberMoves,
+		boardIndex: props.boardIndex,
+	});
 	const isGameOver = checkForWin(boardmatrix) || props.moves.length >= 42;
 
 	return (

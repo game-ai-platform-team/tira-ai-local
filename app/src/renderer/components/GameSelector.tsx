@@ -5,7 +5,6 @@ import { CFourView } from "./cfour/CFourView";
 import "../css/GameSelector.css";
 
 export function GameSelector({ onSelect }) {
-
 	const handleGameSelection = (game: string) => {
 		onSelect(game);
 	};

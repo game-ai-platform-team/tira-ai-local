@@ -7,7 +7,7 @@ export function createPGNString(
 	whiteName?: string,
 	blackName?: string,
 	whiteElo?: number,
-	blackElo?: number
+	blackElo?: number,
 ) {
 	const game = new Game();
 	game.date(new Date());
@@ -18,7 +18,7 @@ export function createPGNString(
 	game.playerElo("b", blackElo);
 
 	const position = new Position(
-		startingFen === undefined ? "start" : startingFen
+		startingFen === undefined ? "start" : startingFen,
 	);
 
 	game.initialPosition(position, fullMoves === undefined ? 0 : fullMoves);

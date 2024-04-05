@@ -27,11 +27,10 @@ function App() {
 		setSelectedGame(null);
 	};
 
-
 	function handleSubmit(
 		filepath: string,
 		fennotation: string,
-		runsetup: boolean
+		runsetup: boolean,
 	) {
 		if (selectedGame === "chess") {
 			socket.emit("startgame", filepath, fennotation, runsetup);
@@ -87,7 +86,7 @@ function App() {
 
 		const fen = positions[index].fen({
 			fiftyMoveClock: !isNaN(halfMove) ? halfMove : 0,
-			fullMoveNumber: fullMove
+			fullMoveNumber: fullMove,
 		});
 		return fen;
 	}
@@ -96,29 +95,53 @@ function App() {
 		<div>
 			<GameSelector onSelect={handleGameSelection} />
 
-
 			<div id="app-center">
-				<div><AIForm
-					handleSubmit={handleSubmit}
-					showFen={true}
-					formId="formChess"
-				/></div>
-				<div>{selectedGame ? (
-					<div>
-						{selectedGame === "chess" ? <ChessView setBoardIndex={setBoardIndex} boardIndex={boardIndex}
-															   hasBeenSubmitted={hasBeenSubmitted} moves={moves}
-															   setMoves={setMoves} halfMoves={halfMoves}
-															   setPositions={setPositions} positions={positions} /> :
-							<CFourView moves={moves} boardIndex={boardIndex} hasBeenSubmitted={hasBeenSubmitted}
-									   setBoardIndex={setBoardIndex} setMoves={setMoves} />}
-					</div>
-				) : false}</div>
-				<div>{selectedGame === "chess" &&
-                    <>
-                        <button onClick={copyFenToClipboard}>Copy current FEN</button>
-                        <button onClick={exportPgn}>Copy current PGN</button>
-                    </>
-				}
+				<div>
+					<AIForm
+						handleSubmit={handleSubmit}
+						showFen={true}
+						formId="formChess"
+					/>
+				</div>
+				<div>
+					{selectedGame ? (
+						<div>
+							{selectedGame === "chess" ? (
+								<ChessView
+									setBoardIndex={setBoardIndex}
+									boardIndex={boardIndex}
+									hasBeenSubmitted={hasBeenSubmitted}
+									moves={moves}
+									setMoves={setMoves}
+									halfMoves={halfMoves}
+									setPositions={setPositions}
+									positions={positions}
+								/>
+							) : (
+								<CFourView
+									moves={moves}
+									boardIndex={boardIndex}
+									hasBeenSubmitted={hasBeenSubmitted}
+									setBoardIndex={setBoardIndex}
+									setMoves={setMoves}
+								/>
+							)}
+						</div>
+					) : (
+						false
+					)}
+				</div>
+				<div>
+					{selectedGame === "chess" && (
+						<>
+							<button onClick={copyFenToClipboard}>
+								Copy current FEN
+							</button>
+							<button onClick={exportPgn}>
+								Copy current PGN
+							</button>
+						</>
+					)}
 					<button className="classic-button" onClick={killProcess}>
 						Kill Process
 					</button>

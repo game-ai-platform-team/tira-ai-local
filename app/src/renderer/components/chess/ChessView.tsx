@@ -8,11 +8,10 @@ export function ChessView(props: {
 	setPositions(arg0: (prevState: Position[]) => Position[]): void;
 	hasBeenSubmitted: boolean;
 	halfMoves: any[];
-	moves: string[]
-	setBoardIndex(arg0: number): void; boardIndex: number
+	moves: string[];
+	setBoardIndex(arg0: number): void;
+	boardIndex: number;
 }) {
-
-
 	const fullMoves = (index: number) => {
 		return Math.floor(index / 2) + 1;
 	};
@@ -52,7 +51,7 @@ export function ChessView(props: {
 
 		const fen = props.positions[index].fen({
 			fiftyMoveClock: !isNaN(halfMove) ? halfMove : 0,
-			fullMoveNumber: fullMove
+			fullMoveNumber: fullMove,
 		});
 		return fen;
 	}
@@ -61,10 +60,10 @@ export function ChessView(props: {
 		if (move.movingPiece() === "p" || move.isCapture()) {
 			props.halfMoves[props.boardIndex + 1] = 0;
 		} else {
-			props.halfMoves[props.boardIndex + 1] = props.halfMoves[props.boardIndex] + 1;
+			props.halfMoves[props.boardIndex + 1] =
+				props.halfMoves[props.boardIndex] + 1;
 		}
 	}
-
 
 	const isGameOver =
 		props.positions[props.boardIndex].isCheckmate() === true ||
@@ -101,7 +100,6 @@ export function ChessView(props: {
 			)}
 
 			{isGameOver && <div>GAME OVER</div>}
-
 		</div>
 	);
 }
