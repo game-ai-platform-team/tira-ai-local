@@ -21,7 +21,7 @@ export const PlayButton = () => {
       <input
         type="checkbox"
         id="auto-send-toggle"
-        checked={autoSendMove}
+        checked={!autoSendMove}
         onChange={handleToggle}
       />
     </div>
