@@ -3,36 +3,36 @@ import socket from "../MySocket";
 import { PlayButton } from "./PlayButton";
 
 export function Logs() {
-  const [logs, setLogs] = useState([]);
-  const textareaRef = useRef(null);
+	const [logs, setLogs] = useState([]);
+	const textareaRef = useRef(null);
 
-  function handleNewLogs(newLog) {
-    const timestamp = new Date().toLocaleTimeString();
-    setLogs((prevLogs) => [...prevLogs, `${timestamp}: ${newLog}`]);
-  }
+	function handleNewLogs(newLog) {
+		const timestamp = new Date().toLocaleTimeString();
+		setLogs((prevLogs) => [...prevLogs, `${timestamp}: ${newLog}`]);
+	}
 
-  useEffect(() => {
-    socket.on("logs", (log) => {
-      handleNewLogs(log);
-    });
+	useEffect(() => {
+		socket.on("logs", (log) => {
+			handleNewLogs(log);
+		});
 
-    if (textareaRef.current) {
-      textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
-    }
+		if (textareaRef.current) {
+			textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+		}
 
-    return () => {
-      socket.off("logs");
-    };
-  }, [logs]);
+		return () => {
+			socket.off("logs");
+		};
+	}, [logs]);
 
-  return (
-    <div>
-      <textarea
-        ref={textareaRef}
-        value={logs.join("\n")}
-        readOnly
-        style={{ width: "100%", height: "200px", overflowY: "scroll" }}
-      />
-    </div>
-  );
+	return (
+		<div>
+			<textarea
+				ref={textareaRef}
+				value={logs.join("\n")}
+				readOnly
+				style={{ width: "100%", height: "200px", overflowY: "scroll" }}
+			/>
+		</div>
+	);
 }

@@ -1,52 +1,60 @@
-import {test, expect, _electron as electron} from 'playwright/test'
-
+import { test, expect, _electron as electron } from "playwright/test";
 
 test("Undoing and redoing move works", async () => {
-    const electronApp = await electron.launch({
-        args: ["./out/tira-ai-local-linux-x64/resources/app/.webpack/main/index.js"],
-        timeout: 60000
-    })
-    const window = await electronApp.firstWindow();
-    window.getByText("Chess").click()
-    await window.locator("#fileinput").fill("/")
-    await window.locator("#feninput").fill("")
-    await window.locator("#submit").click()
+	const electronApp = await electron.launch({
+		args: [
+			"./out/tira-ai-local-linux-x64/resources/app/.webpack/main/index.js",
+		],
+		timeout: 60000,
+	});
+	const window = await electronApp.firstWindow();
+	window.getByText("Chess").click();
+	await window.locator("#fileinput").fill("/");
+	await window.locator("#feninput").fill("");
+	await window.locator("#submit").click();
 
-    await window.locator("#auto-send-toggle").click()
+	await window.locator("#auto-send-toggle").click();
 
-    //const img = await window.locator(".kokopu-chessboard").locator("image")
-    const img = await window.locator(".kokopu-chessboard image[x='280'][y='240']")
+	//const img = await window.locator(".kokopu-chessboard").locator("image")
+	const img = await window.locator(
+		".kokopu-chessboard image[x='280'][y='240']",
+	);
 
-    const rect = await window.locator(".kokopu-chessboard rect[x='280'][y='160']")
+	const rect = await window.locator(
+		".kokopu-chessboard rect[x='280'][y='160']",
+	);
 
-    await img.dragTo(rect, {force: true})
+	await img.dragTo(rect, { force: true });
 
+	await window.getByText("Copy current FEN").click();
+	let handle = await electronApp.evaluateHandle((on) =>
+		on.clipboard.readText(),
+	);
+	let clipboard = await handle.jsonValue();
 
-    await window.getByText("Copy current FEN").click()
-    let handle = await electronApp.evaluateHandle(on => on.clipboard.readText());
-    let clipboard = await handle.jsonValue();
+	expect(clipboard).toBe(
+		"rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq - 0 1",
+	);
 
-    expect(clipboard).toBe("rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq - 0 1")
+	await window.getByTestId("prev-move-button").click();
 
+	await window.getByText("Copy current FEN").click();
+	handle = await electronApp.evaluateHandle((on) => on.clipboard.readText());
+	clipboard = await handle.jsonValue();
 
-    await window.getByTestId("prev-move-button").click()
+	expect(clipboard).toBe(
+		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+	);
 
-    await window.getByText("Copy current FEN").click()
-    handle = await electronApp.evaluateHandle(on => on.clipboard.readText());
-    clipboard = await handle.jsonValue();
+	await window.getByTestId("next-move-button").click();
 
-    expect(clipboard).toBe("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+	await window.getByText("Copy current FEN").click();
+	handle = await electronApp.evaluateHandle((on) => on.clipboard.readText());
+	clipboard = await handle.jsonValue();
 
-    await window.getByTestId("next-move-button").click()
+	expect(clipboard).toBe(
+		"rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq - 0 1",
+	);
 
-
-    await window.getByText("Copy current FEN").click()
-    handle = await electronApp.evaluateHandle(on => on.clipboard.readText());
-    clipboard = await handle.jsonValue();
-
-    expect(clipboard).toBe("rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq - 0 1")
-
-
-    await electronApp.close()
-
+	await electronApp.close();
 });
