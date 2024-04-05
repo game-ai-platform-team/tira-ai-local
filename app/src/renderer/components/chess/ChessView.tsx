@@ -100,17 +100,17 @@ export function ChessView() {
 		}
 	}
 
-    function exportPgn() {
-        const pgn = createPGNString(moves, createFen(0), fullMoves(boardIndex));
-        navigator.clipboard
-          .writeText(pgn)
-          .then(() => {
-            console.log("Copied PGN to clipboard:", pgn);
-          })
-          .catch((err) => {
-            console.error("Error copying PGN notation to clipboard:", err);
-          });
-      }
+	function exportPgn() {
+		const pgn = createPGNString(moves, createFen(0), fullMoves(boardIndex));
+		navigator.clipboard
+			.writeText(pgn)
+			.then(() => {
+				console.log("Copied PGN to clipboard:", pgn);
+			})
+			.catch((err) => {
+				console.error("Error copying PGN notation to clipboard:", err);
+			});
+	}
 
 	const isGameOver =
 		positions[boardIndex].isCheckmate() === true ||
@@ -149,7 +149,7 @@ export function ChessView() {
 			{isGameOver && <div>GAME OVER</div>}
 			<Logs />
 			<button onClick={copyFenToClipboard}>Copy current FEN</button>
-            <button onClick={exportPgn}>Copy current PGN</button>
+			<button onClick={exportPgn}>Copy current PGN</button>
 			<AIForm
 				handleSubmit={handleSubmit}
 				showFen={true}
