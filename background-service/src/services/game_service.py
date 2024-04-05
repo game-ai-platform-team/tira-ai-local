@@ -33,7 +33,7 @@ class GameService:
                 self.game.reset_board()
         except Exception as e:
             self.socket_service.send_log(
-                f"Setting board with {board_position} failed: \n {str(e)}"
+                f"Setting board with {board_position} failed:\n{str(e)}"
             )
 
     def move_to_back(self, move: str, return_move: bool):
@@ -42,17 +42,11 @@ class GameService:
         logs = []
 
         if self.game is None:
-            raise ValueError("No game detected")
-
-        if move == "" and return_move:
-            output, logs = self.game.get_move()
-            self.socket_service.move_to_front(output)
-            self.socket_service.send_log(
-                "\n".join(logs) + "\n---------------------------------"
-            )
+            self.socket_service.send_log("No game detected!")
             return
 
-        self.game.add_move(move)
+        if move != "":
+            self.game.add_move(move)
 
         if return_move:
             try:
@@ -75,12 +69,13 @@ class GameService:
         try:
             self.game.set_board(board_position)
         except Exception as e:
-            self.socket_service.send_log(
-                f"Setting board failed: \n {str(e)}"
-            )
+            self.socket_service.send_log(f"Setting board failed: \n {str(e)}")
 
     def kill_process(self):
-        return_code = self.game.kill()
-        self.socket_service.send_log(
-            f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}"
-        )
+        if self.game.poll() is not None:
+            self.socket_service.send_log("No active process!")
+        else:
+            return_code = self.game.kill()
+            self.socket_service.send_log(
+                f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}"
+            )

@@ -33,10 +33,16 @@ class AiDirectory:
         return self.process.wait()
 
     def __raise_runtime_error(self):
+        error_msg = self.process.stderr.read().decode("utf-8")
+        if error_msg == "":
+            error_msg = (
+                "Could not capture error message, most likely process has already finished."
+            )
+        return_code = self.process.poll()
         raise RuntimeError(
-            f"Process {self.process.pid} failed with return code "
-            f"{self.process.poll()}:\n"
-            f"{self.process.stderr.read().decode('utf-8')}"
+            f"Process {self.process.pid} finished with return code "
+            f"{return_code}. Captured error message:\n"
+            f"{error_msg}"
         )
 
     def __check_running(self):

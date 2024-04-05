@@ -24,3 +24,6 @@ class Game:
 
     def kill(self):
         return self.ai_directory.kill_process()
+    
+    def poll(self):
+        return self.ai_directory.process.poll()
