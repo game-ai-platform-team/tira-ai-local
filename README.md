@@ -80,7 +80,7 @@ If you make any changes to the background service, you will have to build it aga
     npm run make
     ```
 
-The built program can be found in the `app/out` directory.
+The built program can be found in the `./app/out` directory.
 
 </details>
 
