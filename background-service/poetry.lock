@@ -366,17 +366,6 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
-name = "prettier"
-version = "0.0.7"
-description = "Properly pprint of nested objects"
-optional = false
-python-versions = "*"
-files = [
-    {file = "prettier-0.0.7-py3-none-any.whl", hash = "sha256:20e76791de41cafe481328dd49552303f29ca192151cee1b120c26f66cae9bfc"},
-    {file = "prettier-0.0.7.tar.gz", hash = "sha256:6c34b8cd09fd9c8956c05d6395ea3f575e0122dce494ba57685c07065abed427"},
-]
-
-[[package]]
 name = "pylint"
 version = "3.1.0"
 description = "python code static checker"
@@ -550,4 +539,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "d545c0e88fb6b4d2e75f54c941bf48ddbff43915c7fafd2d45528feaeb81569f"
+content-hash = "dc8e5161233af5cf332da2f14a4ec0afe40c990dc034a11cb2788ac27a204677"

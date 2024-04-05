@@ -16,8 +16,3 @@ def test(ctx):
 @task
 def lint(ctx):
     ctx.run("poetry run pylint src")
-
-
-@task
-def format(ctx):
-    ctx.run("poetry run prettier --write '**/*.py' --tab-width 4 --use-tabs true")
