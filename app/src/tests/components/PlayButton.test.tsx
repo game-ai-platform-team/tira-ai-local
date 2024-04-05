@@ -1,12 +1,7 @@
 // @vitest-environment jsdom
 
-import { test, describe, expect, vi } from "vitest";
-import { render, fireEvent } from "@testing-library/react";
-import { JSDOM } from "jsdom";
-
-const { window } = new JSDOM("<!doctype html><html><body></body></html>");
-global.window = window;
-global.document = window.document;
+import { test, describe, expect, vi, afterEach } from "vitest";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 
 import { PlayButton } from "../../renderer/components/PlayButton";
 
