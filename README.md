@@ -2,6 +2,17 @@
 
 Simple program to test game AI's. Currently supports Chess and Connect Four.
 
+1. [Introduction](#introduction)
+2. [Installation](#installation)
+3. [Usage](#usage)
+    - [AI Configuration](#ai-configuration)
+    - [AI Structure](#ai-structure)
+    - [AI Communication Protocol (Input)](#ai-communication-protocol-input)
+    - [AI Communication Protocol (Output)](#ai-communication-protocol-output)
+4. [Game Specific Instructions](#game-specific-instructions)
+    - [Chess](#chess)
+    - [Connect Four](#connect-four)
+
 ## Installation
 
 Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-local/releases), unzip, and run `tira-ai-local`.
@@ -11,9 +22,9 @@ Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-l
 
 #### Requirements
 
-- [python](https://www.python.org/) 3.10 or newer
-- [Node.js](https://nodejs.org/en/download/current)
-- [poetry](https://python-poetry.org/docs/#installation)
+-   [python](https://www.python.org/) 3.10 or newer
+-   [Node.js](https://nodejs.org/en/download/current)
+-   [poetry](https://python-poetry.org/docs/#installation)
 
 #### Installation steps
 
@@ -125,21 +136,21 @@ TAG:DATA
 `TAG` is the type of command, and `DATA` is the data to prcess.
 
 #### TAGS
-- `MOVE:<move>`
-    - Take the given opponent move and process
-    - Data: Move made by the opponent.
-    - Example: `MOVE:e2e4` would be white's opening move in chess.
-- `PLAY:`
-    - Play one move in the current position
-    - Data: None
-- `BOARD:<board_state>`
-    - Set the board to this state
-    - Data: A board state
-    - Example: `BOARD:rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` would set a chess board to the starting position
-- `RESET:`
-    - Set the board to starting position
-    - Data: None
 
+-   `MOVE:<move>`
+    -   Take the given opponent move and process
+    -   Data: Move made by the opponent.
+    -   Example: `MOVE:e2e4` would be white's opening move in chess.
+-   `PLAY:`
+    -   Play one move in the current position
+    -   Data: None
+-   `BOARD:<board_state>`
+    -   Set the board to this state
+    -   Data: A board state
+    -   Example: `BOARD:rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` would set a chess board to the starting position
+-   `RESET:`
+    -   Set the board to starting position
+    -   Data: None
 
 <details>
     <summary>Reading Tags Python Example</summary>
@@ -172,19 +183,22 @@ There is only one tag for output, `MOVE:`, and it is used like in input. To retu
 Note: For the program of stop reading the output of your AI and process the given move, you will need a newline (`\n`) at the end of your data. In python by default a newline inserted automatically at the end of each `print` statement.
 
 #### Example
+
 ```python
 print("a2a3")
 print("MOVEb2b3")
 print("MOVE:e2e4")
 print("test")
 ```
+
 The program would read `e2e4` as the output from your AI. The log box would look like this:
+
 ```python
 a2a3
 MOVEb2b3
-# Moved e2 to e4
-test
 ```
+
+The program would then move e2 to e4 and wait for user input. After given a move, `test` would be written in the log box.
 
 ## Game Specific Instructions
 
