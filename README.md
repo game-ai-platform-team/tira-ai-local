@@ -210,7 +210,7 @@ The program reads your AI's output from the standard pipe (command line). In Pyt
 
 There is only one tag for output, `MOVE:`, which is used similarly to input. When given a `PLAY`-tag, your AI should write `MOVE:<move>` to the command line.
 
-Note: Any outputs to the console that do not begin with `MOVE:` will be displayed in the log box of the program under the most recent `MOVE:` output.
+**Note**: Any outputs to the console that do not begin with `MOVE:` will be displayed in the log box of the program under the most recent `MOVE:` output.
 
 
 #### Example
