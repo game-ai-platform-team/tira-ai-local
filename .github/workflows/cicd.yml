@@ -3,27 +3,29 @@ on:
 
 
 jobs:
-  name: App format code
-  runs-on: ubuntu-latest
-  defaults:
-    run:
-      working-directory: ./app
-  steps:
-    - uses: actions/checkout@v4
-
-    - name: Set up node
-      uses: game-ai-platform-team/setup-node@main
-      with:
+  app_fomat_code:
+    name: App format code
+    runs-on: ubuntu-latest
+    defaults:
+      run:
         working-directory: ./app
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Format code
-      run: pnpm run format
+      - name: Set up node
+        uses: game-ai-platform-team/setup-node@main
+        with:
+          working-directory: ./app
 
-  name: Background format code
-  runs-on: ubuntu-latest
-  defaults:
-    run:
-      working-directory: ./background-service
+      - name: Format code
+        run: pnpm run format
+
+  background-format-code:
+    name: Background format code
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./background-service
     steps:
       - uses: actions/checkout@v4
 
