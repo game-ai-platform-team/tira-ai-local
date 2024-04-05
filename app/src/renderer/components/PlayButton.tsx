@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { sendEmpty, setReturnMove } from "../MoveSender";
 
 export const PlayButton = (props: { sendEmpty?: () => void }) => {
-	const [autoSendMove, setAutoSendMove] = useState(true);
+	const [autoSendMove, setAutoSendMove] = useState(false);
 	function sendEmptyMove() {
 		console.log(props.sendEmpty);
 		if (typeof props.sendEmpty === "undefined") {

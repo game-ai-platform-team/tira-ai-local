@@ -7,12 +7,12 @@ import { PlayButton } from "../../renderer/components/PlayButton";
 
 describe("Playbutton", () => {
 	afterEach(cleanup);
-	test("Initial state of autoSendMove is false", () => {
+	test("Initial state of autoSendMove is true", () => {
 		const { getByLabelText } = render(<PlayButton />);
 		const checkbox = getByLabelText(
 			"Send PLAY after move",
 		) as HTMLInputElement;
-		expect(!checkbox.checked).toBe(true);
+		expect(!checkbox.checked).toBe(false);
 	});
 	test("Clicking on checkbox toggles autoSendMove state", () => {
 		const { getByLabelText } = render(<PlayButton />);
@@ -21,9 +21,9 @@ describe("Playbutton", () => {
 		) as HTMLInputElement;
 
 		fireEvent.click(checkbox);
-		expect(!checkbox.checked).toBe(false);
-		fireEvent.click(checkbox);
 		expect(!checkbox.checked).toBe(true);
+		fireEvent.click(checkbox);
+		expect(!checkbox.checked).toBe(false);
 	});
 	test("Play button calls sendEmpty", () => {
 		const sendEmpty = vi.fn();
