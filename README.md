@@ -161,7 +161,7 @@ TAG:DATA
 
     -   Process the opponent's move.
     -   **Data Format**: The move made by the opponent.
-    -   **Example**: `MOVE:e2e4` indicates white's opening move in chess.
+    -   **Example**: `MOVE:e2e4` indicates White's opening move in chess.
 
 -   `PLAY:`
 
@@ -306,35 +306,35 @@ Could not capture error message, most likely process has already finished.
 
 #### Moves (UCI)
 
-Moves are communicated using [Universal Chess Interface (UCI)](https://en.wikipedia.org/wiki/Universal_Chess_Interface). In short, in UCI moves are represented as two squares, the origin and destination of the moving piece. For example `e2e4` means that the piece in `e2` (pawn at game start) moves to `e4`.
+Moves are communicated using [Universal Chess Interface (UCI)](https://en.wikipedia.org/wiki/Universal_Chess_Interface). In UCI, moves are represented by indicating the origin and destination squares of the moving piece. For example `e2e4` means that the piece in `e2` (pawn at game start) moved to `e4`.
 
 Promotions are represented by a single character at the end of the move. If a pawn in `e7` moves to `e8` and promotes to a queen, this is written as `e7e8q`. Possible promotions are knight (`n`), bishop (`b`), rook (`r`) and queen (`q`).
 
-When castling, the king is the moving piece. For example, if white castles kingside, this is written as `e1g1`.
+When [castling](https://en.wikipedia.org/wiki/Castling), the king is the moving piece. For example, if White castles kingside, this is written as `e1g1`.
 
 #### Boards (FEN)
 
 Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation). A FEN string is a record of a game position. The string is formed from 6 different parts, each separated using a space. Below is a breakdown of the starting position FEN, `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`:
 
 1. **Piece placement data:** `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR`
-    - Each row of the chess board, from left to right (from white's perspective) separeted with slashes (`/`)
-    - Each piece is represented by a single character, upper case for white and lower case for black. The pieces are pawn (`p`), bishop (`b`), knight (`n`), rook (`r`), queen (`q`) and king (`k`).
+    - Each row of the chess board, from left to right (from White's perspective) separeted with slashes (`/`)
+    - Each piece is represented by a single character, upper case for White and lower case for Black. The pieces are pawn (`p`), bishop (`b`), knight (`n`), rook (`r`), queen (`q`) and king (`k`).
     - Empty squares are noted by a number showing how many there are. For example, `/P2P4/` would be displayed as
     - ![FEN p2p4](./docs/fen_example_p2p4.png)
     - A complex board state might look like this `6k1/p3pp1p/1n3bpB/8/1q6/2N4P/PP3PP1/3Q2K1`, which is pictured below
     - ![FEN Complex Board](./docs/fen_example_complex_board.png)
 2. **Active Color:** `w`
-    - Whose turn it is, black (`b`) or white (`w`).
+    - Whose turn it is, Black (`b`) or White (`w`).
 3. **Castling availability:** `KQkq`
-    - Which sides each color can castle. Upper case for white and lower case for black. `KQkq` means both colors can castle both ways. `Qk` would mean that white can castle queenside and black can castle kingside. `-` means that neither side can castle.
+    - Which sides each color can castle. Upper case for White and lower case for Black. `KQkq` means both colors can castle both ways. `Qk` would mean that White can castle queenside and Black can castle kingside. `-` means that neither side can castle.
 4. **En passant target square:** `-`
-    - If this square is not a line (`-`), it means that a pawn can move to that square to do an _[en passant](https://en.wikipedia.org/wiki/En_passant)_. For example, if black moves `f7f5` this would read `f6`. This means that white can use a pawn in `e5` or `g5` to capture the black pawn in `f5` by moving to `f6`.
-    - Below is a board in position `rnbqkbnr/pp1pp1pp/8/2p1Pp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3`, where white can _en passant_ with the pawn in `e5` by moving it to `f6`
+    - If this square is not a line (`-`), it means that a pawn can move to that square to do an _[en passant](https://en.wikipedia.org/wiki/En_passant)_. For example, if Black moves `f7f5` this would read `f6`. This means that White can use a pawn in `e5` or `g5` to capture the Black pawn in `f5` by moving to `f6`.
+    - Below is a board in position `rnbqkbnr/pp1pp1pp/8/2p1Pp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3`, where White can _en passant_ with the pawn in `e5` by moving it to `f6`
     - ![en passant example](./docs/en_passant_example.png)
 5. **Halfmove clock:** `0`
     - The number of moves since a piece was captured or a pawn was moved. This program uses the [fifty-move rule](https://en.wikipedia.org/wiki/Fifty-move_rule), which means that the game will be declared a draw if the number of halfmoves reaches 100. Your AI does not need to keep track of this.
 6. **Fullmove number:** `1`
-    - The number of full moves. Increases by one every time it is white's turn (so after black makes a move). Your AI does not need to keep track of this.
+    - The number of full moves. Increases by one every time it is White's turn (so after Black makes a move). Your AI does not need to keep track of this.
 
 #### Using FEN with the program
 
