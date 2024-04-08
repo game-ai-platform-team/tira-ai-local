@@ -8,6 +8,7 @@ Simple program to test game AI's. Currently supports Chess and Connect Four.
     - [AI Structure](#ai-structure)
     - [AI Communication Protocol (Input)](#ai-communication-protocol-input)
     - [AI Communication Protocol (Output)](#ai-communication-protocol-output)
+    - [Error Capturing](#error-capturing)
 3. [Game Specific Instructions](#game-specific-instructions)
     - [Chess](#chess)
     - [Connect Four](#connect-four)
@@ -261,6 +262,43 @@ MOVE.b8b6
 ```
 
 </details>
+
+### Error Capturing
+
+In addition to reading and writing from the standard pipe, this program also captures any errors your AI writes in the standard error datastream (`stderr`). Everything written to `stderr` is displayed in the log box, along with the [Process ID](https://en.wikipedia.org/wiki/Process_identifier) and [return code](https://en.wikipedia.org/wiki/Exit_status) if your AI stops executing.
+
+Below is a log of [the example AI](https://github.com/game-ai-platform-team/stupid-chess-ai) crashing when being requested a move from a position with no legal moves:
+
+```
+---------------------------------
+19:55:19: Process 623932 finished with return code 1. Captured error message:
+Traceback (most recent call last):
+  File "/home/repos/stupid-chess-ai/src/stupid_ai.py", line 44, in <module>
+    main()
+  File "/home/repos/stupid-chess-ai/src/stupid_ai.py", line 30, in main
+    choice = make_move(board)
+             ^^^^^^^^^^^^^^^^
+  File "/home/repos/stupid-chess-ai/src/stupid_ai.py", line 12, in make_move
+    choice = random.choice(legal_moves)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user-name/.pyenv/versions/3.12.2/lib/python3.12/random.py", line 347, in choice
+    raise IndexError('Cannot choose from an empty sequence')
+IndexError: Cannot choose from an empty sequence
+
+---------------------------------
+```
+
+The log contains the PID (`623932`), return code (`1`) and the captured error message, which in this case is a Python traceback. As shown, the error occurred when attempting to randomly choose a move from an empty list.
+
+**Note**: The error message can only be captured from the last active pipe. If a new move is requested after a crash, the log will indicate that the error message couldn't be captured, as `stderr` cannot be retrieved from a broken pipe:
+
+```
+---------------------------------
+19:57:52: Process 623932 finished with return code 1. Captured error message:
+Could not capture error message, most likely process has already finished.
+---------------------------------
+```
+
 
 ## Game Specific Instructions
 
