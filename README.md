@@ -237,18 +237,18 @@ if __name__ == "__main__":
     main()
 ```
 
-In this example, the program would read `e2e4` as the output from your AI. If your AI returns `e7e5` as the next move, the log box would display:
+In this example, the program would read `e2e4` as the output from the AI and the log box would display:
 
 ```
 ---------------------------------
-15:44:02: e7e5:
+15:44:02: e2e4:
 This is before a move is returned
 I moved e2e4
 MOVE.e2e4
 ---------------------------------
 ```
 
-The program would then process the move e2e4 and wait for further input. After receiving the next input, `test` would be displayed in the log box under the next `MOVE:`. If your AI chose `b8a6` as its move, the log box would display:
+The program would then process the move and wait for further input. After receiving the next input, the AI chooses `b8a6` as its move, and the log box would display:
 
 ```
 ---------------------------------
