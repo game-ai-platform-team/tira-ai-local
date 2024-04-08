@@ -12,147 +12,147 @@ import { Logs } from "./components/Logs";
 import { createPGNString } from "./PGNFormatter";
 
 function App() {
-  const [selectedGame, setSelectedGame] = useState<string | null>(null);
-  const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
-  const [boardIndex, setBoardIndex] = useState(0);
-  const [halfMoves, setHalfMoves] = useState([]);
-  const [positions, setPositions] = useState([new Position()]);
-  const [moves, setMoves] = useState<string[]>([]);
+	const [selectedGame, setSelectedGame] = useState<string | null>(null);
+	const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
+	const [boardIndex, setBoardIndex] = useState(0);
+	const [halfMoves, setHalfMoves] = useState([]);
+	const [positions, setPositions] = useState([new Position()]);
+	const [moves, setMoves] = useState<string[]>([]);
 
-  const handleGameSelection = (game: string) => {
-    setSelectedGame(game);
-  };
+	const handleGameSelection = (game: string) => {
+		setSelectedGame(game);
+	};
 
-  const handleGameDeselection = () => {
-    setSelectedGame(null);
-  };
+	const handleGameDeselection = () => {
+		setSelectedGame(null);
+	};
 
-  function handleSubmit(
-    filepath: string,
-    fennotation: string,
-    runsetup: boolean,
-  ) {
-    if (selectedGame === "chess") {
-      socket.emit("startgame", filepath, fennotation, runsetup);
-      setBoardIndex(0);
-      setHasBeenSubmitted(true);
-      const fenList = fennotation.split(" ");
-      setHalfMoves([parseInt(fenList[4])]);
-      setMoves([]);
-      try {
-        setPositions([new Position(fennotation)]);
-      } catch (error) {
-        setPositions([new Position()]);
-      }
-    } else if (selectedGame === "connectFour") {
-      startGame(filepath, runsetup);
-      setBoardIndex(0);
-      setMoves([]);
-      setHasBeenSubmitted(true);
-    }
-  }
+	function handleSubmit(
+		filepath: string,
+		fennotation: string,
+		runsetup: boolean,
+	) {
+		if (selectedGame === "chess") {
+			socket.emit("startgame", filepath, fennotation, runsetup);
+			setBoardIndex(0);
+			setHasBeenSubmitted(true);
+			const fenList = fennotation.split(" ");
+			setHalfMoves([parseInt(fenList[4])]);
+			setMoves([]);
+			try {
+				setPositions([new Position(fennotation)]);
+			} catch (error) {
+				setPositions([new Position()]);
+			}
+		} else if (selectedGame === "connectFour") {
+			startGame(filepath, runsetup);
+			setBoardIndex(0);
+			setMoves([]);
+			setHasBeenSubmitted(true);
+		}
+	}
 
-  const fullMoves = (index: number) => {
-    return Math.floor(index / 2) + 1;
-  };
+	const fullMoves = (index: number) => {
+		return Math.floor(index / 2) + 1;
+	};
 
-  function copyFenToClipboard() {
-    const fen = createFen(boardIndex);
-    navigator.clipboard
-      .writeText(fen)
-      .then(() => {
-        console.log("Copied FEN to clipboard:", fen);
-      })
-      .catch((err) => {
-        console.error("Error copying FEN notation to clipboard:", err);
-      });
-  }
+	function copyFenToClipboard() {
+		const fen = createFen(boardIndex);
+		navigator.clipboard
+			.writeText(fen)
+			.then(() => {
+				console.log("Copied FEN to clipboard:", fen);
+			})
+			.catch((err) => {
+				console.error("Error copying FEN notation to clipboard:", err);
+			});
+	}
 
-  function exportPgn() {
-    const pgn = createPGNString(moves, createFen(0), fullMoves(boardIndex));
-    navigator.clipboard
-      .writeText(pgn)
-      .then(() => {
-        console.log("Copied PGN to clipboard:", pgn);
-      })
-      .catch((err) => {
-        console.error("Error copying PGN notation to clipboard:", err);
-      });
-  }
+	function exportPgn() {
+		const pgn = createPGNString(moves, createFen(0), fullMoves(boardIndex));
+		navigator.clipboard
+			.writeText(pgn)
+			.then(() => {
+				console.log("Copied PGN to clipboard:", pgn);
+			})
+			.catch((err) => {
+				console.error("Error copying PGN notation to clipboard:", err);
+			});
+	}
 
-  function createFen(index: number) {
-    const halfMove: number = halfMoves[index - 1];
-    const fullMove: number = fullMoves(index);
+	function createFen(index: number) {
+		const halfMove: number = halfMoves[index - 1];
+		const fullMove: number = fullMoves(index);
 
-    const fen = positions[index].fen({
-      fiftyMoveClock: !isNaN(halfMove) ? halfMove : 0,
-      fullMoveNumber: fullMove,
-    });
-    return fen;
-  }
+		const fen = positions[index].fen({
+			fiftyMoveClock: !isNaN(halfMove) ? halfMove : 0,
+			fullMoveNumber: fullMove,
+		});
+		return fen;
+	}
 
-  return (
-    <div>
-      <GameSelector onSelect={handleGameSelection} />
+	return (
+		<div>
+			<GameSelector onSelect={handleGameSelection} />
 
-      {selectedGame && (
-        <div id="app-center">
-          <div>
-            <AIForm
-              handleSubmit={handleSubmit}
-              showFen={true}
-              formId="formChess"
-            />
-          </div>
-          <div>
-            {selectedGame === "chess" ? (
-              <ChessView
-                setBoardIndex={setBoardIndex}
-                boardIndex={boardIndex}
-                hasBeenSubmitted={hasBeenSubmitted}
-                moves={moves}
-                setMoves={setMoves}
-                halfMoves={halfMoves}
-                setPositions={setPositions}
-                positions={positions}
-              />
-            ) : (
-              <CFourView
-                moves={moves}
-                boardIndex={boardIndex}
-                hasBeenSubmitted={hasBeenSubmitted}
-                setBoardIndex={setBoardIndex}
-                setMoves={setMoves}
-              />
-            )}
-          </div>
-          <div>
-            {selectedGame === "chess" && (
-              <>
-                <button onClick={copyFenToClipboard}>
-                  Copy current FEN
-                </button>
-                <button onClick={exportPgn}>Copy current PGN</button>
-              </>
-            )}
-            <button className="classic-button" onClick={killProcess}>
-              Kill Process
-            </button>
-          </div>
-        </div>
-      )}
+			{selectedGame && (
+				<div id="app-center">
+					<div>
+						<AIForm
+							handleSubmit={handleSubmit}
+							showFen={true}
+							formId="formChess"
+						/>
+					</div>
+					<div>
+						{selectedGame === "chess" ? (
+							<ChessView
+								setBoardIndex={setBoardIndex}
+								boardIndex={boardIndex}
+								hasBeenSubmitted={hasBeenSubmitted}
+								moves={moves}
+								setMoves={setMoves}
+								halfMoves={halfMoves}
+								setPositions={setPositions}
+								positions={positions}
+							/>
+						) : (
+							<CFourView
+								moves={moves}
+								boardIndex={boardIndex}
+								hasBeenSubmitted={hasBeenSubmitted}
+								setBoardIndex={setBoardIndex}
+								setMoves={setMoves}
+							/>
+						)}
+					</div>
+					<div>
+						{selectedGame === "chess" && (
+							<>
+								<button onClick={copyFenToClipboard}>
+									Copy current FEN
+								</button>
+								<button onClick={exportPgn}>
+									Copy current PGN
+								</button>
+							</>
+						)}
+						<button
+							className="classic-button"
+							onClick={killProcess}
+						>
+							Kill Process
+						</button>
+					</div>
+				</div>
+			)}
 
-      <div>
-        {selectedGame && (
-        <Logs />
-        )}
-      </div>
-      
-    </div>
-  );
+			<div>{selectedGame && <Logs />}</div>
+		</div>
+	);
 }
 
 export function render() {
-  const root = createRoot(document.getElementById("root"));
-  root.render(<App />);
+	const root = createRoot(document.getElementById("root"));
+	root.render(<App />);
 }
