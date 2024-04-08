@@ -38,23 +38,25 @@ function AIForm(props: AIFormProps): JSX.Element {
 		setDragging(true);
 	}
 
-	function handleSelectFolderClick(): void {
-		const input = document.createElement("input");
-		input.type = "file";
-		input.setAttribute("webkitdirectory", ""); // for Chrome
-		input.setAttribute("directory", ""); // for Firefox
-		input.setAttribute("multiple", "false");
-		input.onchange = (e: any) => {
-			const selectedFolder = e.target.files[0];
-			if (path.dirname(selectedFolder.path)) {
-				// Check if the selected item is a directory (no type specified)
-				setFilePath(path.dirname(selectedFolder.path));
-			} else {
-				alert("Please select a folder.");
-			}
-		};
-		input.click();
-	}
+  function handleSelectFolderClick(): void {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.setAttribute("webkitdirectory", "");
+    input.setAttribute("directory", "");
+    input.setAttribute("multiple", "false");
+    input.onchange = (e: any) => {
+      const selectedFolder = e.target.files[0];
+      if (path.dirname(selectedFolder.path)) {
+        setFilePath(path.dirname(selectedFolder.path));
+      } else {
+        alert('Please select a folder.');
+      }
+    };
+    input.click();
+  }
+  
+  
+  
 
 	return (
 		<div>
