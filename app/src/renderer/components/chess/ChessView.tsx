@@ -1,6 +1,7 @@
 import { MyChessboard } from "./MyChessboard";
 import { MoveDescriptor, Position } from "kokopu";
 import { sendBoardFen } from "../../MoveSender";
+import { PlayButton } from "../PlayButton";
 
 export function ChessView(props: {
 	positions: any;
@@ -94,6 +95,7 @@ export function ChessView(props: {
 						>
 							{">"}
 						</button>
+                        <PlayButton />
 					</div>
 					<div data-testid="board-index">Turn {props.boardIndex}</div>
 				</>

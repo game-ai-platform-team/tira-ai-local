@@ -38,7 +38,6 @@ export function MyChessboard(props: {
 				onMovePlayed={(move) => handleMovePlayed(move)}
 				position={props.pos}
 			/>
-			<PlayButton />
 		</div>
 	);
 }
