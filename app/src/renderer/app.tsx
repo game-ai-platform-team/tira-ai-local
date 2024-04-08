@@ -20,10 +20,10 @@ function App() {
 	const [moves, setMoves] = useState<string[]>([]);
 
 	const handleGameSelection = (game: string) => {
-        setMoves([])
-        setHalfMoves([])
-        setPositions([new Position()])
-        setBoardIndex(0)
+		setMoves([]);
+		setHalfMoves([]);
+		setPositions([new Position()]);
+		setBoardIndex(0);
 		setSelectedGame(game);
 	};
 
@@ -104,7 +104,7 @@ function App() {
 					<div>
 						<AIForm
 							handleSubmit={handleSubmit}
-							showFen={selectedGame==="chess"}
+							showFen={selectedGame === "chess"}
 							formId="formChess"
 						/>
 					</div>
