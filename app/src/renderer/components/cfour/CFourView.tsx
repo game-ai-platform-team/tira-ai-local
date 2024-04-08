@@ -1,6 +1,4 @@
 import { MyConnectFour } from "./MyConnectFour";
-import { Logs } from "../Logs";
-import AIForm from "../AIForm";
 import checkForWin from "./CFourWinChecker";
 import CFourParser from "./CFourParser";
 import { sendMove, sethandleMovePlayedByAi } from "../../MoveSender";
@@ -16,6 +14,7 @@ export function CFourView(props: {
 
 	function handleMovePlayedByAi(move: string) {
 		if (!isGameOver) {
+            console.log(numberMoves)
 			props.setMoves(props.moves.concat(move));
 			props.setBoardIndex(props.boardIndex + 1);
 		}
