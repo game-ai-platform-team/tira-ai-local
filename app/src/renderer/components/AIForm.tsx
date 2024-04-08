@@ -73,7 +73,9 @@ function AIForm(props: AIFormProps): JSX.Element {
 						}}
 					>
 						{filepath ? (
-							<div className="file-path-text">Selected Folder: {filepath}</div>
+							<div className="file-path-text">
+								Selected Folder: {filepath}
+							</div>
 						) : (
 							<div>Click or Drag & Drop Folder Here</div>
 						)}
@@ -86,29 +88,30 @@ function AIForm(props: AIFormProps): JSX.Element {
 					/>
 				</div>
 				{props.showFen && (
-                    <>
-                    <br />
-                    <div>Set board FEN: </div>
-					<div>
-						
-						<input
-							id="feninput"
-							value={fennotation}
-							onChange={(e) => setFenNotation(e.target.value)}
-						/>{" "}
-                        <br/>
-						(empty for starting position)
-					</div>
-                    </>
+					<>
+						<br />
+						<div>Set board FEN: </div>
+						<div>
+							<input
+								id="feninput"
+								value={fennotation}
+								onChange={(e) => setFenNotation(e.target.value)}
+							/>{" "}
+							<br />
+							(empty for starting position)
+						</div>
+					</>
 				)}
 				<br />
-				<div><label htmlFor="run-setup">Run setup.sh?</label>
-                <input
-					type="checkbox"
-					id="run-setup"
-					onChange={(e) => setRunSetup(e.target.checked)}
-					checked={runSetup}
-				/></div>
+				<div>
+					<label htmlFor="run-setup">Run setup.sh?</label>
+					<input
+						type="checkbox"
+						id="run-setup"
+						onChange={(e) => setRunSetup(e.target.checked)}
+						checked={runSetup}
+					/>
+				</div>
 				<br />
 				<button type="submit" id="submit" className="classic-button">
 					SUBMIT

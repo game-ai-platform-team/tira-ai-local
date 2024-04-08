@@ -150,7 +150,7 @@ function App() {
 					</div>
 				</div>
 			)}
-            <br/>
+			<br />
 			<div>{selectedGame && <Logs />}</div>
 		</div>
 	);

@@ -23,7 +23,7 @@ export function GameSelector({ onSelect }) {
 			>
 				Connect Four
 			</button>
-            <div className="tira-text">TIRA-AI-LOCAL</div>
+			<div className="tira-text">TIRA-AI-LOCAL</div>
 		</div>
 	);
 }
