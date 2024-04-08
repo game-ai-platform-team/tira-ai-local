@@ -276,9 +276,7 @@ When castling, the king is the moving piece. For example, if white castles kings
 
 #### Boards (FEN)
 
-Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation). A FEN string is a record of a game position. The string is formed from 6 different parts, each separated using a space. Below is a breakdown of the starting position FEN.
-
-`rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`
+Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation). A FEN string is a record of a game position. The string is formed from 6 different parts, each separated using a space. Below is a breakdown of the starting position FEN, `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`:
 
 1. **Piece placement data:** `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR`
     - Each row of the chess board, from left to right (from white's perspective) separeted with slashes (`/`)
@@ -290,10 +288,10 @@ Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikip
 2. **Active Color:** `w`
     - Whose turn it is, black (`b`) or white (`w`).
 3. **Castling availability:** `KQkq`
-    - Which sides each color can castle. Upper case for white and lower case for black. `KQkq` means both colors can castle both ways. `Qk` would mean that white can castle queenside and black can castle kingside.
+    - Which sides each color can castle. Upper case for white and lower case for black. `KQkq` means both colors can castle both ways. `Qk` would mean that white can castle queenside and black can castle kingside. `-` means that neither side can castle.
 4. **En passant target square:** `-`
-    - If this square is not a line (`-`), it means that a pawn can move to that square to do an _[en passant](https://en.wikipedia.org/wiki/En_passant)_. For example, if black moves `f7f5` this would read `f6`. This means that white can use a pawn in `e5` or `g5` in capture the black pawn in `f5` by moving to `f6`.
-    - Below is a board in position `rnbqkbnr/pp1pp1pp/8/2p1Pp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3`, where white can en passant with the pawn in `e5` by moving it to `f6`
+    - If this square is not a line (`-`), it means that a pawn can move to that square to do an _[en passant](https://en.wikipedia.org/wiki/En_passant)_. For example, if black moves `f7f5` this would read `f6`. This means that white can use a pawn in `e5` or `g5` to capture the black pawn in `f5` by moving to `f6`.
+    - Below is a board in position `rnbqkbnr/pp1pp1pp/8/2p1Pp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3`, where white can _en passant_ with the pawn in `e5` by moving it to `f6`
     - ![en passant example](./docs/en_passant_example.png)
 5. **Halfmove clock:** `0`
     - The number of moves since a piece was captured or a pawn was moved. This program uses the [fifty-move rule](https://en.wikipedia.org/wiki/Fifty-move_rule), which means that the game will be declared a draw if the number of halfmoves reaches 100. Your AI does not need to keep track of this.
@@ -304,10 +302,10 @@ Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikip
 
 When starting a game, you can input a valid FEN string into the designated field to set the initial position of the game. If the entered FEN is invalid or the field is left empty, the game will start from the standard starting position.
 
-In the program's user interface, you have the option to undo and redo moves. Each time you perform an undo or redo action, a FEN string representing the current board position is sent. For instance, if you undo a move to revert to the position `r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3`, Your AI will receive the following FEN string:
+In the program's user interface, you have the option to undo and redo moves. Each time you perform an undo or redo action, a FEN string representing the current board position is sent. For instance, if you undo a move to revert to the position `r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3`, Your AI will receive the following:
 
 ```
-r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
+BOARD:r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
 ```
 
 Additionally, a log will be displayed in the log box:
