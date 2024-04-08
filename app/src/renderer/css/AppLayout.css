@@ -3,3 +3,19 @@
 	flex-direction: row;
 	justify-content: space-between;
 }
+
+.card  {
+    box-shadow: 0 4px 8px 0 #a0522d;
+    transition: 0.3s;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.card:empty {
+    display: none;
+}
+
+.card-header {
+    text-align: center;
+    font-size: 1.8em;
+}

@@ -1,0 +1,36 @@
+#ai-form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    min-width: 250px;
+    gap: 10px;
+}
+
+#fileinput {
+    border: 2px dashed #a0522d;
+    text-align: center;
+    max-width: 100%;
+    min-height: 150px;
+    padding: 5px;
+    font-size: 1.1em;
+}
+
+#formChess {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.folder-submit {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.file-path-text {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 15em;
+    text-overflow: ellipsis;
+}

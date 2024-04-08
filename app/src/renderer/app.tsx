@@ -101,7 +101,7 @@ function App() {
 
 			{selectedGame && (
 				<div id="app-center">
-					<div>
+					<div className="card">
 						<AIForm
 							handleSubmit={handleSubmit}
 							showFen={selectedGame === "chess"}
@@ -150,7 +150,7 @@ function App() {
 					</div>
 				</div>
 			)}
-
+            <br/>
 			<div>{selectedGame && <Logs />}</div>
 		</div>
 	);

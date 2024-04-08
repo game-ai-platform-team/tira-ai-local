@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../css/Buttons.css";
 import path from "path";
+import "../css/AIForm.css";
 
 interface AIFormProps {
 	handleSubmit: (
@@ -56,9 +57,9 @@ function AIForm(props: AIFormProps): JSX.Element {
 	}
 
 	return (
-		<div>
+		<div id="ai-form">
 			<form onSubmit={handleSubmit} id={props.formId}>
-				<div>
+				<div className="folder-submit">
 					Submit folder:{" "}
 					<div
 						id="fileinput"
@@ -68,14 +69,11 @@ function AIForm(props: AIFormProps): JSX.Element {
 						style={{
 							border: dragging
 								? "2px dashed blue"
-								: "2px dashed #ccc",
-							padding: "20px",
-							marginBottom: "10px",
-							cursor: "pointer",
+								: "2px dashed #a0522d",
 						}}
 					>
 						{filepath ? (
-							<div>Selected Folder: {filepath}</div>
+							<div className="file-path-text">Selected Folder: {filepath}</div>
 						) : (
 							<div>Click or Drag & Drop Folder Here</div>
 						)}
@@ -88,25 +86,29 @@ function AIForm(props: AIFormProps): JSX.Element {
 					/>
 				</div>
 				{props.showFen && (
+                    <>
+                    <br />
+                    <div>Set board FEN: </div>
 					<div>
-						<br />
-						Set board FEN: <br />
+						
 						<input
 							id="feninput"
 							value={fennotation}
 							onChange={(e) => setFenNotation(e.target.value)}
 						/>{" "}
+                        <br/>
 						(empty for starting position)
 					</div>
+                    </>
 				)}
 				<br />
-				<label htmlFor="run-setup">Run setup.sh?</label>
-				<input
+				<div><label htmlFor="run-setup">Run setup.sh?</label>
+                <input
 					type="checkbox"
 					id="run-setup"
 					onChange={(e) => setRunSetup(e.target.checked)}
 					checked={runSetup}
-				/>
+				/></div>
 				<br />
 				<button type="submit" id="submit" className="classic-button">
 					SUBMIT
