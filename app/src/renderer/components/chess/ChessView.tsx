@@ -95,7 +95,7 @@ export function ChessView(props: {
 						>
 							{">"}
 						</button>
-                        <PlayButton />
+						<PlayButton />
 					</div>
 					<div data-testid="board-index">Turn {props.boardIndex}</div>
 				</>
