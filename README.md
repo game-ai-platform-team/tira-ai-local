@@ -321,7 +321,7 @@ Additionally, a log will be displayed in the log box:
 <error message>
 ```
 
-If your AI process is no longer running, attempting to undo or redo moves results in a "broken pipe" error (`[Errno32]: Broken pipe`). This error occurs because the connection between the game and the AI process has been severed. To fix this, you must resubmit your AI.
+If your AI process is no longer running, attempting to undo or redo moves results in a "broken pipe" error (`[Errno32]: Broken pipe`). To fix this, you must resubmit your AI.
 
 
 
