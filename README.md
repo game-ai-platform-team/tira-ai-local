@@ -80,7 +80,7 @@ If you make any changes to the background service, you will have to build it aga
     npm run make
     ```
 
-The built program can be found in the `./app/out` directory.
+The built program can be found in the `./app/out/tira-ai-local-<platform>/` directory.
 
 </details>
 
@@ -212,31 +212,124 @@ There is only one tag for output, `MOVE:`, which is used similarly to input. Whe
 
 **Note**: Any outputs to the console that do not begin with `MOVE:` will be displayed in the log box of the program under the most recent `MOVE:` output. You can use this to debug your AI.
 
+<details>
 
-#### Example
+<summary>Example</summary>
 
-```python
-print("a2a3")
-print("MOVEb2b3")
-print("MOVE:e2e4")  # Only this is read as a move
-print("test")
-```
-
-In this example, the program would read `e2e4` as the output from your AI. The log box would display:
+This chess "AI" chooses predetermined moves from a list.
 
 ```python
-a2a3
-MOVEb2b3
+def main():
+    moves = ["e2e4", "b8b6", "g7g5", "c7c6", ... ]
+
+    for move in moves:
+        command = input().strip()
+
+        print("This is before a move is returned")
+
+        print(f"I moved {move}")
+        print(f"MOVE.{move}") # This is not read as a move
+        print(f"MOVE:{move}") # Only this is read as a valid move
+
+        print("This is after a move is returned")
+
+if __name__ == "__main__":
+    main()
 ```
 
-The program would then process the move e2e4 and wait for further input. After receiving the next input, `test` would be displayed in the log box under the next `MOVE:`.
+In this example, the program would read `e2e4` as the output from your AI. If your AI returns `e7e5` as the next move, the log box would display:
+
+```
+---------------------------------
+15:44:02: e7e5:
+This is before a move is returned
+I moved e2e4
+MOVE.e2e4
+---------------------------------
+```
+
+The program would then process the move e2e4 and wait for further input. After receiving the next input, `test` would be displayed in the log box under the next `MOVE:`. If your AI chose `b8a6` as its move, the log box would display:
+
+```
+---------------------------------
+15:44:05: b8a6:
+This is after a move is returned
+This is before a move is returned
+I moved b8b6
+MOVE.b8b6
+---------------------------------
+```
+
+</details>
 
 ## Game Specific Instructions
 
 ### Chess
 
-TBD
+#### Moves (UCI)
+
+Moves are communicated using [Universal Chess Interface (UCI)](https://en.wikipedia.org/wiki/Universal_Chess_Interface). In short, in UCI moves are represented as two squares, the origin and destination of the moving piece. For example `e2e4` means that the piece in `e2` (pawn at game start) moves to `e4`.
+
+Promotions are represented by a single character at the end of the move. If a pawn in `e7` moves to `e8` and promotes to a queen, this is written as `e7e8q`. Possible promotions are knight (`k`), rook (`r`), bishop (`b`) and queen (`q`).
+
+When castling, the king is the moving piece. For example, if white castles kingside, this is written as `e1g1`.
+
+#### Boards (FEN)
+
+Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation). A FEN string is a record of a game position. The string is formed from 6 different parts, each separated using a space. Below is a breakdown of the starting position FEN.
+
+`rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`
+
+1. **Piece placement data:** `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR`
+    - Each row of the chess board, from left to right (from white's perspective) separeted with slashes (`/`)
+    - Each piece is represented by a single character, upper case for white and lower case for black. The pieces are pawn (`p`), bishop (`b`), knight (`n`), rook (`r`), queen (`q`) and king (`k`).
+    - Empty squares are noted by a number showing how many there are. For example, `/P2P4/` would be displayed as
+    - ![FEN p2p4](./docs/fen_example_p2p4.png)
+    - A complex board state might look like this `6k1/p3pp1p/1n3bpB/8/1q6/2N4P/PP3PP1/3Q2K1`, which is pictured below
+    - ![FEN Complex Board](./docs/fen_example_complex_board.png)
+2. **Active Color:** `w`
+    - Whose turn it is, black (`b`) or white (`w`).
+3. **Castling availability:** `KQkq`
+    - Which sides each color can castle. Upper case for white and lower case for black. `KQkq` means both colors can castle both ways. `Qk` would mean that white can castle queenside and black can castle kingside.
+4. **En passant target square:** `-`
+    - If this square is not a line (`-`), it means that a pawn can move to that square to do an _[en passant](https://en.wikipedia.org/wiki/En_passant)_. For example, if black moves `f7f5` this would read `f6`. This means that white can use a pawn in `e5` or `g5` in capture the black pawn in `f5` by moving to `f6`.
+    - Below is a board in position `rnbqkbnr/pp1pp1pp/8/2p1Pp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3`, where white can en passant with the pawn in `e5` by moving it to `f6`
+    - ![en passant example](./docs/en_passant_example.png)
+5. **Halfmove clock:** `0`
+    - The number of moves since a piece was captured or a pawn was moved. This program uses the [fifty-move rule](https://en.wikipedia.org/wiki/Fifty-move_rule), which means that the game will be declared a draw if the number of halfmoves reaches 100. Your AI does not need to keep track of this.
+6. **Fullmove number:** `1`
+    - The number of full moves. Increases by one every time it is white's turn (so after black makes a move). Your AI does not need to keep track of this.
+
+#### Using FEN with the program
+
+When starting a game, you can input a valid FEN string into the designated field to set the initial position of the game. If the entered FEN is invalid or the field is left empty, the game will start from the standard starting position.
+
+In the program's user interface, you have the option to undo and redo moves. Each time you perform an undo or redo action, a FEN string representing the current board position is sent. For instance, if you undo a move to revert to the position `r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3`, Your AI will receive the following FEN string:
+
+```
+r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
+```
+
+Additionally, a log will be displayed in the log box:
+
+```
+---------------------------------
+17:05:40: Setting AI board to r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
+```
+
+**Note:** If setting the board fails for any reason, you will be notified with an error message:
+```
+17:12:42: Setting board failed: 
+<error message>
+```
+
+If your AI process is no longer running, attempting to undo or redo moves results in a "broken pipe" error (`[Errno32]: Broken pipe`). This error occurs because the connection between the game and the AI process has been severed. To fix this, you must resubmit your AI.
+
+
+
+
 
 ### Connect Four
 
 TBD
+
