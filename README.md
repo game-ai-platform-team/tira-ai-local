@@ -317,7 +317,7 @@ Additionally, a log will be displayed in the log box:
 
 **Note:** If setting the board fails for any reason, you will be notified with an error message:
 ```
-17:12:42: Setting board failed: 
+17:05:40: Setting board failed: 
 <error message>
 ```
 
