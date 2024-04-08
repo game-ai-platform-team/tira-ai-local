@@ -270,7 +270,7 @@ MOVE.b8b6
 
 Moves are communicated using [Universal Chess Interface (UCI)](https://en.wikipedia.org/wiki/Universal_Chess_Interface). In short, in UCI moves are represented as two squares, the origin and destination of the moving piece. For example `e2e4` means that the piece in `e2` (pawn at game start) moves to `e4`.
 
-Promotions are represented by a single character at the end of the move. If a pawn in `e7` moves to `e8` and promotes to a queen, this is written as `e7e8q`. Possible promotions are knight (`k`), rook (`r`), bishop (`b`) and queen (`q`).
+Promotions are represented by a single character at the end of the move. If a pawn in `e7` moves to `e8` and promotes to a queen, this is written as `e7e8q`. Possible promotions are knight (`n`), bishop (`b`), rook (`r`) and queen (`q`).
 
 When castling, the king is the moving piece. For example, if white castles kingside, this is written as `e1g1`.
 
