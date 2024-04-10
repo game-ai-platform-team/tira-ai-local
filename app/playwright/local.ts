@@ -9,7 +9,7 @@ test("Chess field form", async () => {
 	});
 	const window = await electronApp.firstWindow();
 	window.getByText("Chess").click();
-	await window.locator("#fileinput").fill("/");
+	await window.locator("#file-text-input").fill("/");
 	await window.locator("#feninput").fill("");
 	await window.locator("#submit").click();
 	await electronApp.close();
@@ -24,7 +24,7 @@ test("Connect Four field form", async () => {
 	});
 	const window = await electronApp.firstWindow();
 	window.getByText("Connect Four").click();
-	await window.locator("#fileinput").fill("/");
+	await window.locator("#file-text-input").fill("/");
 	await window.locator("#submit").click();
 	await electronApp.close();
 });
