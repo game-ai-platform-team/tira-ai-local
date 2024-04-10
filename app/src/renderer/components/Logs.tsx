@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import socket from "../MySocket";
-import "../css/Logs.css"
+import "../css/Logs.css";
 
 export function Logs() {
 	const [logs, setLogs] = useState([]);

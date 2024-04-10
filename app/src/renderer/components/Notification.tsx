@@ -3,16 +3,16 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
 interface NotificationProps {
-    show: boolean;
-    onClose: () => void;
+	show: boolean;
+	onClose: () => void;
 	headerText?: string;
 	bodyText?: string;
 	bg?: string;
 }
 
 export function Notification({
-    show,
-    onClose,
+	show,
+	onClose,
 	headerText = "",
 	bodyText = "",
 	bg = "",
@@ -22,10 +22,14 @@ export function Notification({
 			<Toast show={show} onClose={onClose} bg={bg} autohide={true}>
 				{headerText && (
 					<Toast.Header>
-						<strong className="me-auto" id="notification">{headerText}</strong>
+						<strong className="me-auto" id="notification">
+							{headerText}
+						</strong>
 					</Toast.Header>
 				)}
-				{bodyText && <Toast.Body id="notification">{bodyText}</Toast.Body>}
+				{bodyText && (
+					<Toast.Body id="notification">{bodyText}</Toast.Body>
+				)}
 			</Toast>
 		</ToastContainer>
 	);
