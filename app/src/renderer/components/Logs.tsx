@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import socket from "../MySocket";
+import "../css/Logs.css"
 
 export function Logs() {
 	const [logs, setLogs] = useState([]);
@@ -25,7 +26,7 @@ export function Logs() {
 	}, [logs]);
 
 	return (
-		<div>
+		<div id="log-box">
 			<textarea
 				ref={textareaRef}
 				value={logs.join("\n")}

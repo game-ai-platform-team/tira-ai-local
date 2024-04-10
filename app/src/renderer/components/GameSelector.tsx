@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import { createRoot } from "react-dom/client";
-import { ChessView } from "./chess/ChessView";
-import { CFourView } from "./cfour/CFourView";
 import "../css/GameSelector.css";
 
 export function GameSelector({ onSelect }) {

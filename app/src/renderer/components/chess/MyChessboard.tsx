@@ -6,6 +6,7 @@ export function MyChessboard(props: {
 	pos: Position;
 	addPosition: (position, move) => void;
 	active: boolean;
+	notification?(header, body, bg): void;
 }) {
 	function handleMovePlayed(move: string) {
 		if (props.active) {
@@ -26,6 +27,7 @@ export function MyChessboard(props: {
 			copy.play(move_desc);
 			props.addPosition(copy, move_desc);
 		} else {
+			props.notification("Move was not played!", `${move} is not a valid uci move to play in position: ${props.pos.fen()}`, "Danger")
 			console.log(
 				`Move not played: ${move} is not a valid uci move in ${props.pos.fen()}`,
 			);

@@ -15,8 +15,10 @@ import {
 } from "./MoveSender";
 import { Logs } from "./components/Logs";
 import { createPGNString } from "./PGNFormatter";
-import { PlayButton } from "./components/PlayButton";
 import { GameButtons } from "./components/GameButtons";
+import { Notification } from "./components/Notification";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
 	const [selectedGame, setSelectedGame] = useState<string | null>(null);
@@ -26,6 +28,11 @@ function App() {
 	const [positions, setPositions] = useState([new Position()]);
 	const [moves, setMoves] = useState<string[]>([]);
 	const [autoSendMove, setAutoSendMove] = useState(false);
+
+	const [toastHeader, setToastHeader] = useState("header")
+	const [toastBody, setToastBody] = useState("body")
+	const [toastBg, setToastBg] = useState("")
+	const [showToast, setShowToast] = useState(false)
 
 	const handleGameSelection = (game: string) => {
 		setMoves([]);
@@ -124,9 +131,17 @@ function App() {
 		}
 	}
 
+	function createNotification(header: string, body: string, bg?: string) {
+		setToastBody(body)
+		setToastHeader(header)
+		setToastBg(bg === undefined ? "" : bg)
+		setShowToast(true)
+	}
+
 	return (
 		<div>
 			<GameSelector onSelect={handleGameSelection} />
+			<Notification show={showToast} onClose={() => setShowToast(false)} headerText={toastHeader} bodyText={toastBody} bg={toastBg}/>
 
 			{selectedGame && (
 				<div id="app-center">
@@ -148,6 +163,7 @@ function App() {
 								halfMoves={halfMoves}
 								setPositions={setPositions}
 								positions={positions}
+								notification={createNotification}
 							/>
 						) : (
 							<CFourView
