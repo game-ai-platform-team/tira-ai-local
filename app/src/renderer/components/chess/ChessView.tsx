@@ -1,7 +1,8 @@
 import { MyChessboard } from "./MyChessboard";
 import { MoveDescriptor, Position } from "kokopu";
-import { sendBoardFen } from "../../MoveSender";
+import { sendBoardFen, setReturnMove } from "../../MoveSender";
 import { PlayButton } from "../PlayButton";
+import "../../css/GameView.css";
 
 export function ChessView(props: {
 	positions: any;
@@ -72,8 +73,9 @@ export function ChessView(props: {
 		props.positions[props.boardIndex].isDead() === true ||
 		props.halfMoves[props.boardIndex] >= 100;
 
+
 	return (
-		<div>
+		<div id="game-view">
 			{props.hasBeenSubmitted && (
 				<>
 					<MyChessboard
@@ -81,27 +83,12 @@ export function ChessView(props: {
 						addPosition={addPosition}
 						active={!isGameOver}
 					/>
-
-					<div>
-						<button
-							onClick={handlePrevMoveButton}
-							data-testid="prev-move-button"
-						>
-							{"<"}
-						</button>
-						<button
-							onClick={handleNextMoveButton}
-							data-testid="next-move-button"
-						>
-							{">"}
-						</button>
-						<PlayButton />
-					</div>
-					<div data-testid="board-index">Turn {props.boardIndex}</div>
+					    <div data-testid="board-index">Turn {props.boardIndex}</div>
 				</>
 			)}
 
 			{isGameOver && <div>GAME OVER</div>}
 		</div>
+
 	);
 }

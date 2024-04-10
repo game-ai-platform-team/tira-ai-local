@@ -19,14 +19,6 @@ export const PlayButton = (props: { sendEmpty?: () => void }) => {
 	return (
 		<div>
 			<button onClick={sendEmptyMove}>PLAY!</button>
-			<br />
-			<label htmlFor="auto-send-toggle">Send PLAY after move</label>
-			<input
-				type="checkbox"
-				id="auto-send-toggle"
-				checked={!autoSendMove}
-				onChange={handleToggle}
-			/>
 		</div>
 	);
 };

@@ -28,18 +28,6 @@ export function CFourView(props: {
 
 	sethandleMovePlayedByAi(handleMovePlayedByAi);
 
-	function handlePrevMoveButton() {
-		if (props.boardIndex > 0) {
-			props.setBoardIndex(props.boardIndex - 1);
-		}
-	}
-
-	function handleNextMoveButton() {
-		if (props.boardIndex < props.moves.length - 1) {
-			props.setBoardIndex(props.boardIndex + 1);
-		}
-	}
-
 	const boardmatrix = CFourParser({
 		moves: numberMoves,
 		boardIndex: props.boardIndex,
@@ -47,7 +35,7 @@ export function CFourView(props: {
 	const isGameOver = checkForWin(boardmatrix) || props.moves.length >= 42;
 
 	return (
-		<div>
+		<div id="game-view">
 			{props.hasBeenSubmitted && (
 				<>
 					<MyConnectFour
@@ -56,10 +44,6 @@ export function CFourView(props: {
 						onMovePlayed={handleMovePlayed}
 						active={!isGameOver}
 					/>
-					<div>
-						<button onClick={handlePrevMoveButton}>{"<"}</button>
-						<button onClick={handleNextMoveButton}>{">"}</button>
-					</div>
 					<div>Turn {props.boardIndex}</div>
 				</>
 			)}

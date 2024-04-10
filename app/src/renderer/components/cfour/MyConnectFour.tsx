@@ -21,7 +21,6 @@ export function MyConnectFour(props: {
 				move_index={props.boardIndex}
 				active={props.active}
 			/>
-			<PlayButton />
 		</div>
 	);
 }

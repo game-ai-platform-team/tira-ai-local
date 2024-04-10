@@ -7,9 +7,10 @@ import "./css/AppLayout.css";
 import AIForm from "./components/AIForm";
 import socket from "./MySocket";
 import { Position } from "kokopu";
-import { killProcess, startGame } from "./MoveSender";
+import { killProcess, startGame, setReturnMove, sendBoardFen } from "./MoveSender";
 import { Logs } from "./components/Logs";
 import { createPGNString } from "./PGNFormatter";
+import { PlayButton } from "./components/PlayButton";
 
 function App() {
 	const [selectedGame, setSelectedGame] = useState<string | null>(null);
@@ -18,6 +19,7 @@ function App() {
 	const [halfMoves, setHalfMoves] = useState([]);
 	const [positions, setPositions] = useState([new Position()]);
 	const [moves, setMoves] = useState<string[]>([]);
+    const [autoSendMove, setAutoSendMove] = useState(false);
 
 	const handleGameSelection = (game: string) => {
 		setMoves([]);
@@ -95,6 +97,31 @@ function App() {
 		return fen;
 	}
 
+    function handleToggle() {
+        setAutoSendMove(!autoSendMove);
+        setReturnMove(autoSendMove);
+        }
+
+    function handlePrevMoveButton() {
+            if (boardIndex > 0) {
+                setBoardIndex(boardIndex - 1);
+                if (selectedGame === "chess") {
+                const fen = createFen(boardIndex - 1);
+                sendBoardFen(fen);
+                }
+            }
+        }
+    
+    function handleNextMoveButton() {
+            if (boardIndex < positions.length - 1) {
+                setBoardIndex(boardIndex + 1);
+                if (selectedGame === "chess") {
+                const fen = createFen(boardIndex + 1);
+                sendBoardFen(fen);
+                }
+            }
+        }
+
 	return (
 		<div>
 			<GameSelector onSelect={handleGameSelection} />
@@ -108,7 +135,7 @@ function App() {
 							formId="formChess"
 						/>
 					</div>
-					<div>
+					<div className="game-layout">
 						{selectedGame === "chess" ? (
 							<ChessView
 								setBoardIndex={setBoardIndex}
@@ -128,9 +155,38 @@ function App() {
 								setBoardIndex={setBoardIndex}
 								setMoves={setMoves}
 							/>
+                            
 						)}
+                        {hasBeenSubmitted && (
+                            <>
+                        <div className="game-buttons">
+						<button
+							onClick={handlePrevMoveButton}
+							data-testid="prev-move-button"
+						>
+							{"<"}
+						</button>
+                        <PlayButton />
+						<button
+							onClick={handleNextMoveButton}
+							data-testid="next-move-button"
+						>
+							{">"}
+						</button>
+                        </div>
+                        <div>
+			                <label htmlFor="auto-send-toggle">Send PLAY after move</label>
+			                <input
+				                type="checkbox"
+                                id="auto-send-toggle"
+                                checked={!autoSendMove}
+                                onChange={handleToggle}
+                        />
+                        </div>
+                        </>
+                        )}
 					</div>
-					<div>
+					<div id="misc-buttons">
 						{selectedGame === "chess" && (
 							<>
 								<button onClick={copyFenToClipboard}>
