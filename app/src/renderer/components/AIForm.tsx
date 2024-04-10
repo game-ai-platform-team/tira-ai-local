@@ -85,7 +85,7 @@ function AIForm(props: AIFormProps): JSX.Element {
 						value={filepath}
 						onChange={(e) => setFilePath(e.target.value)}
 						placeholder="Or type folder path here"
-                        id="file-text-input"
+						id="file-text-input"
 					/>
 				</div>
 				{props.showFen && (
