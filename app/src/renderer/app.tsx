@@ -16,6 +16,7 @@ import {
 import { Logs } from "./components/Logs";
 import { createPGNString } from "./PGNFormatter";
 import { PlayButton } from "./components/PlayButton";
+import { GameButtons } from "./components/GameButtons";
 
 function App() {
 	const [selectedGame, setSelectedGame] = useState<string | null>(null);
@@ -32,10 +33,6 @@ function App() {
 		setPositions([new Position()]);
 		setBoardIndex(0);
 		setSelectedGame(game);
-	};
-
-	const handleGameDeselection = () => {
-		setSelectedGame(null);
 	};
 
 	function handleSubmit(
@@ -162,34 +159,7 @@ function App() {
 							/>
 						)}
 						{hasBeenSubmitted && (
-							<>
-								<div className="game-buttons">
-									<button
-										onClick={handlePrevMoveButton}
-										data-testid="prev-move-button"
-									>
-										{"<"}
-									</button>
-									<PlayButton />
-									<button
-										onClick={handleNextMoveButton}
-										data-testid="next-move-button"
-									>
-										{">"}
-									</button>
-								</div>
-								<div>
-									<label htmlFor="auto-send-toggle">
-										Send PLAY after move
-									</label>
-									<input
-										type="checkbox"
-										id="auto-send-toggle"
-										checked={!autoSendMove}
-										onChange={handleToggle}
-									/>
-								</div>
-							</>
+							<GameButtons handlePrevMoveButton={handlePrevMoveButton} handleNextMoveButton={handleNextMoveButton} autoSendMove={autoSendMove} handleToggle={handleToggle}/>
 						)}
 					</div>
 					<div id="misc-buttons">

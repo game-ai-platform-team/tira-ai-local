@@ -1,0 +1,34 @@
+import { PlayButton } from "./PlayButton";
+
+export function GameButtons(props: { handlePrevMoveButton, handleNextMoveButton, autoSendMove, handleToggle }) {
+	return (
+		<>
+			<div className="game-buttons">
+				<button
+					onClick={props.handlePrevMoveButton}
+					data-testid="prev-move-button"
+				>
+					{"<"}
+				</button>
+				<PlayButton />
+				<button
+					onClick={props.handleNextMoveButton}
+					data-testid="next-move-button"
+				>
+					{">"}
+				</button>
+			</div>
+			<div>
+				<label htmlFor="auto-send-toggle">
+					Send PLAY after move
+				</label>
+				<input
+					type="checkbox"
+					id="auto-send-toggle"
+					checked={!props.autoSendMove}
+					onChange={props.handleToggle}
+				/>
+			</div>
+		</>
+	)
+}
