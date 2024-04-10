@@ -73,7 +73,6 @@ export function ChessView(props: {
 		props.positions[props.boardIndex].isDead() === true ||
 		props.halfMoves[props.boardIndex] >= 100;
 
-
 	return (
 		<div id="game-view">
 			{props.hasBeenSubmitted && (
@@ -83,12 +82,11 @@ export function ChessView(props: {
 						addPosition={addPosition}
 						active={!isGameOver}
 					/>
-					    <div data-testid="board-index">Turn {props.boardIndex}</div>
+					<div data-testid="board-index">Turn {props.boardIndex}</div>
 				</>
 			)}
 
 			{isGameOver && <div>GAME OVER</div>}
 		</div>
-
 	);
 }

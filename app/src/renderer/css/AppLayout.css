@@ -21,13 +21,13 @@
 }
 
 #misc-buttons {
-    flex-direction: column;
-    display: flex;
-    gap: 5px;
+	flex-direction: column;
+	display: flex;
+	gap: 5px;
 }
 
 .game-layout {
-    display:flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 }
