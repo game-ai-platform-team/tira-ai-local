@@ -1,7 +1,6 @@
 import { Chessboard } from "kokopu-react";
-import { Position } from "kokopu";
+import { MoveDescriptor, Position } from "kokopu";
 import { sendMove, sethandleMovePlayedByAi } from "../../MoveSender";
-import { PlayButton } from "../PlayButton";
 
 export function MyChessboard(props: {
 	pos: Position;
@@ -20,13 +19,30 @@ export function MyChessboard(props: {
 	}
 
 	function handleMovePlayedByAi(move: string) {
-		if (props.active) {
+		if (props.active && validateMove(move)) {
 			const copy = new Position(props.pos);
 			const move_desc = copy.uci(move);
 
 			copy.play(move_desc);
 			props.addPosition(copy, move_desc);
+		} else {
+			console.log(
+				`Move not played: ${move} is not a valid uci move in ${props.pos.fen()}`,
+			);
 		}
+	}
+
+	function validateMove(move: string) {
+		const copy = new Position(props.pos);
+		let move_desc: MoveDescriptor;
+		try {
+			move_desc = copy.uci(move);
+		} catch (error) {
+			return false;
+		}
+		const move_san = copy.notation(move_desc);
+		const success = copy.play(move_san);
+		return success;
 	}
 
 	sethandleMovePlayedByAi(handleMovePlayedByAi);

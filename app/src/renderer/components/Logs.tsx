@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import socket from "../MySocket";
-import { PlayButton } from "./PlayButton";
 
 export function Logs() {
 	const [logs, setLogs] = useState([]);
