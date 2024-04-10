@@ -159,7 +159,12 @@ function App() {
 							/>
 						)}
 						{hasBeenSubmitted && (
-							<GameButtons handlePrevMoveButton={handlePrevMoveButton} handleNextMoveButton={handleNextMoveButton} autoSendMove={autoSendMove} handleToggle={handleToggle}/>
+							<GameButtons
+								handlePrevMoveButton={handlePrevMoveButton}
+								handleNextMoveButton={handleNextMoveButton}
+								autoSendMove={autoSendMove}
+								handleToggle={handleToggle}
+							/>
 						)}
 					</div>
 					<div id="misc-buttons">

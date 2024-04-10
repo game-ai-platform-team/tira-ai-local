@@ -12,13 +12,13 @@ describe("ChessView", () => {
 	test("renders correctly", () => {
 		const ui = (
 			<ChessView
-				setMoves={() => { }}
+				setMoves={() => {}}
 				moves={[]}
-				setBoardIndex={() => { }}
+				setBoardIndex={() => {}}
 				boardIndex={0}
 				hasBeenSubmitted={false}
 				positions={[new Position()]}
-				setPositions={() => { }}
+				setPositions={() => {}}
 				halfMoves={[]}
 			/>
 		);
@@ -27,7 +27,6 @@ describe("ChessView", () => {
 		expect(board).not.toBe(null);
 	});
 	test("move buttons work", () => {
-
 		function MockComponent() {
 			const selectedGame = "chess";
 			const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
@@ -51,52 +50,57 @@ describe("ChessView", () => {
 				} catch (error) {
 					setPositions([new Position()]);
 				}
-
 			}
 
 			function handleToggle() {
 				setAutoSendMove(!autoSendMove);
-
 			}
 
 			function handlePrevMoveButton() {
 				if (boardIndex > 0) {
 					setBoardIndex(boardIndex - 1);
-
 				}
 			}
 
 			function handleNextMoveButton() {
 				if (boardIndex < positions.length - 1) {
 					setBoardIndex(boardIndex + 1);
-
 				}
 			}
 
-			return <>
-				<AIForm handleSubmit={handleSubmit} showFen={true} formId={""} />
-				<ChessView
-					setMoves={setMoves}
-					moves={moves}
-					setBoardIndex={setBoardIndex}
-					boardIndex={boardIndex}
-					hasBeenSubmitted={hasBeenSubmitted}
-					positions={positions}
-					setPositions={setPositions}
-					halfMoves={halfMoves}
-				/>
-				<GameButtons handlePrevMoveButton={handlePrevMoveButton} handleNextMoveButton={handleNextMoveButton} autoSendMove={autoSendMove} handleToggle={handleToggle} />
-			</>
+			return (
+				<>
+					<AIForm
+						handleSubmit={handleSubmit}
+						showFen={true}
+						formId={""}
+					/>
+					<ChessView
+						setMoves={setMoves}
+						moves={moves}
+						setBoardIndex={setBoardIndex}
+						boardIndex={boardIndex}
+						hasBeenSubmitted={hasBeenSubmitted}
+						positions={positions}
+						setPositions={setPositions}
+						halfMoves={halfMoves}
+					/>
+					<GameButtons
+						handlePrevMoveButton={handlePrevMoveButton}
+						handleNextMoveButton={handleNextMoveButton}
+						autoSendMove={autoSendMove}
+						handleToggle={handleToggle}
+					/>
+				</>
+			);
 		}
 
-		const ui = (
-			<MockComponent></MockComponent>
-		);
+		const ui = <MockComponent></MockComponent>;
 
 		const { getAllByText, getByTestId } = render(ui);
 
 		const submitButtons = getAllByText("SUBMIT");
-		fireEvent.click(submitButtons[0])
+		fireEvent.click(submitButtons[0]);
 
 		const initialBoardIndex = getByTestId("board-index").textContent;
 
