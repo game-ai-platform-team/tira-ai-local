@@ -9,13 +9,22 @@ export function CFourView(props: {
 	boardIndex: number;
 	setBoardIndex(arg0: number): void;
 	moves: string[];
+	notification?(header, body, bg?): void;
 }) {
 	const numberMoves = props.moves.map((value) => Number(value));
 
 	function handleMovePlayedByAi(move: string) {
 		if (!isGameOver) {
-			props.setMoves(props.moves.concat(move));
-			props.setBoardIndex(props.boardIndex + 1);
+			if (validateMove(move)) {
+				props.setMoves(props.moves.concat(move));
+				props.setBoardIndex(props.boardIndex + 1);
+			} else {
+				props.notification(
+					"Move was not played!",
+					`${move} cannot be played because the column is full`,
+					"danger",
+				);
+			}
 		}
 	}
 
@@ -23,6 +32,14 @@ export function CFourView(props: {
 		sendMove(move);
 		props.moves.push(move);
 		props.setBoardIndex(props.boardIndex + 1);
+	}
+
+	function validateMove(move: string): boolean {
+		const moveCount = props.moves.reduce((count, m) => {
+			return m === move ? count + 1 : count;
+		}, 0);
+
+		return moveCount < 6;
 	}
 
 	sethandleMovePlayedByAi(handleMovePlayedByAi);
@@ -40,6 +57,7 @@ export function CFourView(props: {
 				boardIndex={props.boardIndex}
 				onMovePlayed={handleMovePlayed}
 				active={!(isGameOver || !props.hasBeenSubmitted)}
+				notification={props.notification}
 			/>
 			<div>Turn {props.boardIndex}</div>
 			{isGameOver && <div>GAME OVER</div>}

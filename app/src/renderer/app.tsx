@@ -186,6 +186,7 @@ function App() {
 								hasBeenSubmitted={hasBeenSubmitted}
 								setBoardIndex={setBoardIndex}
 								setMoves={setMoves}
+								notification={createNotification}
 							/>
 						)}
 						{hasBeenSubmitted && (
