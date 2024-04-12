@@ -9,7 +9,7 @@
 	transition: 0.3s;
 	border-radius: 20px;
 	padding: 20px;
-    max-height: 500px;
+	max-height: 500px;
 }
 
 .card:empty {
