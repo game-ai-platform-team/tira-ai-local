@@ -14,7 +14,6 @@ export function CFourView(props: {
 
 	function handleMovePlayedByAi(move: string) {
 		if (!isGameOver) {
-			console.log(numberMoves);
 			props.setMoves(props.moves.concat(move));
 			props.setBoardIndex(props.boardIndex + 1);
 		}
