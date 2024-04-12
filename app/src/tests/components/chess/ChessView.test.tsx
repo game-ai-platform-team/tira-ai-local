@@ -26,7 +26,7 @@ describe("ChessView", () => {
 
 		expect(board).not.toBe(null);
 
-		board.unmount()
+		board.unmount();
 	});
 	test("move buttons work", () => {
 		function MockComponent() {
