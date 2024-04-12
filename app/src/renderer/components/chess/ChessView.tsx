@@ -41,7 +41,8 @@ export function ChessView(props: {
 		}
 		const from: string = props.moves[props.boardIndex - 1].slice(0, 2);
 		const to: string = props.moves[props.boardIndex - 1].slice(2, 4);
-		return `G${from}${to}`;
+		const color: string = "G";
+		return `${color}${from}${to}`;
 	}
 
 	const isGameOver =
