@@ -2,7 +2,7 @@
 
 import { test, describe, expect } from "vitest";
 import { ChessView } from "../../../renderer/components/chess/ChessView";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 import { Position } from "kokopu";
 import AIForm from "../../../renderer/components/AIForm";
 import { GameButtons } from "../../../renderer/components/GameButtons";
@@ -25,6 +25,8 @@ describe("ChessView", () => {
 		const board = render(ui);
 
 		expect(board).not.toBe(null);
+
+		board.unmount()
 	});
 	test("move buttons work", () => {
 		function MockComponent() {
