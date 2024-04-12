@@ -15,7 +15,7 @@ Simple program to test game AI's. Currently supports Chess and Connect Four.
 
 ## Installation
 
-Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-local/releases), unzip the package, and then run the `tira-ai-local` executable.
+Download the [latest release](https://github.com/game-ai-platform-team/tira-ai-local/releases), unzip the package, open a terminal in the unzipped package, and run `./tira-ai-local`.
 
 <details>
     <summary>Alternative Installation</summary>
@@ -362,10 +362,9 @@ Additionally, a log will be displayed in the log box:
 If your AI process is no longer running, attempting to undo or redo moves results in a "broken pipe" error (`[Errno32]: Broken pipe`). To fix this, you must resubmit your AI.
 
 
-
-
-
 ### Connect Four
 
-TBD
+In connect four, moves a represented by the index of the column of the move. For example, placing a piece in the first column would be give as `MOVE:0`.
+
+Currently there is no board setting for connect four.
 
