@@ -46,3 +46,19 @@ socket.on("move_to_front", (move: string) => {
 		handleMovePlayedByAi(move);
 	}
 });
+
+let showRuntimeError = undefined;
+export function setShowRuntimeError(func) {
+	showRuntimeError = func;
+}
+
+socket.on("runtime_error", () => {
+	console.log("runtime_error")
+	if (showRuntimeError != undefined) {
+		showRuntimeError(
+			"Runtime Error!",
+			"The AI process is no longer active! See the logs for more details.",
+			"danger",
+		);
+	}
+});

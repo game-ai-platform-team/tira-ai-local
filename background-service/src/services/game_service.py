@@ -63,6 +63,7 @@ class GameService:
                 self.socket_service.send_log(
                     error + "\n---------------------------------"
                 )
+                self.socket_service.send_runtime_error()
 
     def set_board(self, board_position):
         self.socket_service.send_log(f"Setting AI board to {board_position}")

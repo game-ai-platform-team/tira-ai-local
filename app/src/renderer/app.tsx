@@ -12,6 +12,7 @@ import {
 	startGame,
 	setReturnMove,
 	sendBoardFen,
+	setShowRuntimeError,
 } from "./MoveSender";
 import { Logs } from "./components/Logs";
 import { createPGNString } from "./PGNFormatter";
@@ -145,6 +146,8 @@ function App() {
 		setToastBg(bg === undefined ? "" : bg);
 		setShowToast(true);
 	}
+
+	setShowRuntimeError(createNotification);
 
 	return (
 		<div>
