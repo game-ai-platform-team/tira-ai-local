@@ -8,7 +8,10 @@ export function Logs() {
 
 	function handleNewLogs(newLog) {
 		const timestamp = new Date().toLocaleTimeString();
-		setLogs((prevLogs) => [...prevLogs, `${timestamp}: ${newLog}`]);
+		setLogs((prevLogs) => [
+			...prevLogs,
+			`${timestamp}: ${newLog}\n---------------------------------`,
+		]);
 	}
 
 	useEffect(() => {

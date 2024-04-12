@@ -57,7 +57,7 @@ class TestGameService(TestCase):
 
         game_service.move_to_back(player_move, True)
 
-        log = str(exception) + "\n---------------------------------"
+        log = str(exception)
         socket_service.send_log.assert_called_with(log)
 
     def test_set_board_works(self):

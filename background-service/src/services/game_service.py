@@ -20,7 +20,7 @@ class GameService:
                 ai_directory.run_setup()
             self.game = Game(ai_directory)
             self.socket_service.send_log(
-                f"Success! Running AI opponent in process {ai_directory.get_pid()}\n---------------------------------"
+                f"Success! Running AI opponent in process {ai_directory.get_pid()}"
             )
         except Exception as e:
             self.socket_service.send_log(f"Error creating game:\n{str(e)}")
@@ -57,14 +57,10 @@ class GameService:
                 self.socket_service.move_to_front(output)
             logs_lined = "\n".join(logs)
             if error != "":
-                self.socket_service.send_log(
-                    error + "\n---------------------------------"
-                )
+                self.socket_service.send_log(error)
                 self.socket_service.send_runtime_error()
             else:
-                self.socket_service.send_log(
-                    f"{output}:\n{logs_lined}\n---------------------------------"
-                )
+                self.socket_service.send_log(f"{output}:\n{logs_lined}")
 
     def set_board(self, board_position):
         self.socket_service.send_log(f"Setting AI board to {board_position}")
