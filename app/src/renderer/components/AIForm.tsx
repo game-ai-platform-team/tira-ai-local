@@ -60,7 +60,7 @@ function AIForm(props: AIFormProps): JSX.Element {
 		<div id="ai-form">
 			<form onSubmit={handleSubmit} id={props.formId}>
 				<div className="folder-submit">
-					Submit folder:{" "}
+					<h2>Submit folder:{" "}</h2>
 					<div
 						id="fileinput"
 						onClick={handleSelectFolderClick}
