@@ -73,10 +73,11 @@ class GameService:
             self.socket_service.send_log(f"Setting board failed: \n {str(e)}")
 
     def kill_process(self):
-        if self.game.poll() is not None:
-            self.socket_service.send_log("No active process!")
-        else:
-            return_code = self.game.kill()
-            self.socket_service.send_log(
-                f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}"
-            )
+        if self.game is not None:
+            if self.game.poll() is not None:
+                self.socket_service.send_log("No active process!")
+            else:
+                return_code = self.game.kill()
+                self.socket_service.send_log(
+                    f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}"
+                )
