@@ -35,7 +35,11 @@ export function MyChessboard(props: {
 				);
 			}
 		} else {
-			props.notification("Move was not played!", "Board is not active.", "danger")
+			props.notification(
+				"Move was not played!",
+				"Board is not active.",
+				"danger",
+			);
 		}
 	}
 
