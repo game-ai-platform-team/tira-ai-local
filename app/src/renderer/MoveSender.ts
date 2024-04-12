@@ -53,7 +53,7 @@ export function setShowRuntimeError(func) {
 }
 
 socket.on("runtime_error", () => {
-	console.log("runtime_error")
+	console.log("runtime_error");
 	if (showRuntimeError != undefined) {
 		showRuntimeError(
 			"Runtime Error!",
