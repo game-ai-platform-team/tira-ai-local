@@ -21,7 +21,7 @@ export function Notification({
 }: NotificationProps) {
 	if (consoleLog) {
 		if (bg.toLowerCase() == "danger") {
-			console.error(`${headerText}\n${bodyText}`)
+			console.error(`${headerText}\n${bodyText}`);
 		} else {
 			console.log(`${headerText}\n${bodyText}`);
 		}
