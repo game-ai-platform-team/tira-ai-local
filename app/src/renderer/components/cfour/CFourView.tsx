@@ -36,17 +36,13 @@ export function CFourView(props: {
 
 	return (
 		<div id="game-view">
-			{props.hasBeenSubmitted && (
-				<>
-					<MyConnectFour
-						moves={numberMoves}
-						boardIndex={props.boardIndex}
-						onMovePlayed={handleMovePlayed}
-						active={!isGameOver}
-					/>
-					<div>Turn {props.boardIndex}</div>
-				</>
-			)}
+			<MyConnectFour
+				moves={numberMoves}
+				boardIndex={props.boardIndex}
+				onMovePlayed={handleMovePlayed}
+				active={!(isGameOver || !props.hasBeenSubmitted)}
+			/>
+			<div>Turn {props.boardIndex}</div>
 			{isGameOver && <div>GAME OVER</div>}
 		</div>
 	);

@@ -47,17 +47,15 @@ export function ChessView(props: {
 
 	return (
 		<div id="game-view">
-			{props.hasBeenSubmitted && (
 				<>
 					<MyChessboard
 						pos={props.positions[props.boardIndex]}
 						addPosition={addPosition}
-						active={!isGameOver}
+						active={!(isGameOver || !props.hasBeenSubmitted)}
 						notification={props.notification}
 					/>
 					<div data-testid="board-index">Turn {props.boardIndex}</div>
 				</>
-			)}
 
 			{isGameOver && <div>GAME OVER</div>}
 		</div>
