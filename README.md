@@ -364,7 +364,7 @@ If your AI process is no longer running, attempting to undo or redo moves result
 
 ### Connect Four
 
-In connect four, moves a represented by the index of the column of the move. For example, placing a piece in the first column would be give as `MOVE:0`.
+Moves in Connect Four are represented by the index of the column where the player wants to drop their disc. For example, placing a disc in the first column would be represented as `MOVE:0`, the second column as `MOVE:1`, and so on.
 
 Currently there is no board setting for connect four.
 
