@@ -18,8 +18,8 @@ export function MyConnectFour(props: {
 		} else {
 			props.notification(
 				"Game Over!",
-				"Moves cannot be played because the game is over."
-			)
+				"Moves cannot be played because the game is over.",
+			);
 		}
 	}
 
