@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
@@ -19,13 +19,23 @@ export function Notification({
 	bg = "",
 	consoleLog = true,
 }: NotificationProps) {
-	if (consoleLog) {
-		if (bg.toLowerCase() == "danger") {
-			console.error(`${headerText}\n${bodyText}`);
-		} else {
-			console.log(`${headerText}\n${bodyText}`);
+	const [prevHeaderText, setPrevHeaderText] = useState<string>("");
+	const [prevBodyText, setPrevBodyText] = useState<string>("");
+
+	useEffect(() => {
+		if (headerText !== prevHeaderText || bodyText !== prevBodyText) {
+			if (consoleLog) {
+				if (bg.toLowerCase() === "danger") {
+					console.error(`${headerText}\n${bodyText}`);
+				} else {
+					console.log(`${headerText}\n${bodyText}`);
+				}
+			}
+			setPrevHeaderText(headerText);
+			setPrevBodyText(bodyText);
 		}
-	}
+	}, [headerText, bodyText, bg, consoleLog, prevHeaderText, prevBodyText]);
+
 	return (
 		<ToastContainer position={"top-center"}>
 			<Toast

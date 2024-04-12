@@ -29,8 +29,8 @@ function App() {
 	const [moves, setMoves] = useState<string[]>([]);
 	const [autoSendMove, setAutoSendMove] = useState(false);
 
-	const [toastHeader, setToastHeader] = useState("header");
-	const [toastBody, setToastBody] = useState("body");
+	const [toastHeader, setToastHeader] = useState("");
+	const [toastBody, setToastBody] = useState("");
 	const [toastBg, setToastBg] = useState("");
 	const [showToast, setShowToast] = useState(false);
 
