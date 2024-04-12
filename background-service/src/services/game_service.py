@@ -56,14 +56,15 @@ class GameService:
             if output != "":
                 self.socket_service.move_to_front(output)
             logs_lined = "\n".join(logs)
-            self.socket_service.send_log(
-                f"{output}:\n{logs_lined}\n---------------------------------"
-            )
             if error != "":
                 self.socket_service.send_log(
                     error + "\n---------------------------------"
                 )
                 self.socket_service.send_runtime_error()
+            else:
+                self.socket_service.send_log(
+                    f"{output}:\n{logs_lined}\n---------------------------------"
+                )
 
     def set_board(self, board_position):
         self.socket_service.send_log(f"Setting AI board to {board_position}")
