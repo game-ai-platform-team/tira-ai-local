@@ -7,6 +7,7 @@ export function MyChessboard(props: {
 	addPosition: (position, move) => void;
 	active: boolean;
 	notification?(header, body, bg): void;
+	arrow: string;
 }) {
 	function handleMovePlayed(move: string) {
 		if (props.active) {
@@ -64,6 +65,7 @@ export function MyChessboard(props: {
 				interactionMode={"playMoves"}
 				onMovePlayed={(move) => handleMovePlayed(move)}
 				position={props.pos}
+				arrowMarkers={props.arrow}
 			/>
 		</div>
 	);

@@ -13,10 +13,6 @@ export function ChessView(props: {
 	boardIndex: number;
 	notification?(header, body, bg): void;
 }) {
-	const fullMoves = (index: number) => {
-		return Math.floor(index / 2) + 1;
-	};
-
 	function addPosition(position: Position, move: MoveDescriptor) {
 		props.setPositions((prevState) => {
 			const sliced = prevState.slice(0, props.boardIndex + 1);
@@ -39,6 +35,15 @@ export function ChessView(props: {
 		}
 	}
 
+	function makeArrowString() {
+		if (props.boardIndex < 1) {
+			return "";
+		}
+		const from: string = props.moves[props.boardIndex - 1].slice(0, 2);
+		const to: string = props.moves[props.boardIndex - 1].slice(2, 4);
+		return `G${from}${to}`;
+	}
+
 	const isGameOver =
 		props.positions[props.boardIndex].isCheckmate() === true ||
 		props.positions[props.boardIndex].isStalemate() === true ||
@@ -53,6 +58,7 @@ export function ChessView(props: {
 					addPosition={addPosition}
 					active={!(isGameOver || !props.hasBeenSubmitted)}
 					notification={props.notification}
+					arrow={makeArrowString()}
 				/>
 				<div data-testid="board-index">Turn {props.boardIndex}</div>
 			</>
