@@ -10,7 +10,7 @@ export function Logs() {
 		const timestamp = new Date().toLocaleTimeString();
 		setLogs((prevLogs) => [
 			...prevLogs,
-			`${timestamp}: ${newLog}\n---------------------------------`,
+			`${timestamp}: ${newLog}\n--------------------------------------------------------`,
 		]);
 	}
 

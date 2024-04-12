@@ -171,18 +171,21 @@ function App() {
 					</div>
 					<div className="game-layout">
 						{selectedGame === "chess" ? (
-							<ChessView
-								setBoardIndex={setBoardIndex}
-								boardIndex={boardIndex}
-								hasBeenSubmitted={hasBeenSubmitted}
-								moves={moves}
-								setMoves={setMoves}
-								halfMoves={halfMoves}
-								setPositions={setPositions}
-								positions={positions}
-								notification={createNotification}
-							/>
-						) : (
+							<>
+								{createFen(boardIndex)}
+								<ChessView
+									setBoardIndex={setBoardIndex}
+									boardIndex={boardIndex}
+									hasBeenSubmitted={hasBeenSubmitted}
+									moves={moves}
+									setMoves={setMoves}
+									halfMoves={halfMoves}
+									setPositions={setPositions}
+									positions={positions}
+									notification={createNotification}
+								/>
+							</>
+						) : selectedGame === "connectFour" ? (
 							<CFourView
 								moves={moves}
 								boardIndex={boardIndex}
@@ -191,7 +194,7 @@ function App() {
 								setMoves={setMoves}
 								notification={createNotification}
 							/>
-						)}
+						) : null}
 						{hasBeenSubmitted && (
 							<GameButtons
 								handlePrevMoveButton={handlePrevMoveButton}
