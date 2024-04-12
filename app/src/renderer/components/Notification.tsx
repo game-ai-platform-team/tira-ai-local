@@ -20,7 +20,11 @@ export function Notification({
 	consoleLog = true,
 }: NotificationProps) {
 	if (consoleLog) {
-		console.log(`${headerText}\n${bodyText}`);
+		if (bg.toLowerCase() == "danger") {
+			console.error(`${headerText}\n${bodyText}`)
+		} else {
+			console.log(`${headerText}\n${bodyText}`);
+		}
 	}
 	return (
 		<ToastContainer position={"top-center"}>
