@@ -20,21 +20,22 @@ export function MyChessboard(props: {
 	}
 
 	function handleMovePlayedByAi(move: string) {
-		if (props.active && validateMove(move)) {
-			const copy = new Position(props.pos);
-			const move_desc = copy.uci(move);
+		if (props.active) {
+			if (validateMove(move)) {
+				const copy = new Position(props.pos);
+				const move_desc = copy.uci(move);
 
-			copy.play(move_desc);
-			props.addPosition(copy, move_desc);
+				copy.play(move_desc);
+				props.addPosition(copy, move_desc);
+			} else {
+				props.notification(
+					"Move was not played!",
+					`${move} is not a valid uci move to play in position: ${props.pos.fen()}`,
+					"Danger",
+				);
+			}
 		} else {
-			props.notification(
-				"Move was not played!",
-				`${move} is not a valid uci move to play in position: ${props.pos.fen()}`,
-				"Danger",
-			);
-			console.log(
-				`Move not played: ${move} is not a valid uci move in ${props.pos.fen()}`,
-			);
+			props.notification("Move was not played!", "Board is not active.", "danger")
 		}
 	}
 

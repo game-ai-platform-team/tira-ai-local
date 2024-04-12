@@ -8,6 +8,7 @@ interface NotificationProps {
 	headerText?: string;
 	bodyText?: string;
 	bg?: string;
+	consoleLog?: boolean;
 }
 
 export function Notification({
@@ -16,7 +17,11 @@ export function Notification({
 	headerText = "",
 	bodyText = "",
 	bg = "",
+	consoleLog = true,
 }: NotificationProps) {
+	if (consoleLog) {
+		console.log(`${headerText}\n${bodyText}`);
+	}
 	return (
 		<ToastContainer position={"top-center"}>
 			<Toast

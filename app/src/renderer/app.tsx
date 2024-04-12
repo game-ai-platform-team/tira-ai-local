@@ -77,7 +77,6 @@ function App() {
 			.writeText(fen)
 			.then(() => {
 				createNotification("Copied FEN to clipboard!", fen, "");
-				console.log("Copied FEN to clipboard:", fen);
 			})
 			.catch((err) => {
 				createNotification(
@@ -85,7 +84,6 @@ function App() {
 					err,
 					"danger",
 				);
-				console.error("Error copying FEN notation to clipboard:", err);
 			});
 	}
 
@@ -95,7 +93,6 @@ function App() {
 			.writeText(pgn)
 			.then(() => {
 				createNotification("Copied PGN to clipboard!", pgn, "");
-				console.log("Copied PGN to clipboard:", pgn);
 			})
 			.catch((err) => {
 				createNotification(
@@ -103,7 +100,6 @@ function App() {
 					err,
 					"danger",
 				);
-				console.error("Error copying PGN notation to clipboard:", err);
 			});
 	}
 
