@@ -9,15 +9,17 @@ export function GameButtons(props: {
 	return (
 		<>
 			<div className="game-buttons">
-				<button className="classic-button"
+				<button
+					className="classic-button"
 					onClick={props.handlePrevMoveButton}
 					data-testid="prev-move-button"
 				>
 					{"<"}
 				</button>
-                
+
 				<PlayButton />
-				<button className="classic-button"
+				<button
+					className="classic-button"
 					onClick={props.handleNextMoveButton}
 					data-testid="next-move-button"
 				>
