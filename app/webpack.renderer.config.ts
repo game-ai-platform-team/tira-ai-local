@@ -3,7 +3,7 @@ module.exports = {
 	entry: "./src/renderer/index.ts",
 	target: "electron-renderer",
 	resolve: {
-		extensions: [".tsx", ".ts", ".js"],
+		extensions: [".tsx", ".ts", ".js", ".md"],
 	},
 	module: {
 		rules: [
@@ -19,6 +19,10 @@ module.exports = {
 			{
 				test: /\.(png|woff|woff2)$/i,
 				type: "asset/resource",
+			},
+			{
+				test: /\.md$/,
+				use: [{ loader: "html-loader" }, { loader: "markdown-loader" }],
 			},
 		],
 	},

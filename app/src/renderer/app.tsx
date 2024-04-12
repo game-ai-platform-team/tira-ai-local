@@ -2,8 +2,7 @@ import { createRoot } from "react-dom/client";
 import { GameSelector } from "./components/GameSelector";
 import { ChessView } from "./components/chess/ChessView";
 import { CFourView } from "./components/cfour/CFourView";
-import { useState } from "react";
-import "./css/AppLayout.css";
+import { useEffect, useState } from "react";
 import AIForm from "./components/AIForm";
 import socket from "./MySocket";
 import { Position } from "kokopu";
@@ -19,7 +18,10 @@ import { createPGNString } from "./PGNFormatter";
 import { GameButtons } from "./components/GameButtons";
 import { Notification } from "./components/Notification";
 
+import "./css/AppLayout.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import Markdown from "react-markdown";
 
 function App() {
 	const [selectedGame, setSelectedGame] = useState<string | null>(null);
@@ -34,6 +36,20 @@ function App() {
 	const [toastBody, setToastBody] = useState("");
 	const [toastBg, setToastBg] = useState("");
 	const [showToast, setShowToast] = useState(false);
+
+	const [markdown, setMarkdown] = useState("");
+
+	const fs = require("fs");
+
+	useEffect(() => {
+		fs.readFile("./src/test.md", "utf8", (err, data) => {
+			if (err) {
+				console.error("Error reading markdown file:", err);
+			} else {
+				setMarkdown(data);
+			}
+		});
+	}, []);
 
 	const handleGameSelection = (game: string) => {
 		setMoves([]);
@@ -159,8 +175,7 @@ function App() {
 				bodyText={toastBody}
 				bg={toastBg}
 			/>
-
-			{selectedGame && (
+			{selectedGame !== null ? (
 				<div id="app-center">
 					<div className="card">
 						<AIForm
@@ -223,6 +238,8 @@ function App() {
 						</button>
 					</div>
 				</div>
+			) : (
+				<Markdown>{markdown}</Markdown>
 			)}
 			<br />
 			<div>{selectedGame && <Logs />}</div>

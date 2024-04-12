@@ -7,13 +7,17 @@ module.exports = {
 	entry: "./src/main.ts",
 
 	resolve: {
-		extensions: [".tsx", ".ts", ".js"],
+		extensions: [".tsx", ".ts", ".js", ".md"],
 	},
 	module: {
 		rules: [
 			{
 				test: /\.tsx?$/,
 				use: "ts-loader",
+			},
+			{
+				test: /\.md$/,
+				use: [{ loader: "html-loader" }, { loader: "markdown-loader" }],
 			},
 		],
 	},
