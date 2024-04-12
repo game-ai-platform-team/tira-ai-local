@@ -19,7 +19,13 @@ export function Notification({
 }: NotificationProps) {
 	return (
 		<ToastContainer position={"top-center"}>
-			<Toast show={show} onClose={onClose} bg={bg} autohide={true} delay={10000}>
+			<Toast
+				show={show}
+				onClose={onClose}
+				bg={bg}
+				autohide={true}
+				delay={10000}
+			>
 				{headerText && (
 					<Toast.Header>
 						<strong className="me-auto" id="notification">
@@ -29,7 +35,9 @@ export function Notification({
 				)}
 				{bodyText && (
 					<Toast.Body id="notification">
-						<div style={{ maxHeight: "200px", overflowY: "auto" }}>{bodyText}</div>
+						<div style={{ maxHeight: "200px", overflowY: "auto" }}>
+							{bodyText}
+						</div>
 					</Toast.Body>
 				)}
 			</Toast>
