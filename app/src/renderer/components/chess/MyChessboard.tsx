@@ -6,7 +6,7 @@ export function MyChessboard(props: {
 	pos: Position;
 	addPosition: (position, move) => void;
 	active: boolean;
-	notification?(header, body, bg): void;
+	notification?(header, body, bg?): void;
 	arrow: string;
 }) {
 	function handleMovePlayed(move: string) {
@@ -17,6 +17,11 @@ export function MyChessboard(props: {
 			sendMove(copy.uci(move_desc));
 			copy.play(move_desc);
 			props.addPosition(copy, move_desc);
+		} else {
+			props.notification(
+				"AI Process Inactive",
+				"The AI process must be active to interact with the game board. Input the path and press SUBMIT.",
+			);
 		}
 	}
 
@@ -31,7 +36,7 @@ export function MyChessboard(props: {
 			} else {
 				props.notification(
 					"Move was not played!",
-					`${move} is not a valid uci move to play in position: ${props.pos.fen()}`,
+					`${move} is not a valid uci move to play in position: ${props.pos.fen()}.`,
 					"Danger",
 				);
 			}
