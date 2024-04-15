@@ -5,8 +5,8 @@
 	align-items: center;
 	min-width: 250px;
 	gap: 10px;
-    height: min-content;
-    width: min-content;
+	height: min-content;
+	width: min-content;
 }
 
 .game-buttons {
@@ -16,7 +16,7 @@
 }
 
 .kokopu-chessboard {
-    display: flex;
-    height: 100%;
-    width: auto;
+	display: flex;
+	height: 100%;
+	width: auto;
 }
