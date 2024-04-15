@@ -68,11 +68,6 @@ function AIForm(props: AIFormProps): JSX.Element {
 						onClick={handleSelectFolderClick}
 						onDrop={handleDrop}
 						onDragOver={handleDragOver}
-						style={{
-							border: dragging
-								? "2px dashed blue"
-								: "2px dashed #a0522d",
-						}}
 					>
 						{filepath ? (
 							<div className="file-path-text">

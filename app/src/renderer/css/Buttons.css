@@ -1,6 +1,8 @@
+@import "./constants.css";
+
 .classic-button {
 	display: flex;
-	background-color: #a0522d;
+	background-color: var(--primary);
 	color: white;
 	border: none;
 	border-radius: 4px;
@@ -15,5 +17,6 @@
 }
 
 .classic-button:hover {
-	background-color: #8b4513;
+	color: var(--primary);
+	background-color: var(--secondary);
 }

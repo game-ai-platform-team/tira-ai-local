@@ -1,7 +1,9 @@
+@import "./constants.css";
+
 #navigation-bar {
 	display: flex;
 	align-items: center;
-	background-color: #a0522d;
+	background-color: var(--primary);
 	top: 0;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
@@ -10,7 +12,7 @@
 }
 
 .nav-button {
-	background-color: #a0522d;
+	background-color: var(--primary);
 	color: white;
 	padding: 20px;
 	margin-left: 18px;
@@ -30,7 +32,8 @@
 }
 
 .nav-button:hover {
-	background-color: #8b4513;
+	color: var(--primary);
+	background-color: var(--secondary);
 }
 
 .tira-text {

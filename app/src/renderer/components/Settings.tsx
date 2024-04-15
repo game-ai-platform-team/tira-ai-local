@@ -12,6 +12,10 @@ export function Settings(props: {
 	const piecesets = Chessboard.piecesets();
 	const colorsets = Chessboard.colorsets();
 
+    const root = document.documentElement;
+	root.style.setProperty("--primary", colorsets[props.colorset].b)
+    root.style.setProperty("--secondary", colorsets[props.colorset].w)
+
 	const handlePiecesetChange = (
 		event: React.ChangeEvent<HTMLSelectElement>,
 	) => {
