@@ -227,10 +227,16 @@ function App() {
 					<div id="misc-buttons">
 						{selectedGame === "chess" && (
 							<>
-								<button onClick={copyFenToClipboard}>
+								<button
+									className="classic-button"
+									onClick={copyFenToClipboard}
+								>
 									Copy current FEN
 								</button>
-								<button onClick={exportPgn}>
+								<button
+									className="classic-button"
+									onClick={exportPgn}
+								>
 									Copy current PGN
 								</button>
 							</>
