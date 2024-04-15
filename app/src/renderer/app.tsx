@@ -20,7 +20,7 @@ import { Notification } from "./components/Notification";
 
 import "./css/AppLayout.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { shell } from "electron";
 import Markdown from "react-markdown";
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
 	const fs = require("fs");
 
 	useEffect(() => {
-		fs.readFile("./src/test.md", "utf8", (err, data) => {
+		fs.readFile("./src/markdown/test.md", "utf8", (err, data) => {
 			if (err) {
 				console.error("Error reading markdown file:", err);
 			} else {
@@ -163,6 +163,12 @@ function App() {
 		setShowToast(true);
 	}
 
+	function openManual() {
+		return shell.openExternal(
+			"https://github.com/game-ai-platform-team/tira-ai-local/blob/master/README.md",
+		);
+	}
+
 	setShowRuntimeError(createNotification);
 
 	return (
@@ -239,7 +245,7 @@ function App() {
 					</div>
 				</div>
 			) : (
-				<Markdown>{markdown}</Markdown>
+				markdown
 			)}
 			<br />
 			<div>{selectedGame && <Logs />}</div>
