@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { GameSelector } from "./components/GameSelector";
 import { ChessView } from "./components/chess/ChessView";
 import { CFourView } from "./components/cfour/CFourView";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AIForm from "./components/AIForm";
 import socket from "./MySocket";
 import { Position } from "kokopu";
@@ -24,7 +24,7 @@ import { shell } from "electron";
 import Markdown from "react-markdown";
 
 function App() {
-	const [selectedGame, setSelectedGame] = useState<string | null>(null);
+	const [selectedGame, setSelectedGame] = useState<string | null>("chess");
 	const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 	const [boardIndex, setBoardIndex] = useState(0);
 	const [halfMoves, setHalfMoves] = useState([]);
@@ -36,20 +36,6 @@ function App() {
 	const [toastBody, setToastBody] = useState("");
 	const [toastBg, setToastBg] = useState("");
 	const [showToast, setShowToast] = useState(false);
-
-	const [markdown, setMarkdown] = useState("");
-
-	const fs = require("fs");
-
-	useEffect(() => {
-		fs.readFile("./src/markdown/test.md", "utf8", (err, data) => {
-			if (err) {
-				console.error("Error reading markdown file:", err);
-			} else {
-				setMarkdown(data);
-			}
-		});
-	}, []);
 
 	const handleGameSelection = (game: string) => {
 		setMoves([]);
@@ -244,9 +230,7 @@ function App() {
 						</button>
 					</div>
 				</div>
-			) : (
-				markdown
-			)}
+			) : null }
 			<br />
 			<div>{selectedGame && <Logs />}</div>
 		</div>
