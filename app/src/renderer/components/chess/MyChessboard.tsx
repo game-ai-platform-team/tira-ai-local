@@ -1,6 +1,7 @@
 import { Chessboard } from "kokopu-react";
 import { MoveDescriptor, Position } from "kokopu";
 import { sendMove, sethandleMovePlayedByAi } from "../../MoveSender";
+import { getData } from "../../UserData";
 
 export function MyChessboard(props: {
 	pos: Position;
@@ -72,6 +73,8 @@ export function MyChessboard(props: {
 				position={props.pos}
 				arrowMarkers={props.arrow}
 				squareSize={60}
+				colorset={getData("color_set")}
+				pieceset={getData("piece_set")}
 			/>
 		</div>
 	);

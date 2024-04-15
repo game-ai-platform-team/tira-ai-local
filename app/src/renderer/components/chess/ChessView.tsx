@@ -1,6 +1,7 @@
 import { MyChessboard } from "./MyChessboard";
 import { MoveDescriptor, Position } from "kokopu";
 import "../../css/GameView.css";
+import { getData } from "../../UserData";
 
 export function ChessView(props: {
 	positions: any;
@@ -41,7 +42,7 @@ export function ChessView(props: {
 		}
 		const from: string = props.moves[props.boardIndex - 1].slice(0, 2);
 		const to: string = props.moves[props.boardIndex - 1].slice(2, 4);
-		const color: string = "G";
+		const color: string = getData("arrow");
 		return `${color}${from}${to}`;
 	}
 

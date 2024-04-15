@@ -3,6 +3,9 @@ import Store from "electron-store";
 type DataType = {
 	game: string;
 	ai_path: string;
+	piece_set: string;
+	color_set: string;
+    arrow: string;
 };
 
 const schema = {
@@ -13,6 +16,18 @@ const schema = {
 	ai_path: {
 		type: "string",
 		default: "",
+	},
+	piece_set: {
+		type: "string",
+		default: "cburnett",
+	},
+	color_set: {
+		type: "string",
+		default: "original",
+	},
+	arrow: {
+		type: "string",
+		default: "G",
 	},
 } as const;
 

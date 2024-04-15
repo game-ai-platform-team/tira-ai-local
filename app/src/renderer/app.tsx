@@ -22,6 +22,7 @@ import "./css/AppLayout.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { getData, setData } from "./UserData";
+import { Settings } from "./components/Settings";
 
 function App() {
 	const [selectedGame, setSelectedGame] = useState<string | null>(
@@ -38,6 +39,10 @@ function App() {
 	const [toastBody, setToastBody] = useState("");
 	const [toastBg, setToastBg] = useState("");
 	const [showToast, setShowToast] = useState(false);
+
+	const [pieceset, setPieceset] = useState<string>(getData("piece_set"));
+	const [colorset, setColorset] = useState<string>(getData("color_set"));
+	const [arrow, setArrow] = useState<string>(getData("arrow"))
 
 	const handleGameSelection = (game: string) => {
 		setMoves([]);
@@ -210,6 +215,14 @@ function App() {
 								/>
 							</>
 						)}
+						<Settings
+							pieceset={pieceset}
+							setPieceset={setPieceset}
+							colorset={colorset}
+							setColorset={setColorset}
+							arrow={arrow}
+							setArrow={setArrow}
+						/>
 					</div>
 				</div>
 			) : null}
