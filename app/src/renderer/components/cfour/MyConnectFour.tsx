@@ -1,4 +1,6 @@
 import { CFourUIPlayable } from "connect-four-board";
+import { getData } from "../../UserData";
+import { Chessboard } from "kokopu-react";
 
 export function MyConnectFour(props: {
 	moves: number[];
@@ -22,13 +24,15 @@ export function MyConnectFour(props: {
 			);
 		}
 	}
+	const set = getData("color_set")
+	const sets = Chessboard.colorsets()
 
-	const root = document.documentElement;
-	const primary = root.style.getPropertyValue("--primary");
-	const secondary = root.style.getPropertyValue("--secondary");
-	const red = root.style.getPropertyValue("--red_marker");
-	const yellow = root.style.getPropertyValue("--yellow_marker");
-	const green = root.style.getPropertyValue("--green_marker");
+	const primary = sets[set].b
+	const secondary = sets[set].w
+	const red = sets[set].cr
+	const yellow = sets[set].cy
+	const green = sets[set].cg
+	const blue = sets[set].cb
 
 	return (
 		<div>

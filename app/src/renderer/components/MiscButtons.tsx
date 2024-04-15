@@ -36,18 +36,20 @@ export function MiscButtons(props: {
 					<button
 						className="classic-button"
 						onClick={copyFenToClipboard}
+						title="Copy the current position in FEN format to clipboard"
 					>
 						Copy current FEN
 					</button>
 					<button
 						className="classic-button"
 						onClick={props.exportPgn}
+						title="Copy the game in PGN format to clipboard"
 					>
 						Copy current PGN
 					</button>
 				</>
 			)}
-			<button className="classic-button" onClick={killGameProcess}>
+			<button className="classic-button" onClick={killGameProcess} title="Kill the active AI process">
 				Kill Process
 			</button>
 		</div>

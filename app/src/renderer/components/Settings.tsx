@@ -1,5 +1,6 @@
 import { Chessboard } from "kokopu-react";
 import { setData, getData } from "../UserData";
+import "../css/Settings.css";
 
 export function Settings(props: {
 	pieceset: string;
@@ -8,6 +9,7 @@ export function Settings(props: {
 	setColorset(set: string): void;
 	arrow: string;
 	setArrow(set: string): void;
+	chess_buttons: boolean;
 }) {
 	const piecesets = Chessboard.piecesets();
 	const colorsets = Chessboard.colorsets();
@@ -44,29 +46,47 @@ export function Settings(props: {
 
 	return (
 		<div id="settings">
-			<select value={props.pieceset} onChange={handlePiecesetChange}>
-				{Object.keys(piecesets).map((set) => (
-					<option key={set} value={set}>
-						{set}
-					</option>
-				))}
-			</select>
-
-			<select value={props.colorset} onChange={handleColorsetChange}>
+			<select
+				className="classic-button"
+				value={props.colorset}
+				onChange={handleColorsetChange}
+				title="Select the color theme"
+			>
 				{Object.keys(colorsets).map((set) => (
 					<option key={set} value={set}>
 						{set}
 					</option>
 				))}
 			</select>
+			{props.chess_buttons ? (
+				<>
+					<select
+						className="classic-button"
+						value={props.pieceset}
+						onChange={handlePiecesetChange}
+						title="Select the style of chess pieces"
+					>
+						{Object.keys(piecesets).map((set) => (
+							<option key={set} value={set}>
+								{set}
+							</option>
+						))}
+					</select>
 
-			<select value={props.arrow} onChange={handleArrowChange}>
-				<option value="">Disabled</option>
-				<option value="R">Red</option>
-				<option value="G">Green</option>
-				<option value="B">Blue</option>
-				<option value="Y">Yellow</option>
-			</select>
+					<select
+						className="classic-button"
+						value={props.arrow}
+						onChange={handleArrowChange}
+						title="Select the color of the move arrow"
+					>
+						<option value="">Disabled</option>
+						<option value="R">Red</option>
+						<option value="G">Green</option>
+						<option value="B">Blue</option>
+						<option value="Y">Yellow</option>
+					</select>
+				</>
+			) : null}
 		</div>
 	);
 }
