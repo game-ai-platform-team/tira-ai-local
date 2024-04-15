@@ -230,7 +230,7 @@ function App() {
 						</button>
 					</div>
 				</div>
-			) : null }
+			) : null}
 			<br />
 			<div>{selectedGame && <Logs />}</div>
 		</div>
