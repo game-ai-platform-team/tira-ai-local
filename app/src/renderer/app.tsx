@@ -42,7 +42,7 @@ function App() {
 
 	const [pieceset, setPieceset] = useState<string>(getData("piece_set"));
 	const [colorset, setColorset] = useState<string>(getData("color_set"));
-	const [arrow, setArrow] = useState<string>(getData("arrow"))
+	const [arrow, setArrow] = useState<string>(getData("arrow"));
 
 	const handleGameSelection = (game: string) => {
 		setMoves([]);

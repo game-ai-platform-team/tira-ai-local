@@ -5,7 +5,7 @@ type DataType = {
 	ai_path: string;
 	piece_set: string;
 	color_set: string;
-    arrow: string;
+	arrow: string;
 };
 
 const schema = {
