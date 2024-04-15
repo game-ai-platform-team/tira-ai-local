@@ -71,6 +71,7 @@ export function MyChessboard(props: {
 				onMovePlayed={(move) => handleMovePlayed(move)}
 				position={props.pos}
 				arrowMarkers={props.arrow}
+				squareSize={60}
 			/>
 		</div>
 	);
