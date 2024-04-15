@@ -25,7 +25,9 @@ import { shell } from "electron";
 import { getData, setData } from "./UserData";
 
 function App() {
-	const [selectedGame, setSelectedGame] = useState<string | null>(getData("game"));
+	const [selectedGame, setSelectedGame] = useState<string | null>(
+		getData("game"),
+	);
 	const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 	const [boardIndex, setBoardIndex] = useState(0);
 	const [halfMoves, setHalfMoves] = useState([]);
@@ -48,7 +50,7 @@ function App() {
 			killProcess();
 		}
 		setHasBeenSubmitted(false);
-		setData("game", game)
+		setData("game", game);
 	};
 
 	function handleSubmit(

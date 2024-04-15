@@ -23,7 +23,7 @@ function AIForm(props: AIFormProps): JSX.Element {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
 		e.preventDefault();
 		props.handleSubmit(filepath, fennotation, runSetup);
-		setData("ai_path", filepath)
+		setData("ai_path", filepath);
 	}
 
 	function handleDrop(e: React.DragEvent<HTMLDivElement>): void {

@@ -7,7 +7,7 @@ const schema = {
 	},
 	ai_path: {
 		type: "string",
-        default: ""
+		default: "",
 	},
 } as const;
 
