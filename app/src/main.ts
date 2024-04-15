@@ -1,8 +1,11 @@
 import { app, BrowserWindow } from "electron";
 import { ChildProcess, spawn } from "child_process";
 import path from "path";
+import Store from "electron-store";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
+
+Store.initRenderer();
 
 let backgroundProcess: ChildProcess | undefined = undefined;
 

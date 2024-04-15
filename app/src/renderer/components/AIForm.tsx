@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../css/Buttons.css";
 import path from "path";
 import "../css/AIForm.css";
+import { setData, getData } from "../UserData";
 
 interface AIFormProps {
 	handleSubmit: (
@@ -14,7 +15,7 @@ interface AIFormProps {
 }
 
 function AIForm(props: AIFormProps): JSX.Element {
-	const [filepath, setFilePath] = useState("");
+	const [filepath, setFilePath] = useState(getData("ai_path"));
 	const [fennotation, setFenNotation] = useState("");
 	const [runSetup, setRunSetup] = useState(false);
 	const [dragging, setDragging] = useState(false);
@@ -22,6 +23,7 @@ function AIForm(props: AIFormProps): JSX.Element {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
 		e.preventDefault();
 		props.handleSubmit(filepath, fennotation, runSetup);
+		setData("ai_path", filepath)
 	}
 
 	function handleDrop(e: React.DragEvent<HTMLDivElement>): void {

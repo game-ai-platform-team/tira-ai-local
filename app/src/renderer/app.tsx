@@ -22,8 +22,10 @@ import "./css/AppLayout.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { shell } from "electron";
 
+import { getData, setData } from "./UserData";
+
 function App() {
-	const [selectedGame, setSelectedGame] = useState<string | null>("chess");
+	const [selectedGame, setSelectedGame] = useState<string | null>(getData("game"));
 	const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 	const [boardIndex, setBoardIndex] = useState(0);
 	const [halfMoves, setHalfMoves] = useState([]);
@@ -46,6 +48,7 @@ function App() {
 			killProcess();
 		}
 		setHasBeenSubmitted(false);
+		setData("game", game)
 	};
 
 	function handleSubmit(
