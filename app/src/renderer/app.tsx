@@ -177,7 +177,7 @@ function App() {
 			/>
 			{selectedGame !== null ? (
 				<div id="app-center">
-					<div className="card">
+					<div className="cards">
 						<AIForm
 							handleSubmit={handleSubmit}
 							showFen={selectedGame === "chess"}
