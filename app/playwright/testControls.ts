@@ -17,11 +17,11 @@ test("Undoing and redoing move works", async () => {
 
 	//const img = await window.locator(".kokopu-chessboard").locator("image")
 	const img = await window.locator(
-		".kokopu-chessboard image[x='280'][y='240']",
+		".kokopu-chessboard image[x='420'][y='360']",
 	);
 
 	const rect = await window.locator(
-		".kokopu-chessboard rect[x='280'][y='160']",
+		".kokopu-chessboard rect[x='420'][y='240']",
 	);
 
 	await img.dragTo(rect, { force: true });
