@@ -24,15 +24,15 @@ export function MyConnectFour(props: {
 			);
 		}
 	}
-	const set = getData("color_set")
-	const sets = Chessboard.colorsets()
+	const set = getData("color_set");
+	const sets = Chessboard.colorsets();
 
-	const primary = sets[set].b
-	const secondary = sets[set].w
-	const red = sets[set].cr
-	const yellow = sets[set].cy
-	const green = sets[set].cg
-	const blue = sets[set].cb
+	const primary = sets[set].b;
+	const secondary = sets[set].w;
+	const red = sets[set].cr;
+	const yellow = sets[set].cy;
+	const green = sets[set].cg;
+	const blue = sets[set].cb;
 
 	return (
 		<div>

@@ -49,7 +49,11 @@ export function MiscButtons(props: {
 					</button>
 				</>
 			)}
-			<button className="classic-button" onClick={killGameProcess} title="Kill the active AI process">
+			<button
+				className="classic-button"
+				onClick={killGameProcess}
+				title="Kill the active AI process"
+			>
 				Kill Process
 			</button>
 		</div>
