@@ -21,7 +21,6 @@ import { Notification } from "./components/Notification";
 import "./css/AppLayout.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { shell } from "electron";
-import Markdown from "react-markdown";
 
 function App() {
 	const [selectedGame, setSelectedGame] = useState<string | null>("chess");
