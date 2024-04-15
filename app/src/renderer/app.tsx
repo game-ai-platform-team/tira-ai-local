@@ -17,10 +17,9 @@ import { Logs } from "./components/Logs";
 import { createPGNString } from "./PGNFormatter";
 import { GameButtons } from "./components/GameButtons";
 import { Notification } from "./components/Notification";
-
+import { MiscButtons } from "./components/MiscButtons";
 import "./css/AppLayout.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { shell } from "electron";
 
 import { getData, setData } from "./UserData";
 
@@ -82,22 +81,6 @@ function App() {
 		return Math.floor(index / 2) + 1;
 	};
 
-	function copyFenToClipboard() {
-		const fen = createFen(boardIndex);
-		navigator.clipboard
-			.writeText(fen)
-			.then(() => {
-				createNotification("Copied FEN to clipboard!", fen, "");
-			})
-			.catch((err) => {
-				createNotification(
-					"Error copying FEN notation to clipboard",
-					err,
-					"danger",
-				);
-			});
-	}
-
 	function exportPgn() {
 		const pgn = createPGNString(moves, createFen(0), fullMoves(boardIndex));
 		navigator.clipboard
@@ -157,17 +140,6 @@ function App() {
 		setShowToast(true);
 	}
 
-	function openManual() {
-		return shell.openExternal(
-			"https://github.com/game-ai-platform-team/tira-ai-local/blob/master/README.md",
-		);
-	}
-
-	function killGameProcess() {
-		setHasBeenSubmitted(false);
-		killProcess();
-	}
-
 	setShowRuntimeError(createNotification);
 
 	return (
@@ -224,29 +196,20 @@ function App() {
 							/>
 						)}
 					</div>
+
 					<div id="misc-buttons">
 						{selectedGame === "chess" && (
 							<>
-								<button
-									className="classic-button"
-									onClick={copyFenToClipboard}
-								>
-									Copy current FEN
-								</button>
-								<button
-									className="classic-button"
-									onClick={exportPgn}
-								>
-									Copy current PGN
-								</button>
+								<MiscButtons
+									selectedGame={selectedGame}
+									boardIndex={boardIndex}
+									createFen={createFen}
+									exportPgn={exportPgn}
+									createNotification={createNotification}
+									setHasBeenSubmitted={setHasBeenSubmitted}
+								/>
 							</>
 						)}
-						<button
-							className="classic-button"
-							onClick={killGameProcess}
-						>
-							Kill Process
-						</button>
 					</div>
 				</div>
 			) : null}
