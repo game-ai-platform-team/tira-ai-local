@@ -33,8 +33,10 @@
 	background-color: #8b4513;
 }
 
+
 .tira-text {
-	position: absolute;
+	position:relative;
+    margin-left: auto;
 	right: 20px;
 	color: white;
 	font-weight: bold;
