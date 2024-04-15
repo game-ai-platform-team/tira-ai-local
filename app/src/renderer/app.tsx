@@ -43,6 +43,10 @@ function App() {
 		setPositions([new Position()]);
 		setBoardIndex(0);
 		setSelectedGame(game);
+		if (hasBeenSubmitted) {
+			killProcess();
+		}
+		setHasBeenSubmitted(false);
 	};
 
 	function handleSubmit(
@@ -155,6 +159,11 @@ function App() {
 		);
 	}
 
+	function killGameProcess() {
+		setHasBeenSubmitted(false);
+		killProcess();
+	}
+
 	setShowRuntimeError(createNotification);
 
 	return (
@@ -224,7 +233,7 @@ function App() {
 						)}
 						<button
 							className="classic-button"
-							onClick={killProcess}
+							onClick={killGameProcess}
 						>
 							Kill Process
 						</button>
