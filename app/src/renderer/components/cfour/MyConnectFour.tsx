@@ -28,7 +28,7 @@ export function MyConnectFour(props: {
 	const secondary = root.style.getPropertyValue("--secondary");
 	const red = root.style.getPropertyValue("--red_marker");
 	const yellow = root.style.getPropertyValue("--yellow_marker");
-	const green = root.style.getPropertyValue("--green_marker")
+	const green = root.style.getPropertyValue("--green_marker");
 
 	return (
 		<div>
