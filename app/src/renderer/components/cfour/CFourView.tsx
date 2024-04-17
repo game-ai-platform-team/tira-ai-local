@@ -11,13 +11,15 @@ export function CFourView(props: {
 	moves: string[];
 	notification?(header, body, bg?): void;
 	setHasBeenSubmitted(arg0: boolean): void;
+	setGameOver?(arg0: boolean): void;
+	gameOver?: boolean;
 }) {
 	const numberMoves = props.moves.map((value) => Number(value));
 
 	function handleMovePlayedByAi(move: string) {
 		if (!isGameOver) {
 			if (validateMove(move)) {
-				props.setMoves(props.moves.concat(move));
+				props.setMoves(props.moves.slice(0, props.boardIndex).concat(move));
 				props.setBoardIndex(props.boardIndex + 1);
 			} else {
 				props.notification(
@@ -30,7 +32,7 @@ export function CFourView(props: {
 	}
 
 	function handleMovePlayed(move: string) {
-		props.moves.splice(props.boardIndex);
+		props.setMoves(props.moves.slice(0, props.boardIndex).concat(move));
 		sendMove(move);
 		props.moves.push(move);
 		props.setBoardIndex(props.boardIndex + 1);
@@ -52,7 +54,7 @@ export function CFourView(props: {
 	});
 	const isGameOver = checkForWin(boardmatrix) || props.moves.length >= 42;
 
-	if (isGameOver && props.hasBeenSubmitted) {
+	if (isGameOver && !props.gameOver) {
 		const moveCount = props.moves.length;
 		const winner =
 			moveCount >= 42
@@ -61,16 +63,16 @@ export function CFourView(props: {
 					? "Yellow"
 					: "Red";
 		props.notification("GAME OVER!", `${winner} has won the game!`);
-		props.setHasBeenSubmitted(false);
+		props.setGameOver(true)
 	}
-
+	
 	return (
 		<div id="game-view">
 			<MyConnectFour
 				moves={numberMoves}
 				boardIndex={props.boardIndex}
 				onMovePlayed={handleMovePlayed}
-				active={!(isGameOver || !props.hasBeenSubmitted)}
+				active={!isGameOver && props.hasBeenSubmitted}
 				notification={props.notification}
 			/>
 			<div>Turn {props.boardIndex}</div>

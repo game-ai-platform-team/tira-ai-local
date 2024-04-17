@@ -14,6 +14,8 @@ export function ChessView(props: {
 	setBoardIndex(arg0: number): void;
 	boardIndex: number;
 	notification?(header, body, bg?): void;
+	gameOver?: boolean;
+	setGameOver?(arg0: boolean): void;
 }) {
 	function addPosition(position: Position, move: MoveDescriptor) {
 		props.setPositions((prevState) => {
@@ -55,21 +57,23 @@ export function ChessView(props: {
 
 	const isTie = stalemate || dead || halfMoveCount;
 
-	if (isGameOver && props.hasBeenSubmitted) {
-		const winner = props.moves.length % 2 === 0 ? "Black" : "White";
-		props.notification("GAME OVER!", `${winner} has won the game`);
-		props.setHasBeenSubmitted(false);
-	} else if (isTie && props.hasBeenSubmitted) {
-		const endType = stalemate
-			? "of a stalemate"
-			: dead
-				? "neither side has enough material to win"
-				: "it has been 100 moves since last capture or pawn advance";
-		props.notification(
-			"GAME OVER!",
-			`Game was declared a tie because ${endType}.`,
-		);
-		props.setHasBeenSubmitted(false);
+	if (!props.gameOver) {
+		if (isGameOver) {
+			const winner = props.moves.length % 2 === 0 ? "Black" : "White";
+			props.notification("GAME OVER!", `${winner} has won the game`);
+			props.setGameOver(true);
+		} else if (isTie) {
+			const endType = stalemate
+				? "of a stalemate"
+				: dead
+					? "neither side has enough material to win"
+					: "it has been 100 moves since last capture or pawn advance";
+			props.notification(
+				"GAME OVER!",
+				`Game was declared a tie because ${endType}.`,
+			);
+			props.setGameOver(true);
+		}
 	}
 
 	return (
@@ -78,7 +82,7 @@ export function ChessView(props: {
 				<MyChessboard
 					pos={props.positions[props.boardIndex]}
 					addPosition={addPosition}
-					active={!(isGameOver || !props.hasBeenSubmitted)}
+					active={!(isGameOver || isTie) && props.hasBeenSubmitted}
 					notification={props.notification}
 					arrow={makeArrowString()}
 				/>

@@ -9,6 +9,7 @@ export function GameButtons(props: {
 	prevActive: boolean;
 	nextActive: boolean;
 	hasBeenSumbitted: boolean;
+	gameOver: boolean;
 }) {
 	return (
 		<>
@@ -23,13 +24,13 @@ export function GameButtons(props: {
 				</button>
 
 				<PlayButton
-					active={props.playActive && props.hasBeenSumbitted}
+					active={props.playActive && props.hasBeenSumbitted && !props.gameOver}
 				/>
 				<button
 					className="classic-button"
 					onClick={props.handleNextMoveButton}
 					data-testid="next-move-button"
-					disabled={!(props.nextActive && props.hasBeenSumbitted)}
+					disabled={!(props.nextActive && props.hasBeenSumbitted && !props.gameOver)}
 				>
 					{">"}
 				</button>

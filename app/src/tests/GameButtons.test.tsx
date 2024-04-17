@@ -25,6 +25,7 @@ describe("Game buttons", () => {
 				nextActive={true}
 				prevActive={true}
 				hasBeenSumbitted={true}
+				gameOver={false}
 			/>
 		);
 	}

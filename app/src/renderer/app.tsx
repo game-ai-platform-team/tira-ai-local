@@ -36,6 +36,7 @@ function App() {
 	const [autoSendMove, setAutoSendMove] = useState(false);
 	const [startingFullMoveCount, setStartingFullMoveCount] =
 		useState<number>(0);
+	const [gameOver, setGameOver] = useState<boolean>(false)
 
 	const [toastHeader, setToastHeader] = useState("");
 	const [toastBody, setToastBody] = useState("");
@@ -66,8 +67,6 @@ function App() {
 	) {
 		if (selectedGame === "chess") {
 			socket.emit("startgame", filepath, fennotation, runsetup);
-			setBoardIndex(0);
-			setHasBeenSubmitted(true);
 			if (fennotation) {
 				const fenList = fennotation.split(" ");
 				setHalfMoves([parseInt(fenList[4])]);
@@ -76,7 +75,6 @@ function App() {
 				setHalfMoves([]);
 				setStartingFullMoveCount(0);
 			}
-			setMoves([]);
 			try {
 				setPositions([new Position(fennotation)]);
 			} catch (error) {
@@ -84,10 +82,11 @@ function App() {
 			}
 		} else if (selectedGame === "connectFour") {
 			startGame(filepath, runsetup);
-			setBoardIndex(0);
-			setMoves([]);
-			setHasBeenSubmitted(true);
 		}
+		setMoves([]);
+		setBoardIndex(0);
+		setHasBeenSubmitted(true); 
+		setGameOver(false)
 	}
 
 	const fullMoves = (index: number) => {
@@ -128,7 +127,7 @@ function App() {
 
 	function handlePrevMoveButton() {
 		if (boardIndex > 0) {
-			setHasBeenSubmitted(true);
+			setGameOver(false);
 			setBoardIndex(boardIndex - 1);
 			if (selectedGame === "chess") {
 				const fen = createFen(boardIndex - 1);
@@ -201,6 +200,8 @@ function App() {
 									setPositions={setPositions}
 									positions={positions}
 									notification={createNotification}
+									setGameOver={setGameOver}
+									gameOver={gameOver}
 								/>
 							</>
 						) : selectedGame === "connectFour" ? (
@@ -212,6 +213,8 @@ function App() {
 								setMoves={setMoves}
 								notification={createNotification}
 								setHasBeenSubmitted={setHasBeenSubmitted}
+								setGameOver={setGameOver}
+								gameOver={gameOver}
 							/>
 						) : null}
 						<GameButtons
@@ -229,6 +232,7 @@ function App() {
 										: false
 							}
 							hasBeenSumbitted={hasBeenSubmitted}
+							gameOver={gameOver}
 						/>
 					</div>
 

@@ -98,6 +98,7 @@ describe("ChessView", () => {
 						nextActive={true}
 						prevActive={true}
 						hasBeenSumbitted={true}
+						gameOver={false}
 					/>
 				</>
 			);
