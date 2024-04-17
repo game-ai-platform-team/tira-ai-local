@@ -210,18 +210,14 @@ function App() {
 					</div>
 
 					<div id="misc-buttons">
-						{selectedGame === "chess" && (
-							<>
-								<MiscButtons
-									selectedGame={selectedGame}
-									boardIndex={boardIndex}
-									createFen={createFen}
-									exportPgn={exportPgn}
-									createNotification={createNotification}
-									setHasBeenSubmitted={setHasBeenSubmitted}
-								/>
-							</>
-						)}
+						<MiscButtons
+							selectedGame={selectedGame}
+							boardIndex={boardIndex}
+							createFen={createFen}
+							exportPgn={exportPgn}
+							createNotification={createNotification}
+							setHasBeenSubmitted={setHasBeenSubmitted}
+						/>
 						<Settings
 							pieceset={pieceset}
 							setPieceset={setPieceset}
