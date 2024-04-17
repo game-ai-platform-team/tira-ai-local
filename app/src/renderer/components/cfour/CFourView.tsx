@@ -29,7 +29,7 @@ export function CFourView(props: {
 	}
 
 	function handleMovePlayed(move: string) {
-		props.moves.splice(props.boardIndex)
+		props.moves.splice(props.boardIndex);
 		sendMove(move);
 		props.moves.push(move);
 		props.setBoardIndex(props.boardIndex + 1);
