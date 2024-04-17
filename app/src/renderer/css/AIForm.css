@@ -19,6 +19,11 @@
 	font-size: 1.1em;
 }
 
+#fileinput:hover {
+    color: var(--primary);
+	background-color: var(--secondary);
+}
+
 #formChess {
 	display: flex;
 	flex-direction: column;
