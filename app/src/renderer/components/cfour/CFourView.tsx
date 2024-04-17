@@ -10,6 +10,7 @@ export function CFourView(props: {
 	setBoardIndex(arg0: number): void;
 	moves: string[];
 	notification?(header, body, bg?): void;
+	setHasBeenSubmitted(arg0: boolean): void;
 }) {
 	const numberMoves = props.moves.map((value) => Number(value));
 
@@ -51,6 +52,18 @@ export function CFourView(props: {
 	});
 	const isGameOver = checkForWin(boardmatrix) || props.moves.length >= 42;
 
+	if (isGameOver && props.hasBeenSubmitted) {
+		const moveCount = props.moves.length;
+		const winner =
+			moveCount >= 42
+				? "Tie! No one"
+				: moveCount % 2 === 0
+					? "Yellow"
+					: "Red";
+		props.notification("GAME OVER!", `${winner} has won the game!`);
+		props.setHasBeenSubmitted(false);
+	}
+
 	return (
 		<div id="game-view">
 			<MyConnectFour
@@ -61,7 +74,6 @@ export function CFourView(props: {
 				notification={props.notification}
 			/>
 			<div>Turn {props.boardIndex}</div>
-			{isGameOver && <div>GAME OVER</div>}
 		</div>
 	);
 }

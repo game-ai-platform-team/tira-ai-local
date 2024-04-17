@@ -5,6 +5,7 @@ export function GameButtons(props: {
 	handleNextMoveButton;
 	autoSendMove;
 	handleToggle;
+	active: boolean;
 }) {
 	return (
 		<>
@@ -17,7 +18,7 @@ export function GameButtons(props: {
 					{"<"}
 				</button>
 
-				<PlayButton />
+				<PlayButton active={props.active}/>
 				<button
 					className="classic-button"
 					onClick={props.handleNextMoveButton}

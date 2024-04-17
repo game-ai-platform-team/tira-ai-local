@@ -120,6 +120,7 @@ function App() {
 
 	function handlePrevMoveButton() {
 		if (boardIndex > 0) {
+			setHasBeenSubmitted(true)
 			setBoardIndex(boardIndex - 1);
 			if (selectedGame === "chess") {
 				const fen = createFen(boardIndex - 1);
@@ -131,16 +132,18 @@ function App() {
 	}
 
 	function handleNextMoveButton() {
-		if (selectedGame === "chess") {
-			if (boardIndex < positions.length - 1) {
-				const fen = createFen(boardIndex + 1);
-				sendBoard(fen);
-				setBoardIndex(boardIndex + 1);
-			}
-		} else if (selectedGame === "connectFour") {
-			if (boardIndex < moves.length - 1) {
-				sendBoard(moves.slice(0, boardIndex - 1).join(","));
-				setBoardIndex(boardIndex + 1);
+		if (hasBeenSubmitted) {
+			if (selectedGame === "chess") {
+				if (boardIndex < positions.length - 1) {
+					const fen = createFen(boardIndex + 1);
+					sendBoard(fen);
+					setBoardIndex(boardIndex + 1);
+				}
+			} else if (selectedGame === "connectFour") {
+				if (boardIndex < moves.length - 1) {
+					sendBoard(moves.slice(0, boardIndex - 1).join(","));
+					setBoardIndex(boardIndex + 1);
+				}
 			}
 		}
 	}
@@ -181,6 +184,7 @@ function App() {
 									setBoardIndex={setBoardIndex}
 									boardIndex={boardIndex}
 									hasBeenSubmitted={hasBeenSubmitted}
+									setHasBeenSubmitted={setHasBeenSubmitted}
 									moves={moves}
 									setMoves={setMoves}
 									halfMoves={halfMoves}
@@ -197,16 +201,16 @@ function App() {
 								setBoardIndex={setBoardIndex}
 								setMoves={setMoves}
 								notification={createNotification}
+								setHasBeenSubmitted={setHasBeenSubmitted}
 							/>
 						) : null}
-						{hasBeenSubmitted && (
-							<GameButtons
-								handlePrevMoveButton={handlePrevMoveButton}
-								handleNextMoveButton={handleNextMoveButton}
-								autoSendMove={autoSendMove}
-								handleToggle={handleToggle}
-							/>
-						)}
+						<GameButtons
+							handlePrevMoveButton={handlePrevMoveButton}
+							handleNextMoveButton={handleNextMoveButton}
+							autoSendMove={autoSendMove}
+							handleToggle={handleToggle}
+							active={hasBeenSubmitted}
+						/>
 					</div>
 
 					<div id="misc-buttons">

@@ -10,7 +10,7 @@ describe("Playbutton", () => {
 
 	test("Play button calls sendEmpty", () => {
 		const sendEmpty = vi.fn();
-		const { getAllByText } = render(<PlayButton sendEmpty={sendEmpty} />);
+		const { getAllByText } = render(<PlayButton sendEmpty={sendEmpty} active={true}/>);
 
 		const playButton = getAllByText("PLAY!");
 		fireEvent.click(playButton[0]);

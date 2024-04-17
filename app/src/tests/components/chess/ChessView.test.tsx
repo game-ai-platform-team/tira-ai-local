@@ -17,6 +17,7 @@ describe("ChessView", () => {
 				setBoardIndex={() => {}}
 				boardIndex={0}
 				hasBeenSubmitted={false}
+				setHasBeenSubmitted={() => {}}
 				positions={[new Position()]}
 				setPositions={() => {}}
 				halfMoves={[]}
@@ -83,6 +84,7 @@ describe("ChessView", () => {
 						setBoardIndex={setBoardIndex}
 						boardIndex={boardIndex}
 						hasBeenSubmitted={hasBeenSubmitted}
+						setHasBeenSubmitted={setHasBeenSubmitted}
 						positions={positions}
 						setPositions={setPositions}
 						halfMoves={halfMoves}
@@ -92,6 +94,7 @@ describe("ChessView", () => {
 						handleNextMoveButton={handleNextMoveButton}
 						autoSendMove={autoSendMove}
 						handleToggle={handleToggle}
+						active={true}
 					/>
 				</>
 			);

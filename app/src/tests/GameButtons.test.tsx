@@ -21,6 +21,7 @@ describe("Game buttons", () => {
 				handleNextMoveButton={handleNextMoveButton}
 				autoSendMove={autoSendMove}
 				handleToggle={handleToggle}
+				active={true}
 			/>
 		);
 	}
