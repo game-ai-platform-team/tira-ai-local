@@ -10,7 +10,7 @@ import {
 	killProcess,
 	startGame,
 	setReturnMove,
-	sendBoardFen,
+	sendBoard as sendBoard,
 	setShowRuntimeError,
 } from "./MoveSender";
 import { Logs } from "./components/Logs";
@@ -123,7 +123,9 @@ function App() {
 			setBoardIndex(boardIndex - 1);
 			if (selectedGame === "chess") {
 				const fen = createFen(boardIndex - 1);
-				sendBoardFen(fen);
+				sendBoard(fen);
+			} else if (selectedGame === "connectFour") {
+				sendBoard(moves.slice(0, boardIndex - 1).join(","));
 			}
 		}
 	}
@@ -133,7 +135,9 @@ function App() {
 			setBoardIndex(boardIndex + 1);
 			if (selectedGame === "chess") {
 				const fen = createFen(boardIndex + 1);
-				sendBoardFen(fen);
+				sendBoard(fen);
+			} else if (selectedGame === "connectFour") {
+				sendBoard(moves.slice(0, boardIndex - 1).join(","));
 			}
 		}
 	}

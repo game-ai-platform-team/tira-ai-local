@@ -26,7 +26,7 @@ export function startGame(
 	);
 }
 
-export function sendBoardFen(fen: string) {
+export function sendBoard(fen: string) {
 	socket.emit("set_board", fen);
 }
 

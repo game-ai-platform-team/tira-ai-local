@@ -368,5 +368,6 @@ If your AI process is no longer running, attempting to undo or redo moves result
 
 Moves in Connect Four are represented by the index of the column where the player wants to drop their disc. For example, placing a disc in the first column would be represented as `MOVE:0`, the second column as `MOVE:1`, and so on.
 
-Currently there is no board setting for connect four.
+Boards are given as a string of moves separated by commas. The first move is made by red, the second by yellow and so on. For example, consider a board with two red moves in the first column and two yellow moves in the last column. It would be given as `BOARD:0,6,0,6`, which is shown below.
 
+![Board in position 0,6,0,6](/docs/cfourboard.png)
