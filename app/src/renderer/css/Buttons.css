@@ -20,3 +20,8 @@
 	color: var(--primary);
 	background-color: var(--secondary);
 }
+
+.classic-button:disabled {
+	color: white;
+	background-color: var(--red_marker);
+}

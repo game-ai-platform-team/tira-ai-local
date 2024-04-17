@@ -16,7 +16,7 @@ export const PlayButton = (props: {
 
 	return (
 		<div>
-			<button className="classic-button" onClick={sendEmptyMove}>
+			<button className="classic-button" onClick={sendEmptyMove} disabled={!props.active}>
 				PLAY!
 			</button>
 		</div>

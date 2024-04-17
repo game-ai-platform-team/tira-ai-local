@@ -120,7 +120,7 @@ function App() {
 
 	function handlePrevMoveButton() {
 		if (boardIndex > 0) {
-			setHasBeenSubmitted(true)
+			setHasBeenSubmitted(true);
 			setBoardIndex(boardIndex - 1);
 			if (selectedGame === "chess") {
 				const fen = createFen(boardIndex - 1);
@@ -209,7 +209,16 @@ function App() {
 							handleNextMoveButton={handleNextMoveButton}
 							autoSendMove={autoSendMove}
 							handleToggle={handleToggle}
-							active={hasBeenSubmitted}
+							playActive={hasBeenSubmitted}
+							prevActive={boardIndex > 0}
+							nextActive={
+								selectedGame === "chess"
+									? boardIndex < positions.length - 1
+									: selectedGame === "connectFour"
+										? boardIndex < moves.length - 1
+										: false
+							}
+							hasBeenSumbitted={hasBeenSubmitted}
 						/>
 					</div>
 

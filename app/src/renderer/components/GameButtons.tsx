@@ -5,7 +5,10 @@ export function GameButtons(props: {
 	handleNextMoveButton;
 	autoSendMove;
 	handleToggle;
-	active: boolean;
+	playActive: boolean;
+	prevActive: boolean;
+	nextActive: boolean;
+	hasBeenSumbitted: boolean
 }) {
 	return (
 		<>
@@ -14,15 +17,17 @@ export function GameButtons(props: {
 					className="classic-button"
 					onClick={props.handlePrevMoveButton}
 					data-testid="prev-move-button"
+					disabled={!(props.prevActive && props.hasBeenSumbitted)}
 				>
 					{"<"}
 				</button>
 
-				<PlayButton active={props.active}/>
+				<PlayButton active={(props.playActive && props.hasBeenSumbitted)} />
 				<button
 					className="classic-button"
 					onClick={props.handleNextMoveButton}
 					data-testid="next-move-button"
+					disabled={!(props.nextActive && props.hasBeenSumbitted)}
 				>
 					{">"}
 				</button>
