@@ -65,7 +65,10 @@ export function ChessView(props: {
 			: dead
 				? "neither side has enough material to win"
 				: "it has been 100 moves since last capture or pawn advance";
-		props.notification("GAME OVER!", `Game was declared a tie because ${endType}.`);
+		props.notification(
+			"GAME OVER!",
+			`Game was declared a tie because ${endType}.`,
+		);
 		props.setHasBeenSubmitted(false);
 	}
 
