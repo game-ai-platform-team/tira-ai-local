@@ -166,7 +166,9 @@ function App() {
 	setShowRuntimeError(createNotification);
 
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+		<div
+			style={{ display: "flex", flexDirection: "column", height: "100%" }}
+		>
 			<GameSelector onSelect={handleGameSelection} />
 			<Notification
 				show={showToast}

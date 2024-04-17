@@ -30,11 +30,7 @@ export function Logs() {
 
 	return (
 		<div id="log-box">
-			<textarea
-				ref={textareaRef}
-				value={logs.join("\n")}
-				readOnly
-			/>
+			<textarea ref={textareaRef} value={logs.join("\n")} readOnly />
 		</div>
 	);
 }
