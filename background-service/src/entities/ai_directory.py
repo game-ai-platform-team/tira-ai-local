@@ -1,3 +1,4 @@
+# pylint: disable=consider-using-with
 import subprocess
 from os import path
 
@@ -35,9 +36,7 @@ class AiDirectory:
     def __raise_runtime_error(self):
         error_msg = self.process.stderr.read().decode("utf-8")
         if error_msg == "":
-            error_msg = (
-                "Could not capture error message, most likely process has already finished."
-            )
+            error_msg = "Could not capture error message, most likely process has already finished."
         return_code = self.process.poll()
         raise RuntimeError(
             f"Process {self.process.pid} finished with return code "

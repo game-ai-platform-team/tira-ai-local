@@ -22,7 +22,7 @@ class GameService:
             self.socket_service.send_log(
                 f"Success! Running AI opponent in process {ai_directory.get_pid()}"
             )
-        except Exception as e:
+        except RuntimeError as e:
             self.socket_service.send_log(f"Error creating game:\n{str(e)}")
             return
 
@@ -31,7 +31,7 @@ class GameService:
                 self.game.set_board(board_position)
             else:
                 self.game.reset_board()
-        except Exception as e:
+        except RuntimeError as e:
             self.socket_service.send_log(
                 f"Setting board with {board_position} failed:\n{str(e)}"
             )
@@ -66,7 +66,7 @@ class GameService:
         self.socket_service.send_log(f"Setting AI board to {board_position}")
         try:
             self.game.set_board(board_position)
-        except Exception as e:
+        except RuntimeError as e:
             self.socket_service.send_log(f"Setting board failed: \n {str(e)}")
 
     def kill_process(self):
@@ -76,5 +76,8 @@ class GameService:
             else:
                 return_code = self.game.kill()
                 self.socket_service.send_log(
-                    f"Killed process {self.game.ai_directory.get_pid()} with return code {return_code}"
+                    (
+                        f"Killed process {self.game.ai_directory.get_pid()} "
+                        f"with return code {return_code}"
+                    )
                 )

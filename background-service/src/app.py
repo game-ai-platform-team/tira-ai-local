@@ -34,6 +34,7 @@ def io_move_to_back(move, return_move):
 def io_set_board(board):
     gameService.set_board(board)
 
+
 @socketio.on("kill", namespace="/gameconnection")
 def io_kill_process():
     gameService.kill_process()
