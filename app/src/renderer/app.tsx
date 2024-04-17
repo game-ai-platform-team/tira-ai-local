@@ -169,96 +169,100 @@ function App() {
 			style={{ display: "flex", flexDirection: "column", height: "100%" }}
 		>
 			<GameSelector onSelect={handleGameSelection} />
-			<Notification
-				show={showToast}
-				onClose={() => setShowToast(false)}
-				headerText={toastHeader}
-				bodyText={toastBody}
-				bg={toastBg}
-			/>
-			{selectedGame !== null ? (
-				<div id="app-center">
-					<div className="cards">
-						<AIForm
-							handleSubmit={handleSubmit}
-							showFen={selectedGame === "chess"}
-							formId="formChess"
-						/>
-					</div>
-					<div className="game-layout">
-						{selectedGame === "chess" ? (
-							<>
-								{createFen(boardIndex)}
-								<ChessView
-									setBoardIndex={setBoardIndex}
+			<div style={{padding: "20px", display: "flex", flexDirection: "column", height: "100%"}}>
+				<Notification
+					show={showToast}
+					onClose={() => setShowToast(false)}
+					headerText={toastHeader}
+					bodyText={toastBody}
+					bg={toastBg}
+				/>
+				{selectedGame !== null ? (
+					<div id="app-center">
+						<div className="cards">
+							<AIForm
+								handleSubmit={handleSubmit}
+								showFen={selectedGame === "chess"}
+								formId="formChess"
+							/>
+						</div>
+						<div className="game-layout">
+							{selectedGame === "chess" ? (
+								<>
+									{createFen(boardIndex)}
+									<ChessView
+										setBoardIndex={setBoardIndex}
+										boardIndex={boardIndex}
+										hasBeenSubmitted={hasBeenSubmitted}
+										setHasBeenSubmitted={
+											setHasBeenSubmitted
+										}
+										moves={moves}
+										setMoves={setMoves}
+										halfMoves={halfMoves}
+										setPositions={setPositions}
+										positions={positions}
+										notification={createNotification}
+										setGameOver={setGameOver}
+										gameOver={gameOver}
+									/>
+								</>
+							) : selectedGame === "connectFour" ? (
+								<CFourView
+									moves={moves}
 									boardIndex={boardIndex}
 									hasBeenSubmitted={hasBeenSubmitted}
-									setHasBeenSubmitted={setHasBeenSubmitted}
-									moves={moves}
+									setBoardIndex={setBoardIndex}
 									setMoves={setMoves}
-									halfMoves={halfMoves}
-									setPositions={setPositions}
-									positions={positions}
 									notification={createNotification}
+									setHasBeenSubmitted={setHasBeenSubmitted}
 									setGameOver={setGameOver}
 									gameOver={gameOver}
 								/>
-							</>
-						) : selectedGame === "connectFour" ? (
-							<CFourView
-								moves={moves}
-								boardIndex={boardIndex}
-								hasBeenSubmitted={hasBeenSubmitted}
-								setBoardIndex={setBoardIndex}
-								setMoves={setMoves}
-								notification={createNotification}
-								setHasBeenSubmitted={setHasBeenSubmitted}
-								setGameOver={setGameOver}
+							) : null}
+							<GameButtons
+								handlePrevMoveButton={handlePrevMoveButton}
+								handleNextMoveButton={handleNextMoveButton}
+								autoSendMove={autoSendMove}
+								handleToggle={handleToggle}
+								playActive={hasBeenSubmitted}
+								prevActive={boardIndex > 0}
+								nextActive={
+									selectedGame === "chess"
+										? boardIndex < positions.length - 1
+										: selectedGame === "connectFour"
+											? boardIndex < moves.length - 1
+											: false
+								}
+								hasBeenSumbitted={hasBeenSubmitted}
 								gameOver={gameOver}
 							/>
-						) : null}
-						<GameButtons
-							handlePrevMoveButton={handlePrevMoveButton}
-							handleNextMoveButton={handleNextMoveButton}
-							autoSendMove={autoSendMove}
-							handleToggle={handleToggle}
-							playActive={hasBeenSubmitted}
-							prevActive={boardIndex > 0}
-							nextActive={
-								selectedGame === "chess"
-									? boardIndex < positions.length - 1
-									: selectedGame === "connectFour"
-										? boardIndex < moves.length - 1
-										: false
-							}
-							hasBeenSumbitted={hasBeenSubmitted}
-							gameOver={gameOver}
-						/>
-					</div>
+						</div>
 
-					<div id="misc-buttons">
-						<MiscButtons
-							selectedGame={selectedGame}
-							boardIndex={boardIndex}
-							createFen={createFen}
-							exportPgn={exportPgn}
-							createNotification={createNotification}
-							setHasBeenSubmitted={setHasBeenSubmitted}
-						/>
-						<Settings
-							pieceset={pieceset}
-							setPieceset={setPieceset}
-							colorset={colorset}
-							setColorset={setColorset}
-							arrow={arrow}
-							setArrow={setArrow}
-							chess_buttons={selectedGame === "chess"}
-						/>
+						<div id="misc-buttons">
+							<MiscButtons
+								selectedGame={selectedGame}
+								boardIndex={boardIndex}
+								createFen={createFen}
+								exportPgn={exportPgn}
+								createNotification={createNotification}
+								setHasBeenSubmitted={setHasBeenSubmitted}
+							/>
+							<Settings
+								pieceset={pieceset}
+								setPieceset={setPieceset}
+								colorset={colorset}
+								setColorset={setColorset}
+								arrow={arrow}
+								setArrow={setArrow}
+								chess_buttons={selectedGame === "chess"}
+							/>
+						</div>
 					</div>
-				</div>
-			) : null}
-			<br />
-			{selectedGame && <Logs />}
+				) : null}
+				<br />
+				{selectedGame && <Logs />}
+			</div>
 		</div>
 	);
 }
