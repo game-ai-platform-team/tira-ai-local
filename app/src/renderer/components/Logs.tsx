@@ -34,7 +34,6 @@ export function Logs() {
 				ref={textareaRef}
 				value={logs.join("\n")}
 				readOnly
-				style={{ width: "100%", height: "200px", overflowY: "scroll" }}
 			/>
 		</div>
 	);

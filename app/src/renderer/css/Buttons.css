@@ -22,6 +22,6 @@
 }
 
 .classic-button:disabled {
-	color: white;
-	background-color: var(--red_marker);
+	color: var(--secondary);
+	background-color: var(--secondary);
 }

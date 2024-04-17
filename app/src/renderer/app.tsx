@@ -166,7 +166,7 @@ function App() {
 	setShowRuntimeError(createNotification);
 
 	return (
-		<div>
+		<div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
 			<GameSelector onSelect={handleGameSelection} />
 			<Notification
 				show={showToast}
@@ -252,7 +252,7 @@ function App() {
 				</div>
 			) : null}
 			<br />
-			<div>{selectedGame && <Logs />}</div>
+			{selectedGame && <Logs />}
 		</div>
 	);
 }
