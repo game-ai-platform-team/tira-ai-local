@@ -1,4 +1,9 @@
 import { test, expect, _electron as electron } from "playwright/test";
+import { resetAll } from "../src/renderer/UserData";
+
+test.afterEach(async () => {
+	resetAll();
+});
 
 test("Undoing and redoing move works", async () => {
 	const electronApp = await electron.launch({

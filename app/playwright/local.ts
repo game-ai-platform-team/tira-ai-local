@@ -1,4 +1,9 @@
 import { test, expect, _electron as electron } from "playwright/test";
+import { resetAll } from "../src/renderer/UserData";
+
+test.afterEach(async () => {
+	resetAll();
+});
 
 test("Chess field form", async () => {
 	const electronApp = await electron.launch({
@@ -41,4 +46,19 @@ test("launch app", async () => {
 	await expect(window.locator("#navigation-bar")).toBeVisible();
 	// close app
 	await electronApp.close();
+	resetAll();
+});
+
+test("Changing skins work", async () => {
+	resetAll();
+	const electronApp = await electron.launch({
+		args: [
+			"./out/tira-ai-local-linux-x64/resources/app/.webpack/main/index.js",
+		],
+		timeout: 60000,
+	});
+	const window = await electronApp.firstWindow({ timeout: 60000 });
+	await window.getByTestId("color-button").selectOption("dusk");
+	await electronApp.close();
+	resetAll();
 });

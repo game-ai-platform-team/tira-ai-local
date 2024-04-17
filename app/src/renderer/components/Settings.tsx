@@ -51,6 +51,7 @@ export function Settings(props: {
 				value={props.colorset}
 				onChange={handleColorsetChange}
 				title="Select the color theme"
+				data-testid="color-button"
 			>
 				{Object.keys(colorsets).map((set) => (
 					<option key={set} value={set}>
