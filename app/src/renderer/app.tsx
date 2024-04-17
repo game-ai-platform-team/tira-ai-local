@@ -131,13 +131,16 @@ function App() {
 	}
 
 	function handleNextMoveButton() {
-		if (boardIndex < positions.length - 1) {
-			setBoardIndex(boardIndex + 1);
-			if (selectedGame === "chess") {
+		if (selectedGame === "chess") {
+			if (boardIndex < positions.length - 1) {
 				const fen = createFen(boardIndex + 1);
 				sendBoard(fen);
-			} else if (selectedGame === "connectFour") {
+				setBoardIndex(boardIndex + 1);
+			}
+		} else if (selectedGame === "connectFour") {
+			if (boardIndex < moves.length - 1) {
 				sendBoard(moves.slice(0, boardIndex - 1).join(","));
+				setBoardIndex(boardIndex + 1)
 			}
 		}
 	}
