@@ -169,7 +169,14 @@ function App() {
 			style={{ display: "flex", flexDirection: "column", height: "100%" }}
 		>
 			<GameSelector onSelect={handleGameSelection} />
-			<div style={{padding: "20px", display: "flex", flexDirection: "column", height: "100%"}}>
+			<div
+				style={{
+					padding: "20px",
+					display: "flex",
+					flexDirection: "column",
+					height: "100%",
+				}}
+			>
 				<Notification
 					show={showToast}
 					onClose={() => setShowToast(false)}
