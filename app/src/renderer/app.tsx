@@ -140,7 +140,7 @@ function App() {
 		} else if (selectedGame === "connectFour") {
 			if (boardIndex < moves.length - 1) {
 				sendBoard(moves.slice(0, boardIndex - 1).join(","));
-				setBoardIndex(boardIndex + 1)
+				setBoardIndex(boardIndex + 1);
 			}
 		}
 	}
