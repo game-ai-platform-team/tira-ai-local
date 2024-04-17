@@ -20,7 +20,7 @@
 }
 
 #fileinput:hover {
-    color: var(--primary);
+	color: var(--primary);
 	background-color: var(--secondary);
 }
 
