@@ -36,7 +36,7 @@ function App() {
 	const [autoSendMove, setAutoSendMove] = useState(false);
 	const [startingFullMoveCount, setStartingFullMoveCount] =
 		useState<number>(0);
-	const [gameOver, setGameOver] = useState<boolean>(false)
+	const [gameOver, setGameOver] = useState<boolean>(false);
 
 	const [toastHeader, setToastHeader] = useState("");
 	const [toastBody, setToastBody] = useState("");
@@ -85,8 +85,8 @@ function App() {
 		}
 		setMoves([]);
 		setBoardIndex(0);
-		setHasBeenSubmitted(true); 
-		setGameOver(false)
+		setHasBeenSubmitted(true);
+		setGameOver(false);
 	}
 
 	const fullMoves = (index: number) => {

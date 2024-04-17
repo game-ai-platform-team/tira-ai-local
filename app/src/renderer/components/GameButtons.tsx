@@ -24,13 +24,23 @@ export function GameButtons(props: {
 				</button>
 
 				<PlayButton
-					active={props.playActive && props.hasBeenSumbitted && !props.gameOver}
+					active={
+						props.playActive &&
+						props.hasBeenSumbitted &&
+						!props.gameOver
+					}
 				/>
 				<button
 					className="classic-button"
 					onClick={props.handleNextMoveButton}
 					data-testid="next-move-button"
-					disabled={!(props.nextActive && props.hasBeenSumbitted && !props.gameOver)}
+					disabled={
+						!(
+							props.nextActive &&
+							props.hasBeenSumbitted &&
+							!props.gameOver
+						)
+					}
 				>
 					{">"}
 				</button>

@@ -19,7 +19,9 @@ export function CFourView(props: {
 	function handleMovePlayedByAi(move: string) {
 		if (!isGameOver) {
 			if (validateMove(move)) {
-				props.setMoves(props.moves.slice(0, props.boardIndex).concat(move));
+				props.setMoves(
+					props.moves.slice(0, props.boardIndex).concat(move),
+				);
 				props.setBoardIndex(props.boardIndex + 1);
 			} else {
 				props.notification(
@@ -63,9 +65,9 @@ export function CFourView(props: {
 					? "Yellow"
 					: "Red";
 		props.notification("GAME OVER!", `${winner} has won the game!`);
-		props.setGameOver(true)
+		props.setGameOver(true);
 	}
-	
+
 	return (
 		<div id="game-view">
 			<MyConnectFour
