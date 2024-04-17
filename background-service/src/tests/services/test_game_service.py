@@ -17,7 +17,7 @@ class TestGameService(TestCase):
 
     def test_start_game_fails(self):
         ai_directory = Mock()
-        exception = Exception("Fail :--DDDD")
+        exception = RuntimeError("Fail :--DDDD")
         ai_directory.run_ai = Mock(side_effect=exception)
         socket_service = Mock()
         game_service = GameService(socket_service)
@@ -82,7 +82,7 @@ class TestGameService(TestCase):
         game_service = GameService(socket_service)
         game_service.start_game(ai_directory, "", False)
         position = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
-        ai_directory.board = Mock(side_effect=Exception("Fail :--DDDD"))
+        ai_directory.board = Mock(side_effect=RuntimeError("Fail :--DDDD"))
         game_service.set_board(position)
 
         socket_service.send_log.assert_called_with(exception)
