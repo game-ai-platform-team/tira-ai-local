@@ -1,6 +1,7 @@
 from entities.ai_directory import AiDirectory
 from entities.game import Game
 from services.socket_service import SocketService
+from time import perf_counter
 
 
 class GameService:
@@ -49,18 +50,22 @@ class GameService:
             self.game.add_move(move)
 
         if return_move:
+            start_time = perf_counter()
             try:
                 output, logs = self.game.get_move()
             except RuntimeError as e:
                 error = str(e)
             if output != "":
+                end_time = (perf_counter() - start_time) * 1000
                 self.socket_service.move_to_front(output)
             logs_lined = "\n".join(logs)
             if error != "":
                 self.socket_service.send_log(error)
                 self.socket_service.send_runtime_error()
             else:
-                self.socket_service.send_log(f"{output}:\n{logs_lined}")
+                self.socket_service.send_log(
+                    f"Recieved Move: {output} | Time: {round(end_time)} ms | Logs:\n{logs_lined}"
+                )
 
     def set_board(self, board_position):
         self.socket_service.send_log(f"Setting AI board to {board_position}")
