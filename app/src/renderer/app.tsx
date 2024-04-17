@@ -34,6 +34,8 @@ function App() {
 	const [positions, setPositions] = useState([new Position()]);
 	const [moves, setMoves] = useState<string[]>([]);
 	const [autoSendMove, setAutoSendMove] = useState(false);
+	const [startingFullMoveCount, setStartingFullMoveCount] =
+		useState<number>(0);
 
 	const [toastHeader, setToastHeader] = useState("");
 	const [toastBody, setToastBody] = useState("");
@@ -66,8 +68,14 @@ function App() {
 			socket.emit("startgame", filepath, fennotation, runsetup);
 			setBoardIndex(0);
 			setHasBeenSubmitted(true);
-			const fenList = fennotation.split(" ");
-			setHalfMoves([parseInt(fenList[4])]);
+			if (fennotation) {
+				const fenList = fennotation.split(" ");
+				setHalfMoves([parseInt(fenList[4])]);
+				setStartingFullMoveCount(parseInt(fenList[5]));
+			} else {
+				setHalfMoves([]);
+				setStartingFullMoveCount(0);
+			}
 			setMoves([]);
 			try {
 				setPositions([new Position(fennotation)]);
@@ -103,8 +111,8 @@ function App() {
 	}
 
 	function createFen(index: number) {
-		const halfMove: number = halfMoves[index - 1];
-		const fullMove: number = fullMoves(index);
+		const halfMove: number = halfMoves[index];
+		const fullMove: number = fullMoves(index) + startingFullMoveCount;
 
 		const fen = positions[index].fen({
 			fiftyMoveClock: !isNaN(halfMove) ? halfMove : 0,
