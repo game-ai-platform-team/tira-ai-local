@@ -40,14 +40,14 @@
 }
 
 #fen {
-    white-space: nowrap;
-    overflow: hidden;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 @media screen and (max-width: 1254px) {
-    #fen {
-        display: none;
-    }
+	#fen {
+		display: none;
+	}
 }
 
 #Notification {

@@ -90,7 +90,9 @@ function AIForm(props: AIFormProps): JSX.Element {
 								onChange={(e) => setFenNotation(e.target.value)}
 							/>{" "}
 							<br />
-							<text id="fenextra">(empty for starting position)</text>
+							<text id="fenextra">
+								(empty for starting position)
+							</text>
 						</div>
 					</>
 				)}
