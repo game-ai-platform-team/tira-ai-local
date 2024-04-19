@@ -62,20 +62,14 @@ function AIForm(props: AIFormProps): JSX.Element {
 		<div id="ai-form">
 			<form onSubmit={handleSubmit} id={props.formId}>
 				<div className="folder-submit">
-					<h2>Submit folder: </h2>
+					<h2>Submit AI: </h2>
 					<div
 						id="fileinput"
 						onClick={handleSelectFolderClick}
 						onDrop={handleDrop}
 						onDragOver={handleDragOver}
 					>
-						{filepath ? (
-							<div className="file-path-text">
-								Selected Folder: {filepath}
-							</div>
-						) : (
-							<div>Click or Drag & Drop Folder Here</div>
-						)}
+						<div>Click or Drag & Drop Folder Here</div>
 					</div>
 					<input
 						type="text"
@@ -88,7 +82,7 @@ function AIForm(props: AIFormProps): JSX.Element {
 				{props.showFen && (
 					<>
 						<br />
-						<div>Set board FEN: </div>
+						<div>Set FEN: </div>
 						<div>
 							<input
 								id="feninput"
@@ -96,13 +90,13 @@ function AIForm(props: AIFormProps): JSX.Element {
 								onChange={(e) => setFenNotation(e.target.value)}
 							/>{" "}
 							<br />
-							(empty for starting position)
+							<text id="fenextra">(empty for starting position)</text>
 						</div>
 					</>
 				)}
 				<br />
 				<div>
-					<label htmlFor="run-setup">Run setup.sh?</label>
+					<label htmlFor="run-setup">Run setup</label>
 					<input
 						type="checkbox"
 						id="run-setup"

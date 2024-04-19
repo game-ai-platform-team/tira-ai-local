@@ -196,7 +196,7 @@ function App() {
 						<div className="game-layout">
 							{selectedGame === "chess" ? (
 								<>
-									{createFen(boardIndex)}
+									<div id="fen">{createFen(boardIndex)}</div>
 									<ChessView
 										setBoardIndex={setBoardIndex}
 										boardIndex={boardIndex}

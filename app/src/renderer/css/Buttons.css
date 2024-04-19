@@ -24,4 +24,5 @@
 .classic-button:disabled {
 	color: var(--secondary);
 	background-color: var(--secondary);
+	cursor: default;
 }
