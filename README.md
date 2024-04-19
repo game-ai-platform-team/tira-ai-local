@@ -110,7 +110,7 @@ To integrate your AI project with this program, follow these steps:
     python3 src/main.py
     ```
 
-3. **setup.sh**: This shell script installs the dependencies of your AI and is executed when the "Run setup.sh?" option is toggled on. For Python projects using Poetry for dependency management, the setup script might look like this:
+3. **setup.sh**: This shell script installs the dependencies of your AI and is executed when the *Run setup* option is toggled on. For Python projects using Poetry for dependency management, the setup script might look like this:
 
     ```shell
     poetry install
@@ -122,7 +122,7 @@ To integrate your AI project with this program, follow these steps:
     poetry run python3 src/main.py
     ```
 
-    *IMPORTANT*: If the setup.sh asks any prompt (i.e. Do you want to install poetry?) it will not work and you will have to run the setup.sh by yourself
+    *IMPORTANT*: If the setup.sh asks any prompt (i.e. Do you want to install poetry?) it will not work and you will have to run `setup.sh` by yourself!
 
 ### AI Structure
 
