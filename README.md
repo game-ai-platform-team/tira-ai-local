@@ -9,7 +9,8 @@ Simple program to test game AI's. Currently supports Chess and Connect Four.
     - [AI Communication Protocol (Input)](#ai-communication-protocol-input)
     - [AI Communication Protocol (Output)](#ai-communication-protocol-output)
     - [Error Capturing](#error-capturing)
-3. [Game Specific Instructions](#game-specific-instructions)
+3. [User Interface](#user-interface)
+4. [Game Specific Instructions](#game-specific-instructions)
     - [Chess](#chess)
     - [Connect Four](#connect-four)
 
@@ -301,6 +302,52 @@ Could not capture error message, most likely process has already finished.
 ---------------------------------
 ```
 
+## User Interface
+
+![User Interface](./docs/ui_large.png)
+
+1. **Navigation Bar**
+    - Use this to select the active game or read the manual.
+    - Switching games will reset the active game and kill the AI process.
+2. **Submit Form**
+    - Submit your AI here. You can drag the root folder of your AI project into the box or type the path to the it in the field below.
+3. **FEN** *Chess Only*
+    - If not empty, the game will start in this position.
+    - Current position in FEN notation is also shown above the gameboard
+4. **Setup**
+    - Check this box to run the `setup.sh` script in your AI's `./tiraconfig` directory.
+    - This only needs to be done for the first time you use your AI
+5. **Copy FEN** *Chess Only*
+    - Copy the current position in FEN notation to clipboard.
+6. **Copy PGN** *Chess Only*
+    - Copy the game in PGN notation to clipboard.
+    - You can use the PGN string to view your games in other applications, such as [lichess.org](https://lichess.org/paste).
+7. **Kill Process**
+    - Kill the active AI process.
+    - Use this if your AI gets stuck and you don't want to restart the program or switch games.
+8. **Select Theme**
+    - Change the color theme of the program.
+9. **Select Chesspieces** *Chess Only*
+    - Change the chesspieces.
+10. **Select Move Arrow** *Chess Only*
+    - Set the color of the arrow showing the last move.
+11. **Game Controls and Game Board**
+    - Use `<` and `>` to move to previous or next move. This will send a `BOARD:<board>` command to your AI.
+    - Use `PLAY` to reqest a new move from your AI. This will send a `PLAY:` command to your AI.
+    - You can move the chesspieces on the chessboard and click on the Connect Four board to play a move. This will send a `MOVE:<move>` command to your AI.
+12. **Send PLAY after move**
+    - If *Send PLAY after move* is toggled on, a `PLAY:` command will be automatically sent to your AI after you make a move on the board.
+13. **Log Box**
+    - You can see information about the program and outputs from your AI here. When your AI outputs a `MOVE:<move>` tag, the box will display all other outputs from your AI as logs in the following format:
+
+        ```
+        <system time> | Recieved Move: <AI move> | Time: <move time> | Logs: <AI logs>
+        ```
+
+        - `<system time>`: Current system time.
+        - `<AI move>`: The output from your AI.
+        - `<move time>`: How long it took (in milliseconds) between sending `PLAY:` and recieving `MOVE:<move>`.
+        - `<AI logs>`: Outputs your AI made that did not begin with the `MOVE:` tag. 
 
 ## Game Specific Instructions
 
