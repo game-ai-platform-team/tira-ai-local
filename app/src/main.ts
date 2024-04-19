@@ -16,7 +16,7 @@ app.on("ready", () => {
 			contextIsolation: false,
 		},
 		width: 700,
-		height: 800,
+		height: 900,
 	});
 
 	win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
