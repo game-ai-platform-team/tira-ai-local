@@ -115,11 +115,13 @@ To integrate your AI project with this program, follow these steps:
     poetry install
     ```
 
-    Remeber that when using poetry, your `runcommand` would now look like this:
+    Remember that when using poetry, your `runcommand` would now look like this:
 
     ```bash
     poetry run python3 src/main.py
     ```
+
+    *IMPORTANT*: If the setup.sh asks any prompt (i.e. Do you want to install poetry?) it will not work and you will have to run the setup.sh by yourself
 
 ### AI Structure
 
