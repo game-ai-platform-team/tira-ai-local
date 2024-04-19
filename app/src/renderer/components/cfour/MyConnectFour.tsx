@@ -1,6 +1,7 @@
 import { CFourUIPlayable } from "connect-four-board";
 import { getData } from "../../UserData";
 import { Chessboard } from "kokopu-react";
+import { useEffect, useState } from "react";
 
 export function MyConnectFour(props: {
 	moves: number[];
@@ -9,6 +10,27 @@ export function MyConnectFour(props: {
 	active: boolean;
 	notification?(headear, body, bg?): void;
 }) {
+	const [circleRadius, setCircleRadius] = useState(40);
+	const [circleMargin, setCircleMargin] = useState(5);
+
+	const updateCircleDimensions = () => {
+		const windowWidth = window.innerWidth;
+
+		const newCircleRadius = Math.min(windowWidth * 0.035, 40);
+		const newCircleMargin = Math.max(newCircleRadius * 0.125, 5);
+
+		setCircleRadius(newCircleRadius);
+		setCircleMargin(newCircleMargin);
+	};
+
+	useEffect(() => {
+		updateCircleDimensions();
+		window.addEventListener("resize", updateCircleDimensions);
+		return () => {
+			window.removeEventListener("resize", updateCircleDimensions);
+		};
+	}, []);
+
 	function playMove(move: number) {
 		if (props.active) {
 			props.onMovePlayed(move.toString());
@@ -35,7 +57,7 @@ export function MyConnectFour(props: {
 	const blue = sets[set].cb;
 
 	return (
-		<div>
+		<div style={{ maxHeight: "100%", maxWidth: "100%" }}>
 			<CFourUIPlayable
 				rows={6}
 				columns={7}
@@ -49,6 +71,8 @@ export function MyConnectFour(props: {
 				// UI only calls playMove when it's active
 				// To create notifications, UI must always be active
 				active={true}
+				circle_radius={circleRadius}
+				circle_margin={circleMargin}
 			/>
 		</div>
 	);
