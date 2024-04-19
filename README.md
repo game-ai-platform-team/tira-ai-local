@@ -332,7 +332,7 @@ Could not capture error message, most likely process has already finished.
 10. **Select Move Arrow** *Chess Only*
     - Set the color of the arrow showing the last move.
 11. **Game Controls and Game Board**
-    - Use `<` and `>` to move to previous or next move. This will send a `BOARD:<board>` command to your AI.
+    - Use `<` and `>` to undo or redo a move. This will send a `BOARD:<board>` command to your AI.
     - Use `PLAY` to reqest a new move from your AI. This will send a `PLAY:` command to your AI.
     - You can move the chesspieces on the chessboard and click on the Connect Four board to play a move. This will send a `MOVE:<move>` command to your AI.
 12. **Send PLAY after move**
@@ -401,12 +401,12 @@ Additionally, a log will be displayed in the log box:
 
 ```
 ---------------------------------
-17:05:40: Setting AI board to r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
+17:05:40 | Setting AI board to r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
 ```
 
 **Note:** If setting the board fails for any reason, you will be notified with an error message:
 ```
-17:05:40: Setting board failed: 
+17:05:40 | Setting board failed: 
 <error message>
 ```
 
