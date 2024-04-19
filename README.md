@@ -271,7 +271,7 @@ Below is a log of [the example AI](https://github.com/game-ai-platform-team/stup
 
 ```
 ---------------------------------
-19:55:19: Process 623932 finished with return code 1. Captured error message:
+19:55:19 | Process 623932 finished with return code 1. Captured error message:
 Traceback (most recent call last):
   File "/home/repos/stupid-chess-ai/src/stupid_ai.py", line 44, in <module>
     main()
@@ -294,7 +294,7 @@ The log contains the PID (`623932`), return code (`1`) and the captured error me
 
 ```
 ---------------------------------
-19:57:52: Process 623932 finished with return code 1. Captured error message:
+19:57:52 | Process 623932 finished with return code 1. Captured error message:
 Could not capture error message, most likely process has already finished.
 ---------------------------------
 ```
