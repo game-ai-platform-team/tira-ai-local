@@ -25,6 +25,11 @@ class GameService:
             )
         except RuntimeError as e:
             self.socket_service.send_log(f"Error creating game:\n{str(e)}")
+            self.socket_service.send_runtime_error()
+            return
+        except FileNotFoundError as e:
+            self.socket_service.send_log(str(e))
+            self.socket_service.send_runtime_error()
             return
 
         try:
