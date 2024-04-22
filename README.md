@@ -316,7 +316,7 @@ Could not capture error message, most likely process has already finished.
     - Current position in FEN notation is also shown above the gameboard
 4. **Setup**
     - Check this box to run the `setup.sh` script in your AI's `./tiraconfig` directory.
-    - This only needs to be done for the first time you use your AI
+    - This only needs to be done for the first time you use your AI.
 5. **Copy FEN** *Chess Only*
     - Copy the current position in FEN notation to clipboard.
 6. **Copy PGN** *Chess Only*
