@@ -1,3 +1,4 @@
+import { setReturnMove } from "../MoveSender";
 import { PlayButton } from "./PlayButton";
 
 export function GameButtons(props: {
@@ -11,6 +12,8 @@ export function GameButtons(props: {
 	hasBeenSumbitted: boolean;
 	gameOver: boolean;
 }) {
+	setReturnMove(!props.autoSendMove)
+	// Set value to checkbox value (if changed elsewhere)
 	return (
 		<>
 			<div className="game-buttons">

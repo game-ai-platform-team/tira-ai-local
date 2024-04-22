@@ -1,6 +1,6 @@
 import { Chessboard } from "kokopu-react";
 import { MoveDescriptor, Position } from "kokopu";
-import { sendMove, sethandleMovePlayedByAi } from "../../MoveSender";
+import { sendMove, setReturnMove, sethandleMovePlayedByAi } from "../../MoveSender";
 import { getData } from "../../UserData";
 
 export function MyChessboard(props: {
@@ -15,9 +15,13 @@ export function MyChessboard(props: {
 			const copy = new Position(props.pos);
 			const move_desc = copy.notation(move);
 
+			props.addPosition(copy, move_desc);
+			if (checkGameOver(move)) {
+				// Don't request new move if game is over
+				setReturnMove(false)
+			}
 			sendMove(copy.uci(move_desc));
 			copy.play(move_desc);
-			props.addPosition(copy, move_desc);
 		} else {
 			props.notification(
 				"AI Process Inactive",
@@ -61,6 +65,12 @@ export function MyChessboard(props: {
 		const move_san = copy.notation(move_desc);
 		const success = copy.play(move_san);
 		return success;
+	}
+
+	function checkGameOver(move) {
+		const copy = props.pos
+		copy.play(copy.notation(move))
+		return copy.isCheckmate() || copy.isDead() || copy.isStalemate()
 	}
 
 	sethandleMovePlayedByAi(handleMovePlayedByAi);
