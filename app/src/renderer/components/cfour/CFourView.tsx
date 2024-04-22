@@ -1,7 +1,11 @@
 import { MyConnectFour } from "./MyConnectFour";
 import checkForWin from "./CFourWinChecker";
 import CFourParser from "./CFourParser";
-import { sendMove, setReturnMove, sethandleMovePlayedByAi } from "../../MoveSender";
+import {
+	sendMove,
+	setReturnMove,
+	sethandleMovePlayedByAi,
+} from "../../MoveSender";
 
 export function CFourView(props: {
 	setMoves(arg0: string[]): void;
@@ -37,7 +41,7 @@ export function CFourView(props: {
 		props.setMoves(props.moves.slice(0, props.boardIndex).concat(move));
 		props.moves.push(move);
 		if (checkForWin(boardmatrix) || props.moves.length >= 42) {
-			setReturnMove(false)
+			setReturnMove(false);
 		}
 		sendMove(move);
 		props.setBoardIndex(props.boardIndex + 1);

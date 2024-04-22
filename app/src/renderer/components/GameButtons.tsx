@@ -12,7 +12,7 @@ export function GameButtons(props: {
 	hasBeenSumbitted: boolean;
 	gameOver: boolean;
 }) {
-	setReturnMove(!props.autoSendMove)
+	setReturnMove(!props.autoSendMove);
 	// Set value to checkbox value (if changed elsewhere)
 	return (
 		<>
