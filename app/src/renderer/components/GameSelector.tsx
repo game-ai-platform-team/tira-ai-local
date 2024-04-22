@@ -1,5 +1,13 @@
 import "../css/GameSelector.css";
 import { shell } from "electron";
+/**
+ * This is a navigation bar for selecting different games and accessing the manual
+ *
+ * @param {object} props - Component props
+ * @param {Function} props.onSelect - Function to handle game selection
+ *
+ * @returns {JSX.Element} - React component representing the game selector
+ */
 
 export function GameSelector({ onSelect }) {
 	const handleGameSelection = (game: string) => {

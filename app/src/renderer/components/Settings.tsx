@@ -2,6 +2,20 @@ import { Chessboard } from "kokopu-react";
 import { setData, getData } from "../UserData";
 import "../css/Settings.css";
 
+/**
+ * Represents settings for the game interface.
+ *
+ * @param {object} props - Component props
+ * @param {string} props.pieceset - Selected chess piece set
+ * @param {Function} props.setPieceset - Function to set the chess piece set
+ * @param {string} props.colorset - Selected color theme
+ * @param {Function} props.setColorset - Function to set the color theme
+ * @param {string} props.arrow - Selected color for the move arrow
+ * @param {Function} props.setArrow - Function to set the color for the move arrow
+ * @param {boolean} props.chess_buttons - Flag indicating if chess buttons are enabled
+ *
+ * @returns {JSX.Element} - React component representing the settings
+ */
 export function Settings(props: {
 	pieceset: string;
 	setPieceset(set: string): void;

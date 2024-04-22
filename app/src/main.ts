@@ -1,3 +1,10 @@
+/**
+ * Initializes the Electron app, creates a browser window, and spawns a background process.
+ * The background process runs a Python script located at "./background-service.pex".
+ * Event listeners are set up to handle stdout, stderr, and exit events of the background process.
+ * Before the Electron app quits, the background process is terminated.
+ */
+
 import { app, BrowserWindow } from "electron";
 import { ChildProcess, spawn } from "child_process";
 import path from "path";

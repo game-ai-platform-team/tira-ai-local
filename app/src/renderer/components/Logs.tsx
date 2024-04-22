@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import socket from "../MySocket";
 import "../css/Logs.css";
-
+/**
+ * This is a log box for displaying what happens to the AI and what it prints out
+ *
+ * @returns {JSX.Element} - React component representing the log box
+ */
 export function Logs() {
 	const [logs, setLogs] = useState([]);
 	const textareaRef = useRef(null);

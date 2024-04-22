@@ -11,6 +11,19 @@ interface NotificationProps {
 	consoleLog?: boolean;
 }
 
+/**
+ * Represents a notification toast for displaying messages.
+ *
+ * @param {object} props - Component props
+ * @param {boolean} props.show - Flag indicating if the notification should be shown
+ * @param {Function} props.onClose - Function to handle notification close
+ * @param {string} [props.headerText=""] - Text for the notification header
+ * @param {string} [props.bodyText=""] - Text for the notification body
+ * @param {string} [props.bg=""] - Background color of the notification
+ * @param {boolean} [props.consoleLog=true] - Flag indicating if the notification should be logged in console
+ *
+ * @returns {JSX.Element} - React component representing the notification toast
+ */
 export function Notification({
 	show,
 	onClose,

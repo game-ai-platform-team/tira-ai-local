@@ -24,6 +24,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { getData, setData } from "./UserData";
 import { Settings } from "./components/Settings";
 
+/**
+ * Represents the main application component.
+ *
+ * @returns {JSX.Element} - React component representing the main application
+ */
 function App() {
 	const [selectedGame, setSelectedGame] = useState<string | null>(
 		getData("game"),

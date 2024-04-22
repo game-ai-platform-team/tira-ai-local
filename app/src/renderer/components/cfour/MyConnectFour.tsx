@@ -2,7 +2,18 @@ import { CFourUIPlayable } from "connect-four-board";
 import { getData } from "../../UserData";
 import { Chessboard } from "kokopu-react";
 import { useEffect, useState } from "react";
-
+/**
+ * This is the Connect Four game board UI component.
+ *
+ * @param {object} props - Component props
+ * @param {number[]} props.moves - Array containing the moves played in the game
+ * @param {number} props.boardIndex - Index of the current move in the moves array
+ * @param {Function} props.onMovePlayed - Function to handle a move played
+ * @param {boolean} props.active - Flag indicating if the UI is active
+ * @param {Function} [props.notification] - Function to display notifications
+ *
+ * @returns {JSX.Element} - React component representing the Connect Four game board UI
+ */
 export function MyConnectFour(props: {
 	moves: number[];
 	boardIndex: number;

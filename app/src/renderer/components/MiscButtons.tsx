@@ -1,5 +1,18 @@
 import { killProcess } from "./../MoveSender";
 
+/**
+ * Represents miscellaneous buttons for the game interface such as the Copy PGN button, Copy FEN button and Kill process button
+ *
+ * @param {object} props - Component props
+ * @param {string} props.selectedGame - Selected game
+ * @param {number} props.boardIndex - Index of the current board state
+ * @param {Function} props.createFen - Function to create FEN notation
+ * @param {Function} props.exportPgn - Function to export PGN format
+ * @param {Function} props.createNotification - Function to create notifications
+ * @param {Function} props.setHasBeenSubmitted - Function to set hasBeenSubmitted flag
+ *
+ * @returns {JSX.Element} - React component representing the miscellaneous buttons
+ */
 export function MiscButtons(props: {
 	selectedGame;
 	boardIndex;

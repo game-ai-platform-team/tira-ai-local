@@ -13,7 +13,16 @@ interface AIFormProps {
 	showFen: boolean;
 	formId: string;
 }
-
+/**
+ * Represents a form for submitting AI files and configurations.
+ *
+ * @param {object} props - Component props
+ * @param {Function} props.handleSubmit - Function to handle form submission
+ * @param {boolean} props.showFen - Flag indicating if the FEN input field should be shown
+ * @param {string} props.formId - ID of the form
+ *
+ * @returns {JSX.Element} - React component representing the AI submission form
+ */
 function AIForm(props: AIFormProps): JSX.Element {
 	const [filepath, setFilePath] = useState(getData("ai_path"));
 	const [fennotation, setFenNotation] = useState("");

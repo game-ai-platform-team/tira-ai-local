@@ -7,6 +7,25 @@ import {
 	sethandleMovePlayedByAi,
 } from "../../MoveSender";
 
+/**
+ * This is the view for the Connect Four game.
+ * It renders the game board and handles moves played by both players
+ * and AI. It also checks for win conditions and notifies the players
+ * when the game is over.
+ *
+ * @param {object} props - Component props
+ * @param {Function} props.setMoves - Function to set the moves array
+ * @param {any} props.hasBeenSubmitted - Flag indicating if moves have been submitted
+ * @param {number} props.boardIndex - Index of the current move in the moves array
+ * @param {Function} props.setBoardIndex - Function to set the board index
+ * @param {string[]} props.moves - Array containing the moves played in the game
+ * @param {Function} [props.notification] - Function to display notifications
+ * @param {Function} props.setHasBeenSubmitted - Function to set the hasBeenSubmitted flag
+ * @param {Function} [props.setGameOver] - Function to set the game over flag
+ * @param {boolean} [props.gameOver] - Flag indicating if the game is over
+ *
+ * @returns {JSX.Element} - React component representing the Connect Four game view
+ */
 export function CFourView(props: {
 	setMoves(arg0: string[]): void;
 	hasBeenSubmitted: any;

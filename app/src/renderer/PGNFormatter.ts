@@ -1,5 +1,17 @@
-import { AbstractNode, Game, MoveDescriptor, Position, pgnWrite } from "kokopu";
+import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
 
+/**
+ * Creates a PGN string from the given moves and game metadata.
+ *
+ * @param {string[]} moves - Array of moves in UCI format
+ * @param {string} startingFen - Starting FEN notation of the game position (optional)
+ * @param {number} fullMoves - Number of full moves completed in the game (optional)
+ * @param {string} whiteName - Name of the white player (optional)
+ * @param {string} blackName - Name of the black player (optional)
+ * @param {number} whiteElo - Elo rating of the white player (optional)
+ * @param {number} blackElo - Elo rating of the black player (optional)
+ * @returns {string} - PGN string representing the game
+ */
 export function createPGNString(
 	moves: string[],
 	startingFen?: string,

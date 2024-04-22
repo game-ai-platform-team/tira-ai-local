@@ -1,10 +1,14 @@
-import React from "react";
-
 interface CFourParserProps {
 	moves: number[];
 	boardIndex: number;
 }
 
+/**
+ * Parses Connect Four moves into a matrix representing the game board.
+ * @param moves An array of moves indicating the column index where each move was made.
+ * @param boardIndex The index of the board representing how many moves to parse.
+ * @returns A matrix representing the game board after parsing the moves.
+ */
 const CFourParser = ({ moves, boardIndex }: CFourParserProps) => {
 	const columns: number[][] = Array.from({ length: 7 }, () =>
 		Array(6).fill(0),
