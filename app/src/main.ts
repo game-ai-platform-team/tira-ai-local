@@ -24,11 +24,11 @@ app.on("ready", () => {
 		},
 		width: 700,
 		height: 900,
+		autoHideMenuBar: true,
 	});
 
 	win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 	win.setMinimumSize(700, 650);
-	win.removeMenu();
 
 	console.log(__dirname);
 	const file = path.join(__dirname, "./background-service.pex");
