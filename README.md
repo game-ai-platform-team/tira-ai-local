@@ -122,7 +122,7 @@ To integrate your AI project with this program, follow these steps:
     poetry run python3 src/main.py
     ```
 
-    *IMPORTANT*: If running `setup.sh` causes any prompt (i.e. Do you want to install poetry?) it will not work and you will have to run `setup.sh` by yourself!
+    *IMPORTANT*: If running `setup.sh` causes any prompt (e.g. Do you want to install poetry?) it will not work and you will have to run `setup.sh` by yourself!
 
 ### AI Structure
 
