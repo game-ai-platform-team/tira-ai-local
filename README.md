@@ -160,26 +160,30 @@ TAG:DATA
 
 #### Tags
 
+When your AI reads any of these tags, it should perform the described action:
+
 -   `MOVE:<move>`
 
-    -   Process the opponent's move.
-    -   **Data Format**: The move made by the opponent.
+    -   **Action**: Someone played this move, process it.
+    -   **Data Format**: The move made by the opponent. See the [game specific instructions](#game-specific-instructions) for the format each game uses.
     -   **Example**: `MOVE:e2e4` indicates White's opening move in chess.
 
 -   `PLAY:`
 
-    -   Play one move in the current position.
+    -   **Action**: Play one move in the current position. See the [output section](#ai-communication-protocol-output) for information on returning moves to the program.
     -   **Data Format**: None.
 
 -   `BOARD:<board_state>`
 
-    -   Set the board to the specified state.
-    -   **Data Format**: A string representing the board state.
+    -   **Actions**: Set the board to the specified state.
+    -   **Data Format**: A string representing the board state. See the [game specific instructions](#game-specific-instructions) for the format each game uses.
     -   **Example**: `BOARD:rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1` sets a chess board to the starting position.
 
 -   `RESET:`
-    -   Reset the board to the starting position.
+    -   **Action**: Reset the board to the starting position.
     -   **Data Format**: None.
+
+**Note:** Your AI may recieve multiple `PLAY:` or `MOVE:` tags in a row. It should be able to recognize whose turn it is, and play moves for either side in a game.
 
 <details>
     <summary>Reading Tags Python Example</summary>
@@ -191,7 +195,7 @@ def main():
         tag, data = command.split(":", 1)
 
         if tag == "MOVE":
-            # Handle opponent's move
+            # Handle a user played move
         elif tag == "PLAY":
             # Play a move
         elif tag == "BOARD":
@@ -207,9 +211,13 @@ if __name__ == "__main__":
 
 ### AI Communication Protocol (Output)
 
-The program reads your AI's output from the standard pipe (command line). In Python, you can use `print()` statements to provide moves to the program. The program will read data until the first newline character (`\n`), after which it will process the received move. By default, Python's `print()` statements automatically include a newline at the end.
+The program reads your AI's output from the standard pipe (command line). In Python, you should use `print()` statements to provide moves to the program. The program will wait until it finds a tag, then read data until the first newline character (`\n`), after which it will process the received move. By default, Python's `print()` statements automatically include a newline at the end.
 
-There is only one tag for output, `MOVE:`, which is used similarly to input. When given a `PLAY`-tag, your AI should write `MOVE:<move>` to the command line.
+There is only one tag for output, `MOVE:`, which is used similarly to input. When given a `PLAY:`-tag, your AI should write `MOVE:<move>` to the command line. In python, if you wish to make the move `e2e4`, you would do this like so:
+
+```python
+print("MOVE:e2e4")
+```
 
 **Note**: Any outputs to the console that do not begin with `MOVE:` will be displayed in the log box of the program under the most recent `MOVE:` output. You can use this to debug your AI.
 
@@ -249,7 +257,7 @@ MOVE.e2e4
 ---------------------------------
 ```
 
-The program would then process the move and wait for further input. After receiving the next input, `MOVE:<move>` is sent to the AI, which chooses `b8a6` as its response. The log box would then display:
+The program would then process the move and wait for further input. After receiving the next input, a `MOVE:<move>` and a `PLAY:` is sent to the AI, which then chooses `b8a6` as its response. The log box would then display:
 
 ```
 ---------------------------------
@@ -265,7 +273,7 @@ MOVE.b8b6
 
 ### Error Capturing
 
-In addition to reading and writing from the standard pipe, this program also captures any errors your AI writes in the standard error datastream (`stderr`). Everything written to `stderr` is displayed in the log box, along with the [Process ID](https://en.wikipedia.org/wiki/Process_identifier) and [return code](https://en.wikipedia.org/wiki/Exit_status) if your AI stops executing.
+In addition to reading and writing from the standard pipe, this program also captures any errors your AI writes in the standard error datastream (`stderr`). Everything written to `stderr` is displayed in the log box, along with the [Process ID](https://en.wikipedia.org/wiki/Process_identifier) and [return code](https://en.wikipedia.org/wiki/Exit_status) when the program detects your AI has finished execution.
 
 Below is a log of [the example AI](https://github.com/game-ai-platform-team/stupid-chess-ai) crashing when being requested a move from a position with no legal moves:
 
@@ -308,17 +316,20 @@ Could not capture error message, most likely process has already finished.
     - Switching games will reset the active game and kill the AI process.
 2. **Submit Form**
     - Submit your AI here. You can drag the root folder of your AI project into the box or type the path to the it in the field below.
+    - If the given path is valid, the program will then execute the [`runcommand`](#ai-configuration) inside `./tiraconfig`. If configured correctly, this will start the AI process.
+    - The process ID of the new process can be seen in the logs.
 3. **FEN** *Chess Only*
-    - If not empty, the game will start in this position.
-    - Current position in FEN notation is also shown above the gameboard
+    - If not empty or invalid, the game will be started in this position.
+    - Current position in FEN notation is also shown above the gameboard.
+    - See [the chess instructions](#chess) for more details on using FEN notation.
 4. **Setup**
-    - Check this box to run the `setup.sh` script in your AI's `./tiraconfig` directory.
+    - Check this box to run the [`setup.sh`](#ai-configuration) script in your AI's `./tiraconfig` directory before starting the AI process.
     - This only needs to be done for the first time you use your AI.
 5. **Copy FEN** *Chess Only*
     - Copy the current position in FEN notation to clipboard.
 6. **Copy PGN** *Chess Only*
-    - Copy the game in PGN notation to clipboard.
-    - You can use the PGN string to view your games in other applications, such as [lichess.org](https://lichess.org/paste).
+    - Copy the game in [PGN notation](https://en.wikipedia.org/wiki/Portable_Game_Notation) to clipboard.
+    - You can use the PGN string to view and analyze your game in other applications, such as [lichess.org](https://lichess.org/paste).
 7. **Kill Process**
     - Kill the active AI process.
     - Use this if your AI gets stuck and you don't want to restart the program or switch games.
@@ -330,7 +341,7 @@ Could not capture error message, most likely process has already finished.
     - Set the color of the arrow showing the last move.
 11. **Game Controls and Game Board**
     - Use `<` and `>` to undo or redo a move. This will send a `BOARD:<board>` command to your AI.
-    - Use `PLAY` to reqest a new move from your AI. This will send a `PLAY:` command to your AI.
+    - Use `PLAY` to request a new move from your AI. This will send a `PLAY:` command to your AI.
     - You can move the chesspieces on the chessboard and click on the Connect Four board to play a move. This will send a `MOVE:<move>` command to your AI.
 12. **Send PLAY after move**
     - If *Send PLAY after move* is toggled on, a `PLAY:` command will be automatically sent to your AI after you make a move on the board.
@@ -352,7 +363,7 @@ Could not capture error message, most likely process has already finished.
 
 #### Moves (UCI)
 
-Moves are communicated using [Universal Chess Interface (UCI)](https://en.wikipedia.org/wiki/Universal_Chess_Interface). In UCI, moves are represented by indicating the origin and destination squares of the moving piece. For example `e2e4` means that the piece in `e2` (pawn at game start) moved to `e4`.
+Moves are communicated using [Universal Chess Interface (UCI)](https://en.wikipedia.org/wiki/Universal_Chess_Interface). In UCI, moves are represented by indicating the origin and destination squares of the moving piece. For example `e2e4` means that the piece in `e2` (pawn at game start) moves to `e4`.
 
 Promotions are represented by a single character at the end of the move. If a pawn in `e7` moves to `e8` and promotes to a queen, this is written as `e7e8q`. Possible promotions are knight (`n`), bishop (`b`), rook (`r`) and queen (`q`).
 
@@ -365,7 +376,7 @@ Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikip
 Below is a breakdown of the starting position FEN, `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`:
 
 1. **Piece placement data:** `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR`
-    - Each row of the chess board, from left to right (from White's perspective) separeted with slashes (`/`)
+    - Each row of the chess board, from left to right and top to bottom (from White's perspective), separeted with slashes (`/`).
     - Each piece is represented by a single character, upper case for White and lower case for Black. The pieces are pawn (`p`), bishop (`b`), knight (`n`), rook (`r`), queen (`q`) and king (`k`).
     - Empty squares are noted by a number showing how many there are. For example, `/P2P4/` would be displayed as
     - ![FEN p2p4](./docs/fen_example_p2p4.png)
@@ -377,7 +388,7 @@ Below is a breakdown of the starting position FEN, `rnbqkbnr/pppppppp/8/8/8/8/PP
     - Which sides each color can castle. Upper case for White and lower case for Black. `KQkq` means both colors can castle both ways. `Qk` would mean that White can castle queenside and Black can castle kingside. `-` means that neither side can castle.
 4. **En passant target square:** `-`
     - If this square is not a line (`-`), it means that a pawn can move to that square to do an _[en passant](https://en.wikipedia.org/wiki/En_passant)_. For example, if Black moves `f7f5` this would read `f6`. This means that White can use a pawn in `e5` or `g5` to capture the Black pawn in `f5` by moving to `f6`.
-    - Below is a board in position `rnbqkbnr/pp1pp1pp/8/2p1Pp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3`, where White can _en passant_ with the pawn in `e5` by moving it to `f6`
+    - Below is a board in position `rnbqkbnr/pp1pp1pp/8/2p1Pp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3`, where White can *en passant* with the pawn in `e5` by moving it to `f6`
     - ![en passant example](./docs/en_passant_example.png)
 5. **Halfmove clock:** `0`
     - The number of moves since a piece was captured or a pawn was moved. This program uses the [fifty-move rule](https://en.wikipedia.org/wiki/Fifty-move_rule), which means that the game will be declared a draw if the number of halfmoves reaches 100. Your AI does not need to keep track of this.
@@ -388,7 +399,7 @@ Below is a breakdown of the starting position FEN, `rnbqkbnr/pppppppp/8/8/8/8/PP
 
 You can use the [lichess.org board editor](https://lichess.org/editor) to easily create FEN strings. When starting a game, you can input a valid FEN string into the designated field to set the initial position of the game. If the entered FEN is invalid or the field is left empty, the game will start from the standard starting position.
 
-In the program's user interface, you have the option to undo and redo moves. Each time you perform an undo or redo action, a FEN string representing the current board position is sent. For instance, if you undo a move to revert to the position `r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3`, Your AI will receive the following:
+In the program's user interface, you have the option to undo and redo moves. Each time you perform an undo or redo action, a FEN string representing the current board position is sent to your AI. For instance, if you undo a move to revert to the position `r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3`, Your AI will receive the following:
 
 ```
 BOARD:r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
