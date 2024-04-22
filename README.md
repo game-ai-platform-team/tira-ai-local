@@ -249,24 +249,24 @@ if __name__ == "__main__":
 In this example, the program would read `e2e4` as the output from the AI and the log box would display:
 
 ```
----------------------------------
+--------------------------------------------------------
 15:44:02 | Recieved Move: e2e4 | Time 0 ms | Logs:
 This is before a move is returned
 I moved e2e4
 MOVE.e2e4
----------------------------------
+--------------------------------------------------------
 ```
 
 The program would then process the move and wait for further input. After receiving the next `PLAY:` the AI chooses `b8a6` as its response. The log box would then display:
 
 ```
----------------------------------
+--------------------------------------------------------
 15:44:05 | Recieved Move: b8a6 | Time 0 ms | Logs:
 This is after a move is returned
 This is before a move is returned
 I moved b8b6
 MOVE.b8b6
----------------------------------
+--------------------------------------------------------
 ```
 
 </details>
@@ -278,7 +278,7 @@ In addition to reading and writing from the standard pipe, this program also cap
 Below is a log of [the example AI](https://github.com/game-ai-platform-team/stupid-chess-ai) crashing when being requested a move from a position with no legal moves:
 
 ```
----------------------------------
+--------------------------------------------------------
 19:55:19 | Process 623932 finished with return code 1. Captured error message:
 Traceback (most recent call last):
   File "/home/repos/stupid-chess-ai/src/stupid_ai.py", line 44, in <module>
@@ -293,7 +293,7 @@ Traceback (most recent call last):
     raise IndexError('Cannot choose from an empty sequence')
 IndexError: Cannot choose from an empty sequence
 
----------------------------------
+--------------------------------------------------------
 ```
 
 The log contains the PID (`623932`), return code (`1`) and the captured error message, which in this case is a Python traceback. As shown, the error occurred when attempting to randomly choose a move from an empty list.
@@ -301,10 +301,10 @@ The log contains the PID (`623932`), return code (`1`) and the captured error me
 **Note**: The error message can only be captured from the last active pipe once! If more than one new move is requested after a crash, the log will indicate that the error message couldn't be captured:
 
 ```
----------------------------------
+--------------------------------------------------------
 19:57:52 | Process 623932 finished with return code 1. Captured error message:
 Could not capture error message, most likely process has already finished.
----------------------------------
+--------------------------------------------------------
 ```
 
 ## User Interface
@@ -408,7 +408,7 @@ BOARD:r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
 Additionally, a log will be displayed in the log box:
 
 ```
----------------------------------
+--------------------------------------------------------
 17:05:40 | Setting AI board to r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 2 3
 ```
 
@@ -416,6 +416,7 @@ Additionally, a log will be displayed in the log box:
 ```
 17:05:40 | Setting board failed: 
 <error message>
+--------------------------------------------------------
 ```
 
 If your AI process is no longer running, attempting to undo or redo moves results in a "broken pipe" error (`[Errno32]: Broken pipe`). To fix this, you must resubmit your AI.
