@@ -4,6 +4,15 @@ from os import path
 
 
 class AiDirectory:
+    """Represents a directory containing AI scripts.
+
+    Args:
+        ai_path (str): The path to the directory containing AI scripts.
+
+    Attributes:
+        ai_path (str): The path to the directory containing AI scripts.
+        process (subprocess.Popen | None): The subprocess representing the AI process, or None if not running.
+    """
 
     def __init__(self, ai_path) -> None:
         self.ai_path = ai_path

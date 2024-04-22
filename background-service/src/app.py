@@ -1,3 +1,21 @@
+"""
+This module initializes a Flask application for a game AI testing platform. It sets up SocketIO for real-time communication 
+with clients, allows CORS, and defines event handlers for starting a game, moving a move to the back, setting the board, 
+and killing the process. It also includes a function to run the Flask app with SocketIO.
+
+Classes:
+    - None
+
+Functions:
+    - run(): Runs the Flask app with SocketIO.
+
+Event Handlers:
+    - io_startgame(project_path, board_position, runsetup): Event handler for starting a game.
+    - io_move_to_back(move, return_move): Event handler for moving a move to the back.
+    - io_set_board(board): Event handler for setting the board.
+    - io_kill_process(): Event handler for killing the process.
+"""
+
 from flask import Flask
 from flask_cors import CORS
 from flask_socketio import SocketIO

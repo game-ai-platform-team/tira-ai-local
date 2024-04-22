@@ -1,4 +1,10 @@
 class Logger:
+    """A simple logger for storing and retrieving log messages.
+
+    Attributes:
+        __logs (list): A list to store log messages.
+    """
+
     def __init__(self):
         self.__logs = []
 

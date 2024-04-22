@@ -1,10 +1,20 @@
+from time import perf_counter
 from entities.ai_directory import AiDirectory
 from entities.game import Game
 from services.socket_service import SocketService
-from time import perf_counter
 
 
 class GameService:
+    """A service class for managing game-related operations.
+
+    Args:
+        socket_service (SocketService): An instance of SocketService for handling socket communications.
+
+    Attributes:
+        game (Game | None): An instance of the Game class representing the current game, or None if no game is active.
+        socket_service (SocketService): An instance of SocketService for handling socket communications.
+    """
+
     def __init__(self, socket_service: SocketService):
         self.game: Game | None = None
         self.socket_service = socket_service

@@ -2,6 +2,15 @@ from flask_socketio import SocketIO
 
 
 class SocketService:
+    """Handles socket communications.
+
+    Args:
+        socketio (SocketIO): An instance of SocketIO for handling socket connections.
+
+    Attributes:
+        socketio (SocketIO): An instance of SocketIO for handling socket connections.
+    """
+
     def __init__(self, socketio: SocketIO) -> None:
         self.socketio: SocketIO = socketio
 
