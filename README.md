@@ -284,7 +284,7 @@ Traceback (most recent call last):
   File "/home/repos/stupid-chess-ai/src/stupid_ai.py", line 12, in make_move
     choice = random.choice(legal_moves)
              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/user-name/.pyenv/versions/3.12.2/lib/python3.12/random.py", line 347, in choice
+  File "/home/username/.pyenv/versions/3.12.2/lib/python3.12/random.py", line 347, in choice
     raise IndexError('Cannot choose from an empty sequence')
 IndexError: Cannot choose from an empty sequence
 
@@ -293,7 +293,7 @@ IndexError: Cannot choose from an empty sequence
 
 The log contains the PID (`623932`), return code (`1`) and the captured error message, which in this case is a Python traceback. As shown, the error occurred when attempting to randomly choose a move from an empty list.
 
-**Note**: The error message can only be captured from the last active pipe. If a new move is requested after a crash, the log will indicate that the error message couldn't be captured, as `stderr` cannot be retrieved from a broken pipe:
+**Note**: The error message can only be captured from the last active pipe once! If more than one new move is requested after a crash, the log will indicate that the error message couldn't be captured:
 
 ```
 ---------------------------------
