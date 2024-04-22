@@ -38,7 +38,7 @@ test("Undoing and redoing move works", async () => {
 	let clipboard = await handle.jsonValue();
 
 	expect(clipboard).toBe(
-		"rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq - 0 1",
+		"rnbqkbnr/pppppppp/8/8/8/7P/PPPPPPP1/RNBQKBNR b KQkq - 0 1",
 	);
 
 	await window.getByTestId("prev-move-button").click();
