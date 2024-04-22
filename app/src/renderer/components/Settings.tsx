@@ -12,7 +12,7 @@ import "../css/Settings.css";
  * @param {Function} props.setColorset - Function to set the color theme
  * @param {string} props.arrow - Selected color for the move arrow
  * @param {Function} props.setArrow - Function to set the color for the move arrow
- * @param {boolean} props.chess_buttons - Flag indicating if chess buttons are enabled
+ * @param {boolean} props.chessButtons - Flag indicating if chess buttons are enabled
  *
  * @returns {JSX.Element} - React component representing the settings
  */
@@ -23,7 +23,7 @@ export function Settings(props: {
 	setColorset(set: string): void;
 	arrow: string;
 	setArrow(set: string): void;
-	chess_buttons: boolean;
+	chessButtons: boolean;
 }) {
 	const piecesets = Chessboard.piecesets();
 	const colorsets = Chessboard.colorsets();
@@ -73,7 +73,7 @@ export function Settings(props: {
 					</option>
 				))}
 			</select>
-			{props.chess_buttons ? (
+			{props.chessButtons ? (
 				<>
 					<select
 						className="classic-button"

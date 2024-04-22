@@ -267,7 +267,7 @@ function App() {
 								setColorset={setColorset}
 								arrow={arrow}
 								setArrow={setArrow}
-								chess_buttons={selectedGame === "chess"}
+								chessButtons={selectedGame === "chess"}
 							/>
 						</div>
 					</div>
