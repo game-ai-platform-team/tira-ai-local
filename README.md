@@ -242,7 +242,7 @@ In this example, the program would read `e2e4` as the output from the AI and the
 
 ```
 ---------------------------------
-15:44:02: e2e4:
+15:44:02 | Recieved Move: e2e4 | Time 0 ms | Logs:
 This is before a move is returned
 I moved e2e4
 MOVE.e2e4
@@ -253,7 +253,7 @@ The program would then process the move and wait for further input. After receiv
 
 ```
 ---------------------------------
-15:44:05: b8a6:
+15:44:05 | Recieved Move: b8a6 | Time 0 ms | Logs:
 This is after a move is returned
 This is before a move is returned
 I moved b8b6
