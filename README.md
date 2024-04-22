@@ -188,9 +188,6 @@ TAG:DATA
 def main():
     while True:
         command = input().strip()
-        if not command:
-            continue
-
         tag, data = command.split(":", 1)
 
         if tag == "MOVE":
