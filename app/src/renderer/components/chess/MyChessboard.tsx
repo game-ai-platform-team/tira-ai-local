@@ -84,7 +84,7 @@ export function MyChessboard(props: {
 	}
 
 	function checkGameOver(move) {
-		const copy = props.pos;
+		const copy = new Position(props.pos);
 		copy.play(copy.notation(move));
 		return copy.isCheckmate() || copy.isDead() || copy.isStalemate();
 	}
