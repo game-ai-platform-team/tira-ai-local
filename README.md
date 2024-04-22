@@ -257,7 +257,7 @@ MOVE.e2e4
 ---------------------------------
 ```
 
-The program would then process the move and wait for further input. After receiving the next input, a `MOVE:<move>` and a `PLAY:` is sent to the AI, which then chooses `b8a6` as its response. The log box would then display:
+The program would then process the move and wait for further input. After receiving the next `PLAY:` the AI chooses `b8a6` as its response. The log box would then display:
 
 ```
 ---------------------------------
