@@ -24,7 +24,7 @@ class TestGameService(TestCase):
 
         game_service.start_game(ai_directory, "", False)
 
-        log = f"Error creating game:\n{str(exception)}"
+        log = f"Error starting AI:\n{str(exception)}"
         socket_service.send_log.assert_called_with(log)
 
     def test_move_to_back_works(self):
