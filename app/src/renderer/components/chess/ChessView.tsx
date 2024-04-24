@@ -68,6 +68,7 @@ export function ChessView(props: {
 	}
 
 	const isGameOver = props.positions[props.boardIndex].isCheckmate() === true;
+	const turn = props.positions[props.boardIndex].turn()
 
 	const stalemate = props.positions[props.boardIndex].isStalemate() === true;
 	const dead = props.positions[props.boardIndex].isDead() === true;
@@ -77,7 +78,7 @@ export function ChessView(props: {
 
 	if (!props.gameOver) {
 		if (isGameOver) {
-			const winner = props.moves.length % 2 === 0 ? "Black" : "White";
+			const winner = turn === "b" ? "Black" : "White";
 			props.notification("GAME OVER!", `${winner} has won the game`);
 			props.setGameOver(true);
 		} else if (isTie) {
