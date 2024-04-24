@@ -34,11 +34,11 @@ class GameService:
                 f"Success! Running AI opponent in process {ai_directory.get_pid()}"
             )
         except RuntimeError as e:
-            self.socket_service.send_log(f"Error creating game:\n{str(e)}")
+            self.socket_service.send_log(f"Error starting AI:\n{str(e)}")
             self.socket_service.send_runtime_error()
             return
         except FileNotFoundError as e:
-            self.socket_service.send_log(str(e))
+            self.socket_service.send_log(f"Error starting AI:\n{str(e)}")
             self.socket_service.send_runtime_error()
             return
 
