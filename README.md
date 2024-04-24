@@ -320,15 +320,15 @@ Could not capture error message, most likely process has already finished.
     - The process ID of the new process can be seen in the logs.
 3. **FEN** *Chess Only*
     - If not empty or invalid, the game will be started in this position.
-    - Current position in FEN notation is also shown above the gameboard.
-    - See [the chess instructions](#chess) for more details on using FEN notation.
+    - Current position in FEN is also shown above the gameboard.
+    - See [the chess instructions](#chess) for more details on using FEN.
 4. **Setup**
     - Check this box to run the [`setup.sh`](#ai-configuration) script in your AI's `./tiraconfig` directory before starting the AI process.
     - This only needs to be done for the first time you use your AI.
 5. **Copy FEN** *Chess Only*
-    - Copy the current position in FEN notation to clipboard.
+    - Copy the current position in FEN to clipboard.
 6. **Copy PGN** *Chess Only*
-    - Copy the game in [PGN notation](https://en.wikipedia.org/wiki/Portable_Game_Notation) to clipboard.
+    - Copy the game in [Portable Game Notation](https://en.wikipedia.org/wiki/Portable_Game_Notation) to clipboard.
     - You can use the PGN string to view and analyze your game in other applications, such as [lichess.org](https://lichess.org/paste).
 7. **Kill Process**
     - Kill the active AI process.
@@ -371,7 +371,7 @@ When [castling](https://en.wikipedia.org/wiki/Castling), the king is the moving 
 
 #### Boards (FEN)
 
-Boards are represented using [Forsyth–Edwards Notation (FEN)](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation). A FEN string is a record of a game position. The string is formed from 6 different parts, each separated using a space.
+Boards are represented using [Forsyth–Edwards  (FEN)](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation). A FEN string is a record of a game position. The string is formed from 6 different parts, each separated using a space.
 
 Below is a breakdown of the starting position FEN, `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`:
 
