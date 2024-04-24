@@ -15,7 +15,7 @@ import {
  *
  * @param {object} props - Component props
  * @param {Function} props.setMoves - Function to set the moves array
- * @param {any} props.hasBeenSubmitted - Flag indicating if moves have been submitted
+ * @param {boolean} props.hasBeenSubmitted - Flag indicating if moves have been submitted
  * @param {number} props.boardIndex - Index of the current move in the moves array
  * @param {Function} props.setBoardIndex - Function to set the board index
  * @param {string[]} props.moves - Array containing the moves played in the game
@@ -28,7 +28,7 @@ import {
  */
 export function CFourView(props: {
 	setMoves(arg0: string[]): void;
-	hasBeenSubmitted: any;
+	hasBeenSubmitted: boolean;
 	boardIndex: number;
 	setBoardIndex(arg0: number): void;
 	moves: string[];

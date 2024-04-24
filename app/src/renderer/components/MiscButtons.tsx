@@ -14,12 +14,12 @@ import { killProcess } from "./../MoveSender";
  * @returns {JSX.Element} - React component representing the miscellaneous buttons
  */
 export function MiscButtons(props: {
-	selectedGame;
-	boardIndex;
-	createFen;
-	exportPgn;
-	createNotification;
-	setHasBeenSubmitted;
+	selectedGame: string;
+	boardIndex: number;
+	createFen(index: number): string;
+	exportPgn(): void;
+	createNotification(header: string, body: string, bg: string): void;
+	setHasBeenSubmitted(arg0: boolean): void;
 }) {
 	function copyFenToClipboard() {
 		const fen = props.createFen(props.boardIndex);

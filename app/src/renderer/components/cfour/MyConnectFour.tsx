@@ -19,7 +19,7 @@ export function MyConnectFour(props: {
 	boardIndex: number;
 	onMovePlayed(move: string);
 	active: boolean;
-	notification?(headear, body, bg?): void;
+	notification?(headear: string, body: string, bg?: string): void;
 }) {
 	const [circleRadius, setCircleRadius] = useState(40);
 	const [circleMargin, setCircleMargin] = useState(5);

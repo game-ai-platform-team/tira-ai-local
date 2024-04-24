@@ -18,10 +18,10 @@ import { PlayButton } from "./PlayButton";
  */
 
 export function GameButtons(props: {
-	handlePrevMoveButton;
-	handleNextMoveButton;
-	autoSendMove;
-	handleToggle;
+	handlePrevMoveButton(): void;
+	handleNextMoveButton(): void;
+	autoSendMove: boolean;
+	handleToggle(): void;
 	playActive: boolean;
 	prevActive: boolean;
 	nextActive: boolean;

@@ -14,8 +14,8 @@ import { getData } from "../../UserData";
  * @param {Position} props.pos - Current position of the chessboard
  * @param {Function} props.addPosition - Function to add a position to the game
  * @param {boolean} props.active - Flag indicating if the UI is active
- * @param {Function} [props.notification] - Function to display notifications
- * @param {string} props.arrow - String representing arrow markers on the board
+ * @param {Function} props.notification - Function to display notifications
+ * @param {string} props.arrow - String representing the arrow marker on the board
  *
  * @returns {JSX.Element} - React component representing the Chess game board UI
  */

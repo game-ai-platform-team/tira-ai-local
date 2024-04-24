@@ -6,12 +6,12 @@ import { getData } from "../../UserData";
  * This is the view for the Chess game.
  *
  * @param {object} props - Component props
- * @param {any} props.positions - Array containing positions in the game
+ * @param {Position[]} props.positions - Array containing positions in the game
  * @param {Function} props.setMoves - Function to set the moves array
  * @param {Function} props.setPositions - Function to set the positions array
  * @param {boolean} props.hasBeenSubmitted - Flag indicating if moves have been submitted
  * @param {Function} props.setHasBeenSubmitted - Function to set the hasBeenSubmitted flag
- * @param {any[]} props.halfMoves - Array containing half moves
+ * @param {number[]} props.halfMoves - Array containing half moves
  * @param {string[]} props.moves - Array containing the moves played in the game
  * @param {Function} props.setBoardIndex - Function to set the board index
  * @param {number} props.boardIndex - Index of the current board state in the positions array
@@ -22,12 +22,12 @@ import { getData } from "../../UserData";
  * @returns {JSX.Element} - React component representing the Chess game view
  */
 export function ChessView(props: {
-	positions: any;
+	positions: Position[];
 	setMoves(arg0: (prevMoves: string[]) => string[]): void;
 	setPositions(arg0: (prevState: Position[]) => Position[]): void;
 	hasBeenSubmitted: boolean;
 	setHasBeenSubmitted(arg0: boolean): void;
-	halfMoves: any[];
+	halfMoves: number[];
 	moves: string[];
 	setBoardIndex(arg0: number): void;
 	boardIndex: number;
