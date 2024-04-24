@@ -68,7 +68,7 @@ export function ChessView(props: {
 	}
 
 	const isGameOver = props.positions[props.boardIndex].isCheckmate() === true;
-	const turn = props.positions[props.boardIndex].turn()
+	const turn = props.positions[props.boardIndex].turn();
 
 	const stalemate = props.positions[props.boardIndex].isStalemate() === true;
 	const dead = props.positions[props.boardIndex].isDead() === true;
